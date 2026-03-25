@@ -1,0 +1,972 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Builder for Product Manager</title>
+    <style>
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --secondary: #10b981;
+            --bg: #f8fafc;
+            --card-bg: #ffffff;
+            --text: #1e293b;
+            --text-light: #64748b;
+            --border: #e2e8f0;
+            --code-bg: #1e1e1e;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 80px 20px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 16px;
+            letter-spacing: -1px;
+        }
+
+        .header .subtitle {
+            font-size: 1.25rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto 32px;
+        }
+
+        .header .badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            margin-bottom: 16px;
+        }
+
+        .header .stats {
+            display: flex;
+            justify-content: center;
+            gap: 48px;
+            margin-top: 40px;
+            flex-wrap: wrap;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        /* Navigation */
+        .nav {
+            background: var(--card-bg);
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            padding: 0 20px;
+        }
+
+        .nav-inner {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+            padding: 16px 0;
+        }
+
+        .nav a {
+            padding: 8px 16px;
+            border-radius: 8px;
+            text-decoration: none;
+            color: var(--text-light);
+            font-weight: 500;
+            white-space: nowrap;
+            transition: all 0.2s;
+        }
+
+        .nav a:hover {
+            background: var(--bg);
+            color: var(--primary);
+        }
+
+        .nav a.active {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* Main Content */
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        /* Section */
+        .section {
+            margin-bottom: 64px;
+        }
+
+        .section-header {
+            margin-bottom: 32px;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: var(--text);
+        }
+
+        .section-desc {
+            color: var(--text-light);
+            font-size: 1.1rem;
+        }
+
+        /* Stage */
+        .stage {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 32px;
+            margin-bottom: 32px;
+            border: 1px solid var(--border);
+        }
+
+        .stage-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .stage-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: white;
+        }
+
+        .stage-icon.cognitive { background: linear-gradient(135deg, #6366f1, #8b5cf6); }
+        .stage-icon.thinking { background: linear-gradient(135deg, #10b981, #059669); }
+        .stage-icon.method { background: linear-gradient(135deg, #f59e0b, #d97706); }
+        .stage-icon.practice { background: linear-gradient(135deg, #ef4444, #dc2626); }
+
+        .stage-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .stage-subtitle {
+            color: var(--text-light);
+            font-size: 0.95rem;
+        }
+
+        /* Course */
+        .course {
+            border-left: 3px solid var(--primary);
+            padding-left: 24px;
+            margin-bottom: 32px;
+        }
+
+        .course:last-child {
+            margin-bottom: 0;
+        }
+
+        .course-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: var(--text);
+        }
+
+        .chapters {
+            display: grid;
+            gap: 12px;
+        }
+
+        .chapter {
+            background: var(--bg);
+            padding: 16px 20px;
+            border-radius: 8px;
+            display: flex;
+            gap: 16px;
+            align-items: flex-start;
+        }
+
+        .chapter-num {
+            background: var(--primary);
+            color: white;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 0.85rem;
+            flex-shrink: 0;
+        }
+
+        .chapter-content h4 {
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .chapter-content p {
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        /* Info Cards */
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            margin-top: 24px;
+        }
+
+        .info-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 24px;
+            border: 1px solid var(--border);
+        }
+
+        .info-card h3 {
+            font-size: 1.1rem;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .info-card ul {
+            list-style: none;
+            color: var(--text-light);
+        }
+
+        .info-card li {
+            padding: 6px 0;
+            font-size: 0.95rem;
+        }
+
+        .info-card li::before {
+            content: "→";
+            margin-right: 8px;
+            color: var(--primary);
+        }
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+            padding-left: 32px;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 7px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--border);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 24px;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -28px;
+            top: 6px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--primary);
+            border: 3px solid var(--bg);
+        }
+
+        .timeline-title {
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .timeline-desc {
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        /* Table */
+        .table-wrapper {
+            overflow-x: auto;
+            margin-top: 16px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.95rem;
+        }
+
+        th, td {
+            padding: 12px 16px;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+
+        th {
+            background: var(--bg);
+            font-weight: 600;
+        }
+
+        /* Quote */
+        blockquote {
+            background: linear-gradient(135deg, rgba(99,102,241,0.1) 0%, rgba(139,92,246,0.1) 100%);
+            border-left: 4px solid var(--primary);
+            padding: 20px 24px;
+            border-radius: 0 8px 8px 0;
+            margin: 24px 0;
+            font-style: italic;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 48px 20px;
+            color: var(--text-light);
+            border-top: 1px solid var(--border);
+            margin-top: 64px;
+        }
+
+        .footer h3 {
+            color: var(--text);
+            margin-bottom: 16px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .header .stats {
+                gap: 24px;
+            }
+
+            .stat-value {
+                font-size: 1.8rem;
+            }
+
+            .section-title {
+                font-size: 1.5rem;
+            }
+
+            .stage {
+                padding: 24px 20px;
+            }
+
+            .chapter {
+                flex-direction: column;
+                gap: 12px;
+            }
+        }
+
+        /* Smooth scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="badge">🚀 AI Native 新范式</div>
+        <h1>AI Builder for Product Manager</h1>
+        <p class="subtitle">教产品经理用AI原生的方式交付软件生产能力，核心是工程思维的补课，AI只是载体</p>
+        <div class="stats">
+            <div class="stat-item">
+                <div class="stat-value">31</div>
+                <div class="stat-label">核心章节</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value">11</div>
+                <div class="stat-label">专业课程</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value">4</div>
+                <div class="stat-label">学习阶段</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value">25-34h</div>
+                <div class="stat-label">总课时</div>
+            </div>
+        </div>
+    </header>
+
+    <nav class="nav">
+        <div class="nav-inner">
+            <a href="#overview">课程概览</a>
+            <a href="#cognitive">认知层</a>
+            <a href="#thinking">思维层</a>
+            <a href="#method">方法层</a>
+            <a href="#practice">实践层</a>
+            <a href="#contact">咨询报名</a>
+        </div>
+    </nav>
+
+    <main class="container">
+        <!-- 课程概览 -->
+        <section id="overview" class="section">
+            <div class="section-header">
+                <h2 class="section-title">课程概览</h2>
+                <p class="section-desc">专为产品经理打造的AI工程思维课程</p>
+            </div>
+
+            <div class="info-grid">
+                <div class="info-card">
+                    <h3>👥 目标学员</h3>
+                    <ul>
+                        <li>产品经理</li>
+                        <li>产品运营</li>
+                        <li>业务分析师</li>
+                        <li>想用AI提效的业务人员</li>
+                    </ul>
+                </div>
+                <div class="info-card">
+                    <h3>💡 核心洞察</h3>
+                    <ul>
+                        <li>非技术人的短板不是AI工具</li>
+                        <li>而是工程思维</li>
+                        <li>会用AI工具的人很多</li>
+                        <li>能设计人机协作流程的才是赢家</li>
+                    </ul>
+                </div>
+                <div class="info-card">
+                    <h3>🎯 课程价值</h3>
+                    <ul>
+                        <li>建立正确AI认知</li>
+                        <li>掌握工程思维方法</li>
+                        <li>学会人机协作设计</li>
+                        <li>独立交付端到端项目</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 认知层 -->
+        <section id="cognitive" class="section">
+            <div class="section-header">
+                <h2 class="section-title">阶段一：认知层</h2>
+                <p class="section-desc">建立对AI、软件工程、人机协作的正确认知 · 建议时长 4-6h</p>
+            </div>
+
+            <div class="stage">
+                <div class="stage-header">
+                    <div class="stage-icon cognitive">1</div>
+                    <div>
+                        <div class="stage-title">课程 1.1：软件工程基础与产品研发</div>
+                        <div class="stage-subtitle">建立对软件工程的基础认知，理解传统范式的痛点</div>
+                    </div>
+                </div>
+                <div class="chapters">
+                    <div class="chapter">
+                        <div class="chapter-num">1</div>
+                        <div class="chapter-content">
+                            <h4>软件工程是什么</h4>
+                            <p>系统化、规范化、可量化 · PM需要理解的三个关键词</p>
+                        </div>
+                    </div>
+                    <div class="chapter">
+                        <div class="chapter-num">2</div>
+                        <div class="chapter-content">
+                            <h4>传统产品研发流程</h4>
+                            <p>需求分析 → 产品设计 → 技术开发 → 测试 → 部署 → 运维</p>
+                        </div>
+                    </div>
+                    <div class="chapter">
+                        <div class="chapter-num">3</div>
+                        <div class="chapter-content">
+                            <h4>传统范式的局限</h4>
+                            <p>需求传递损耗 · 验证周期长 · 协作成本高 · 变更代价指数增长</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="stage">
+                <div class="stage-header">
+                    <div class="stage-icon cognitive">2</div>
+                    <div>
+                        <div class="stage-title">课程 1.2：AI技术演进</div>
+                        <div class="stage-subtitle">理解AI不是突然出现的，是一步步演进到今天的</div>
+                    </div>
+                </div>
+                <div class="chapters">
+                    <div class="chapter">
+                        <div class="chapter-num">4</div>
+                        <div class="chapter-content">
+                            <h4>规则系统时代</h4>
+                            <p>专家系统、if-else逻辑 · PM视角的类比理解</p>
+                        </div>
+                    </div>
+                    <div class="chapter">
+                        <div class="chapter-num">5</div>
+                        <div class="chapter-content">
+                            <h4>机器学习时代</h4>
+                            <p>数据驱动、预测模型 · 推荐系统、风控系统</p>
+                        </div>
+                    </div>
+                    <div class="chapter">
+                        <div class="chapter-num">6</div>
+                        <div class="chapter-content">
+                            <h4>深度学习时代</h4>
+                            <p>神经网络、感知突破 · AlphaGo、计算机视觉</p>
+                        </div>
+                    </div>
+                    <div class="chapter">
+                        <div class="chapter-num">7</div>
+                        <div class="chapter-content">
+                            <h4>大模型时代</h4>
+                            <p>理解力、生成力、推理力 · GPT系列演进</p>
+                        </div>
+                    </div>
+                    <div class="chapter">
+                        <div class="chapter-num">8</div>
+                        <div class="chapter-content">
+                            <h4>AI Agent时代</h4>
+                            <p>从"工具"到"执行者" · 规划器+记忆+工具链+执行器</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="stage">
+                <div class="stage-header">
+                    <div class="stage-icon cognitive">3</div>
+                    <div>
+                        <div class="stage-title">课程 1.3：AI时代的机遇与挑战</div>
+                        <div class="stage-subtitle">建立正确心智，知道边界在哪比知道能力在哪更重要</div>
+                    </div>
+                </div>
+                <div class="chapters">
+                    <div class="chapter">
+                        <div class="chapter-num">9</div>
+                        <div class="chapter-content">
+                            <h4>当前AI的能力边界</h4>
+                            <p>擅长：信息提取、文本生成、检索 · 不擅长：深层理解、创新、可靠性保证</p>
+                        </div>
+                    </div>
+                    <div class="chapter">
+                        <div class="chapter-num">10</div>
+                        <div class="chapter-content">
+                            <h4>为什么是PM的窗口期</h4>
+                            <p>成本下降 · PM工作天然适合AI · 竞争起点公平 · 窗口期就这几年</p>
+                        </div>
+                    </div>
+                    <div class="chapter">
+                        <div class="chapter-num">11</div>
+                        <div class="chapter-content">
+                            <h4>PM常见误区排雷</h4>
+                            <p>❌ AI取代PM · ❌ 会用ChatGPT就够了 · ✅ 工程思维+AI工具=生产力</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 思维层 -->
+        <section id="thinking" class="section">
+            <div class="section-header">
+                <h2 class="section-title">阶段二：思维层</h2>
+                <p class="section-desc">理解工程思维是什么，为什么是短板，以及AI时代的思维方式 · 建议时长 3-4h</p>
+            </div>
+
+            <div class="stage">
+                <div class="stage-header">
+                    <div class="stage-icon thinking">4</div>
+                    <div>
+                        <div class="stage-title">课程 2.1：工程思维与PM工作</div>
+                        <div class="stage-subtitle">理解工程思维的本质和PM的常见思维盲区</div>
+                    </div>
+                </div>
+                <div class="chapters">
+                    <div class="chapter">
+                        <div class="chapter-num">12</div>
+                        <div class="chapter-content">
+                            <h4>工程思维的本质</h4>
+                            <p>分解、组合、验证、迭代 · PM工作中的工程思维体现</p>
+                        </div>
+                    </div>
+                    <div class="chapter">
+                        <div class="chapter-num">13</div>
+                        <div class="chapter-content">
+                            <h4>PM的常见思维盲区</h4>
+                            <p>一步到位思维 · 文档轻视 · 边界忽略 · 模糊容忍度低 · 验证意识弱</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="stage">
+                <div class="stage-header">
+                    <div class="stage-icon thinking">5</div>
+                    <div>
+                        <div class="stage-title">课程 2.2：传统产品思维 vs AI时代产品思维</div>
+                        <div class="stage-subtitle">理解思维模式需要怎么转变</div>
+                    </div>
+                </div>
+                <div class="chapters">
+                    <div class="chapter">
+                        <div class="chapter-num">14</div>
+                        <div class="chapter-content">
+                            <h4>五维对比</h4>
+                            <p>需求、设计、文档、验证、迭代的范式转变</p>
+                        </div>
+                    </div>
+                    <div class="chapter">
+                        <div class="chapter-num">15</div>
+                        <div class="chapter-content">
+                            <h4>思维转变的关键</h4>
+                            <p>从需求传递者→价值交付者 · 文档驱动→对话驱动 · 技术依赖→AI杠杆</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="stage">
+                <div class="stage-header">
+                    <div class="stage-icon thinking">6</div>
+                    <div>
+                        <div class="stage-title">课程 2.3：人机协作的正确姿势</div>
+                        <div class="stage-subtitle">掌握人机协作的核心原则</div>
+                    </div>
+                </div>
+                <div class="chapters">
+                    <div class="chapter">
+                        <div class="chapter-num">16</div>
+                        <div class="chapter-content">
+                            <h4>PM与AI各自的擅长领域</h4>
+                            <p>PM：用户洞察、判断决策、协调 · AI：执行、信息检索、格式转换</p>
+                        </div>
+                    </div>
+                    <div class="chapter">
+                        <div class="chapter-num">17</div>
+                        <div class="chapter-content">
+                            <h4>PM人机协作最佳实践</h4>
+                            <p>定义目标→AI生成→PM选择→AI执行→PM审核·循环迭代</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 方法层 -->
+        <section id="method" class="section">
+            <div class="section-header">
+                <h2 class="section-title">阶段三：方法层</h2>
+                <p class="section-desc">掌握任务拆解、流程设计、质量把控、PM工具链 · 建议时长 6-8h</p>
+            </div>
+
+            <div class="stage">
+                <div class="stage-header">
+                    <div class="stage-icon method">7</div>
+                    <div>
+                        <div class="stage-title">课程 3.1：任务拆解——需求到AI可执行任务</div>
+                        <div class="stage-subtitle">掌握如何把模糊目标翻译成AI能执行的具体任务</div>
+                    </div>
+                </div>
+                <div class="chapters">
+                    <div class="chapter">
+                        <div class="chapter-num">18</div>
+                        <div class="chapter-content">
+                            <h4>拆解的原理</h4>
+                            <p>为什么要拆解 · 什么时候需要拆解</p>
+                        </div>
+                    </div>
+                    <div class="chapter">
+                        <div class="chapter-num">19</div>
+                        <div class="chapter-content">
+                            <h4>拆解的方法——PM场景应用</h4>
+                            <p>STAR法则 · PM任务拆解模板 · 竞品分析等实战示例</p>
+                        </div>
+                    </div>
+                    <div class="chapter">
+                        <div class="chapter-num">20</div>
+                        <div class="chapter-content">
+                            <h4>常见拆解错误与修正</h4>
+                            <p>粒度太粗/太细 · 缺少审核点 · 缺少验收标准</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="stage">
+                <div class="stage-header">
+                    <div class="stage-icon method">8</div>
+                    <div>
+                        <div class="stage-title">课程 3.2：流程设计——PM日常工作流的人机协作</div>
+                        <div class="stage-subtitle">掌握如何设计高效的人机协作流程</div>
+                    </div>
+                </div>
+                <div class="chapters">
+                    <div class="chapter">
+                        <div class="chapter-num">21</div>
+                        <div class="chapter-content">
+                            <h4>PM日常工作流分析</h4>
+                            <p>用户访谈、竞品分析、PRD撰写、数据分析等场景的AI可用度</p>
+                        </div>
+                    </div>
+                    <div class="chapter">
+                        <div class="chapter-num">22</div>
+                        <div class="chapter-content">
+                            <h4>PM核心工作流的人机协作设计</h4>
+                            <p>用户调研工作流 · PRD撰写工作流 · 数据分析工作流</p>
+                        </div>
+                    </div>
+                    <div class="chapter">
+                        <div class="chapter-num">23</div>
+                        <div class="chapter-content">
+                            <h4>工作流优化原则</h4>
+                            <p>减少低价值工作 · 增加高价值把关 · 设置合理审核点</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="stage">
+                <div class="stage-header">
+                    <div class="stage-icon method">9</div>
+                    <div>
+                        <div class="stage-title">课程 3.3：质量把控——AI输出审核方法</div>
+                        <div class="stage-subtitle">掌握如何确保AI交付结果的质量</div>
+                    </div>
+                </div>
+                <div class="chapters">
+                    <div class="chapter">
+                        <div class="chapter-num">24</div>
+                        <div class="chapter-content">
+                            <h4>PM必须审核的内容</h4>
+                            <p>对用户的承诺 · 数据指标 · 竞品信息 · PRD文档</p>
+                        </div>
+                    </div>
+                    <div class="chapter">
+                        <div class="chapter-num">25</div>
+                        <div class="chapter-content">
+                            <h4>PM审核检查清单</h4>
+                            <p>准确性 · 完整性 · 一致性 · 可落地性</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="stage">
+                <div class="stage-header">
+                    <div class="stage-icon method">10</div>
+                    <div>
+                        <div class="stage-title">课程 3.4：工具链——PM的AI工具箱</div>
+                        <div class="stage-subtitle">掌握搭建个人AI工作流的实操技能</div>
+                    </div>
+                </div>
+                <div class="chapters">
+                    <div class="chapter">
+                        <div class="chapter-num">26</div>
+                        <div class="chapter-content">
+                            <h4>PM常用AI工具</h4>
+                            <p>ChatGPT/Claude · Perplexity · Notion · otter.ai · Copilot</p>
+                        </div>
+                    </div>
+                    <div class="chapter">
+                        <div class="chapter-num">27</div>
+                        <div class="chapter-content">
+                            <h4>PM的AI工作流配置</h4>
+                            <p>基础配置（必选）· 进阶配置（推荐）· 高级配置（可选）</p>
+                        </div>
+                    </div>
+                    <div class="chapter">
+                        <div class="chapter-num">28</div>
+                        <div class="chapter-content">
+                            <h4>使用AI的注意事项</h4>
+                            <p>数据安全 · 版权风险 · 成本控制</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 实践层 -->
+        <section id="practice" class="section">
+            <div class="section-header">
+                <h2 class="section-title">阶段四：实践层</h2>
+                <p class="section-desc">端到端实战项目 · 建议时长 12-16h</p>
+            </div>
+
+            <div class="stage">
+                <div class="stage-header">
+                    <div class="stage-icon practice">11</div>
+                    <div>
+                        <div class="stage-title">课程 4.1：端到端实战项目</div>
+                        <div class="stage-subtitle">基于真实场景的完整项目交付</div>
+                    </div>
+                </div>
+                <div class="chapters">
+                    <div class="chapter">
+                        <div class="chapter-num">29</div>
+                        <div class="chapter-content">
+                            <h4>项目选题（PM场景）</h4>
+                            <p>竞品分析报告 · PRD撰写 · 用户调研报告 · 数据产品原型 · 内部工具需求</p>
+                        </div>
+                    </div>
+                    <div class="chapter">
+                        <div class="chapter-num">30</div>
+                        <div class="chapter-content">
+                            <h4>项目执行流程</h4>
+                            <p>立项 → 需求定义 → 方案设计 → AI执行 → 审核优化 → 交付验收</p>
+                        </div>
+                    </div>
+                    <div class="chapter">
+                        <div class="chapter-num">31</div>
+                        <div class="chapter-content">
+                            <h4>PM项目复盘框架</h4>
+                            <p>复盘四问 · 必输出文档 · AI工作流模板 · 提示词库</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 课程对比 -->
+        <section class="section">
+            <div class="section-header">
+                <h2 class="section-title">PM版 vs 通用版</h2>
+                <p class="section-desc">专为产品经理场景定制，更聚焦、更实用</p>
+            </div>
+
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>对比维度</th>
+                            <th>通用版</th>
+                            <th>PM版</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>案例场景</td>
+                            <td>各行业通用</td>
+                            <td>PM真实工作场景</td>
+                        </tr>
+                        <tr>
+                            <td>第三章重点</td>
+                            <td>软件工程基础</td>
+                            <td>产品研发流程</td>
+                        </tr>
+                        <tr>
+                            <td>方法层重点</td>
+                            <td>通用任务拆解</td>
+                            <td>PRD/竞品分析/用户调研</td>
+                        </tr>
+                        <tr>
+                            <td>工具层重点</td>
+                            <td>通用工具</td>
+                            <td>ChatGPT/Perplexity/Notion</td>
+                        </tr>
+                        <tr>
+                            <td>课程时长</td>
+                            <td>34-50小时</td>
+                            <td>25-34小时</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- 课程时长 -->
+        <section class="section">
+            <div class="section-header">
+                <h2 class="section-title">课程时长估算</h2>
+                <p class="section-desc">建议总时长：25-34小时，可根据实际培训周期调整</p>
+            </div>
+
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-title">认知层</div>
+                    <div class="timeline-desc">4-6小时 · 软件工程基础、AI技术演进、AI时代机遇与挑战</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-title">思维层</div>
+                    <div class="timeline-desc">3-4小时 · 工程思维、人机协作思维转变</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-title">方法层</div>
+                    <div class="timeline-desc">6-8小时 · 任务拆解、流程设计、质量把控、工具链</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-title">实践层</div>
+                    <div class="timeline-desc">12-16小时 · 端到端实战项目</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 咨询报名 -->
+        <section id="contact" class="section">
+            <div class="stage" style="text-align: center; padding: 48px;">
+                <h2 style="font-size: 2rem; margin-bottom: 16px;">开启你的AI Builder之旅</h2>
+                <p style="color: var(--text-light); font-size: 1.1rem; max-width: 600px; margin: 0 auto 32px;">
+                    掌握AI时代的工程思维，从"需求传递者"进化为"价值交付者"
+                </p>
+                <div style="display: flex; justify-content: center; gap: 16px; flex-wrap: wrap;">
+                    <div style="background: var(--primary); color: white; padding: 12px 32px; border-radius: 8px; font-weight: 600;">
+                        咨询报名
+                    </div>
+                    <div style="background: var(--bg); border: 1px solid var(--border); padding: 12px 32px; border-radius: 8px; font-weight: 600;">
+                        了解更多
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <h3>AI Builder</h3>
+        <p>教非技术人用AI原生的方式具备软件生产能力</p>
+        <p style="margin-top: 16px; font-size: 0.9rem;">
+            © 2024 · 课程内容持续迭代中
+        </p>
+    </footer>
+</body>
+</html>
