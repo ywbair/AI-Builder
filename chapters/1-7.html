@@ -27,6 +27,8 @@
         .highlight-box { background: linear-gradient(135deg, rgba(99,102,241,0.1) 0%, rgba(139,92,246,0.1) 100%); border-left: 4px solid var(--primary); padding: 20px 24px; border-radius: 0 8px 8px 0; margin: 24px 0; }
         .highlight-box h4 { color: var(--primary); margin-bottom: 8px; }
         .highlight-box.success { background: linear-gradient(135deg, rgba(16,185,129,0.1) 0%, rgba(5,150,105,0.1) 100%); border-left-color: var(--secondary); }
+        .highlight-box.warning { background: #fef3c7; border-left-color: #f59e0b; }
+        .highlight-box.warning h4 { color: #b45309; }
         .timeline { position: relative; padding-left: 32px; }
         .timeline::before { content: ''; position: absolute; left: 7px; top: 0; bottom: 0; width: 2px; background: var(--border); }
         .timeline-item { position: relative; margin-bottom: 24px; }
@@ -36,6 +38,9 @@
         .ability-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin: 24px 0; }
         .ability-card { background: var(--bg); padding: 20px; border-radius: 12px; text-align: center; }
         .ability-card .icon { font-size: 2rem; margin-bottom: 12px; }
+        .model-card { background: var(--bg); border-radius: 12px; padding: 20px; margin-bottom: 12px; border-left: 4px solid var(--primary); }
+        .model-card h4 { margin-bottom: 8px; }
+        .model-card p { margin: 0; font-size: 0.9rem; color: var(--text-light); }
         .table-wrapper { overflow-x: auto; margin: 24px 0; }
         table { width: 100%; border-collapse: collapse; font-size: 0.95rem; }
         th, td { padding: 14px 16px; text-align: left; border-bottom: 1px solid var(--border); }
@@ -56,71 +61,83 @@
             <div class="breadcrumb"><a href="../index.html">首页</a> / 认知层 / 课程1.2 / 第7章</div>
             <div class="chapter-badge">课程 1.2：AI技术演进</div>
             <h1>第7章：大模型时代</h1>
-            <p class="subtitle">AI发展的第四个阶段：理解、生成、推理</p>
+            <p class="subtitle">AI发展的第四个阶段：从感知到理解</p>
             <div class="progress-bar"><div class="progress-fill"></div></div>
         </div>
     </header>
     <main class="container">
         <div class="page">
             <div class="page-num">Page 1 / 2</div>
-            <h2>核心跃迁：从"识别模式"到"理解+生成"</h2>
-            <p>大模型时代的核心突破是：AI第一次具备了真正的<strong>语言理解能力</strong>和<strong>生成能力</strong>。</p>
-            <div class="highlight-box">
-                <h4>🚀 为什么是GPT系列</h4>
-                <div class="timeline">
-                    <div class="timeline-item">
-                        <div class="timeline-title">GPT-1 (2018)</div>
-                        <div class="timeline-desc">预训练+微调范式，证明大规模预训练有效</div>
-                    </div>
-                    <div class="timeline-item">
-                        <div class="timeline-title">GPT-2 (2019)</div>
-                        <div class="timeline-desc">Zero-shot能力初现，不需要微调就能做任务</div>
-                    </div>
-                    <div class="timeline-item">
-                        <div class="timeline-title">GPT-3 (2020)</div>
-                        <div class="timeline-desc">涌现能力，Few-shot学习震惊业界</div>
-                    </div>
-                    <div class="timeline-item">
-                        <div class="timeline-title">GPT-4 (2023)</div>
-                        <div class="timeline-desc">多模态、复杂推理、成为行业标准</div>
-                    </div>
-                    <div class="timeline-item">
-                        <div class="timeline-title">GPT-4o (2024)</div>
-                        <div class="timeline-desc">实时多模态交互，AI能力再升级</div>
-                    </div>
-                </div>
+            <h2>衔接上文：为什么深度学习不够？</h2>
+            <p>上一章讲到，深度学习虽然能让AI"看懂"图像、"听懂"语音，但本质仍是<strong>模式识别</strong>——它并不理解内容的含义。</p>
+            <div class="highlight-box warning">
+                <h4>深度学习的瓶颈</h4>
+                <ul style="margin-top: 8px; margin-left: 20px;">
+                    <li>每个任务需要<strong>单独训练</strong>：图像模型不能做语言，语言模型不能做推理</li>
+                    <li>缺乏<strong>跨模态理解</strong>能力</li>
+                    <li>无法进行<strong>复杂推理</strong>和<strong>多步骤规划</strong></li>
+                </ul>
+            </div>
+            <h3>核心跃迁：大模型解决了什么？</h3>
+            <p>大模型时代的突破，可以概括为三点：</p>
+            <div class="highlight-box success">
+                <h4>突破一：统一的海量理解能力</h4>
+                <p>一个模型能同时理解文字、代码、图像，不再是各自独立的"专家系统"。</p>
+            </div>
+            <div class="highlight-box success">
+                <h4>突破二：涌现能力（Emergent Abilities）</h4>
+                <p>当模型规模超过某个临界点，突然涌现出小模型没有的能力——复杂推理、代码生成、多步骤规划。这不是程序员写出来的，是"量变引起质变"。</p>
+            </div>
+            <div class="highlight-box success">
+                <h4>突破三：自然语言作为通用接口</h4>
+                <p>人类用自然语言描述需求，AI理解并执行。第一次，机器真正听懂了人类的意图。</p>
             </div>
         </div>
         <div class="page">
             <div class="page-num">Page 2 / 2</div>
-            <h2>大模型的三大核心能力</h2>
-            <div class="ability-grid">
-                <div class="ability-card">
-                    <div class="icon">🧠</div>
-                    <h4>理解力</h4>
-                    <p>真正理解自然语言、上下文、意图</p>
-                    <p style="color: var(--text-light); font-size: 0.85rem; margin-top: 8px;">复杂对话、多步骤推理</p>
+            <h2>技术里程碑：从GPT到百模大战</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-title">2017年 Transformer 架构</div>
+                    <div class="timeline-desc">Google论文《Attention is All You Need》——大模型的核心基础设施</div>
                 </div>
-                <div class="ability-card">
-                    <div class="icon">✍️</div>
-                    <h4>生成力</h4>
-                    <p>生成高质量文本、代码、图像</p>
-                    <p style="color: var(--text-light); font-size: 0.85rem; margin-top: 8px;">写作、编程、创意内容</p>
+                <div class="timeline-item">
+                    <div class="timeline-title">2018-2019年 GPT-1/2 · BERT</div>
+                    <div class="timeline-desc">GPT系列和BERT双线发展，预训练+微调成为NLP新范式</div>
                 </div>
-                <div class="ability-card">
-                    <div class="icon">🔗</div>
-                    <h4>推理力</h4>
-                    <p>链式思考、逻辑分析</p>
-                    <p style="color: var(--text-light); font-size: 0.85rem; margin-top: 8px;">数学题、代码Debug、问题分析</p>
+                <div class="timeline-item">
+                    <div class="timeline-title">2020年 GPT-3</div>
+                    <div class="timeline-desc">1750亿参数，Few-shot learning震惊业界，AI能力从"专项"走向"通用"</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-title">2022-2023年 ChatGPT · GPT-4</div>
+                    <div class="timeline-desc">对话界面引爆行业，GPT-4成为首个通过图灵测试级别的大模型</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-title">2023-2024年 开源崛起</div>
+                    <div class="timeline-desc">Llama、Claude、Gemini、Midjourney等百花齐放，大模型进入普及阶段</div>
                 </div>
             </div>
-            <div class="highlight-box success">
-                <h4>💡 为什么重要</h4>
-                <p>大模型第一次让机器具备了"类人"的语言理解和生成能力。人机交互方式发生根本变化——从<strong>"点击操作"</strong>到<strong>"自然语言对话"</strong>。</p>
+            <h3>代表大模型一览</h3>
+            <div class="model-card">
+                <h4>GPT系列（OpenAI）</h4>
+                <p>技术标杆，最强推理能力，生态最成熟。GPT-4o实现实时多模态交互。</p>
+            </div>
+            <div class="model-card">
+                <h4>Claude（Anthropic）</h4>
+                <p>长文本处理能力强，擅长分析、写作、代码。上下文窗口可达200K tokens。</p>
+            </div>
+            <div class="model-card">
+                <h4>Gemini（Google）</h4>
+                <p>原生多模态，与Google产品深度整合，在搜索和生产力工具领域优势明显。</p>
+            </div>
+            <div class="model-card">
+                <h4>Llama（Meta）</h4>
+                <p>开源代表，推动了大模型民主化，让更多企业能基于此做定制化开发。</p>
             </div>
             <div class="highlight-box">
                 <h4>🎯 PM的机会</h4>
-                <p>PM可以用自然语言驱动AI工作了。不再需要学习复杂的编程或工具，描述你的需求，AI就能帮你实现。</p>
+                <p>大模型让人机交互从"学习软件操作"变成"用自然语言描述需求"。PM可以用自然语言驱动AI工作了——描述你的需求，AI就能帮你实现。不再需要学习复杂的编程或工具。</p>
             </div>
         </div>
         <div class="nav-buttons">
