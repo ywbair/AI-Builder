@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>第7章：大模型时代 | AI Builder PM课程</title>
+    <style>
+        :root { --primary: #6366f1; --primary-dark: #4f46e5; --secondary: #10b981; --bg: #f8fafc; --card-bg: #ffffff; --text: #1e293b; --text-light: #64748b; --border: #e2e8f0; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: var(--bg); color: var(--text); line-height: 1.7; }
+        .header { background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%); color: white; padding: 40px 20px; }
+        .header-inner { max-width: 1000px; margin: 0 auto; }
+        .breadcrumb { font-size: 0.9rem; opacity: 0.8; margin-bottom: 12px; }
+        .breadcrumb a { color: white; text-decoration: none; }
+        .breadcrumb a:hover { text-decoration: underline; }
+        .chapter-badge { display: inline-block; background: rgba(255,255,255,0.2); padding: 4px 12px; border-radius: 4px; font-size: 0.85rem; margin-bottom: 8px; }
+        .header h1 { font-size: 2.2rem; font-weight: 700; margin-bottom: 8px; }
+        .header .subtitle { opacity: 0.9; font-size: 1.1rem; }
+        .progress-bar { background: rgba(255,255,255,0.2); height: 4px; margin-top: 20px; border-radius: 2px; }
+        .progress-fill { background: white; height: 100%; border-radius: 2px; width: 70%; }
+        .container { max-width: 1000px; margin: 0 auto; padding: 40px 20px; }
+        .page { background: var(--card-bg); border-radius: 16px; padding: 40px; margin-bottom: 32px; border: 1px solid var(--border); }
+        .page-num { color: var(--primary); font-size: 0.85rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+        .page h2 { font-size: 1.6rem; margin-bottom: 24px; color: var(--text); }
+        .page h3 { font-size: 1.2rem; margin: 24px 0 12px; color: var(--text); }
+        .page p { margin-bottom: 16px; color: var(--text); }
+        .highlight-box { background: linear-gradient(135deg, rgba(99,102,241,0.1) 0%, rgba(139,92,246,0.1) 100%); border-left: 4px solid var(--primary); padding: 20px 24px; border-radius: 0 8px 8px 0; margin: 24px 0; }
+        .highlight-box h4 { color: var(--primary); margin-bottom: 8px; }
+        .highlight-box.success { background: linear-gradient(135deg, rgba(16,185,129,0.1) 0%, rgba(5,150,105,0.1) 100%); border-left-color: var(--secondary); }
+        .highlight-box.warning { background: #fef3c7; border-left-color: #f59e0b; }
+        .highlight-box.warning h4 { color: #b45309; }
+        .highlight-box.danger { background: #fef2f2; border-left-color: #ef4444; }
+        .highlight-box.danger h4 { color: #ef4444; }
+        .timeline { position: relative; padding-left: 32px; }
+        .timeline::before { content: ''; position: absolute; left: 7px; top: 0; bottom: 0; width: 2px; background: var(--border); }
+        .timeline-item { position: relative; margin-bottom: 24px; }
+        .timeline-item::before { content: ''; position: absolute; left: -28px; top: 6px; width: 12px; height: 12px; border-radius: 50%; background: var(--primary); border: 3px solid var(--bg); }
+        .timeline-title { font-weight: 600; margin-bottom: 4px; }
+        .timeline-desc { color: var(--text-light); font-size: 0.9rem; }
+        .model-card { background: var(--bg); border-radius: 12px; padding: 20px; margin-bottom: 12px; border-left: 4px solid var(--primary); }
+        .model-card h4 { margin-bottom: 8px; }
+        .model-card p { margin: 0; font-size: 0.9rem; color: var(--text-light); }
+        .token-flow { background: var(--bg); border-radius: 12px; padding: 24px; margin: 24px 0; }
+        .token-flow h4 { text-align: center; margin-bottom: 16px; }
+        .flow-steps { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
+        .flow-step { flex: 1; min-width: 120px; background: var(--card-bg); border: 2px solid var(--primary); border-radius: 8px; padding: 16px; text-align: center; }
+        .flow-step .num { background: var(--primary); color: white; width: 24px; height: 24px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-size: 0.8rem; margin-bottom: 8px; }
+        .flow-step .label { font-weight: 600; font-size: 0.9rem; }
+        .flow-step .desc { font-size: 0.75rem; color: var(--text-light); margin-top: 4px; }
+        .flow-arrow { color: var(--primary); font-size: 1.5rem; }
+        .context-box { background: linear-gradient(135deg, rgba(239,68,68,0.1) 0%, rgba(239,68,68,0.05) 100%); border: 2px solid #ef4444; border-radius: 12px; padding: 24px; margin: 24px 0; }
+        .context-box h4 { color: #ef4444; margin-bottom: 12px; }
+        .footer { text-align: center; padding: 32px 20px; color: var(--text-light); font-size: 0.9rem; border-top: 1px solid var(--border); }
+        .nav-buttons { display: flex; justify-content: space-between; margin-top: 40px; gap: 16px; }
+        .nav-btn { padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: 500; display: inline-flex; align-items: center; gap: 8px; transition: all 0.2s; }
+        .nav-btn.primary { background: var(--primary); color: white; }
+        .nav-btn.primary:hover { background: var(--primary-dark); }
+        .nav-btn.secondary { background: var(--bg); color: var(--text); border: 1px solid var(--border); }
+        .nav-btn.secondary:hover { background: var(--border); }
+        @media (max-width: 768px) { .page { padding: 24px; } .header h1 { font-size: 1.6rem; } .flow-arrow { display: none; } }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-inner">
+            <div class="breadcrumb"><a href="../index.html">首页</a> / 认知层 / 课程1.2 / 第7章</div>
+            <div class="chapter-badge">课程 1.2：AI技术演进</div>
+            <h1>第7章：大模型时代</h1>
+            <p class="subtitle">AI发展的第四阶段 + LLM工作原理核心</p>
+            <div class="progress-bar"><div class="progress-fill"></div></div>
+        </div>
+    </header>
+    <main class="container">
+        <div class="page">
+            <div class="page-num">Page 1 / 3</div>
+            <h2>一、大模型时代的核心跃迁</h2>
+            <p>大模型时代解决了深度学习的三大瓶颈：</p>
+            <div class="highlight-box success">
+                <h4>突破一：统一的海量理解能力</h4>
+                <p>一个模型能同时理解文字、代码、图像，不再是各自独立的"专家系统"。</p>
+            </div>
+            <div class="highlight-box success">
+                <h4>突破二：涌现能力（Emergent Abilities）</h4>
+                <p>当模型规模超过某个临界点，突然涌现出小模型没有的能力——复杂推理、代码生成、多步骤规划。这不是程序员写出来的，是"量变引起质变"。</p>
+            </div>
+            <div class="highlight-box success">
+                <h4>突破三：自然语言作为通用接口</h4>
+                <p>人类用自然语言描述需求，AI理解并执行。第一次，机器真正听懂了人类的意图。</p>
+            </div>
+            <h3>技术里程碑</h3>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-title">2017年 Transformer 架构</div>
+                    <div class="timeline-desc">Google论文《Attention is All You Need》——大模型的核心基础设施</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-title">2020年 GPT-3</div>
+                    <div class="timeline-desc">1750亿参数，Few-shot learning震惊业界，AI从"专项"走向"通用"</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-title">2022-2023年 ChatGPT · GPT-4</div>
+                    <div class="timeline-desc">对话界面引爆行业，GPT-4成为首个图灵测试级别的大模型</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-title">2023-2024年 开源崛起</div>
+                    <div class="timeline-desc">Llama、Claude、Gemini等百花齐放，大模型进入普及阶段</div>
+                </div>
+            </div>
+        </div>
+        <div class="page">
+            <div class="page-num">Page 2 / 3</div>
+            <h2>二、LLM是怎么跑起来的（PM必须理解）</h2>
+            <p>理解LLM的工作原理，不需要懂代码，只需要懂这个流程：</p>
+            <div class="token-flow">
+                <h4>LLM 的基本工作流程</h4>
+                <div class="flow-steps">
+                    <div class="flow-step">
+                        <div class="num">1</div>
+                        <div class="label">输入 Prompt</div>
+                        <div class="desc">用户的问题或指令</div>
+                    </div>
+                    <div class="flow-arrow">→</div>
+                    <div class="flow-step">
+                        <div class="num">2</div>
+                        <div class="label">Token 化</div>
+                        <div class="desc">文字转数字ID</div>
+                    </div>
+                    <div class="flow-arrow">→</div>
+                    <div class="flow-step">
+                        <div class="num">3</div>
+                        <div class="label">LLM 推理</div>
+                        <div class="desc">神经网络计算</div>
+                    </div>
+                    <div class="flow-arrow">→</div>
+                    <div class="flow-step">
+                        <div class="num">4</div>
+                        <div class="label">Token 解码</div>
+                        <div class="desc">数字转文字</div>
+                    </div>
+                    <div class="flow-arrow">→</div>
+                    <div class="flow-step">
+                        <div class="num">5</div>
+                        <div class="label">输出 Response</div>
+                        <div class="desc">回答用户</div>
+                    </div>
+                </div>
+            </div>
+            <div class="highlight-box">
+                <h4>⭐ 什么是 Token（PM必须掌握的核心概念）</h4>
+                <p><strong>Token = LLM的基本计量单位</strong></p>
+                <ul style="margin-top: 12px; margin-left: 20px;">
+                    <li>1个Token ≈ 0.5-2个中文字符 ≈ 1个英文单词</li>
+                    <li>LLM不是按"字数"收费，是按"Token"计费</li>
+                    <li>每次对话，所有历史内容都会消耗Token</li>
+                </ul>
+            </div>
+            <div class="highlight-box warning">
+                <h4>⭐ 上下文不是"聊天记录"，是LLM的"工作内存"</h4>
+                <p>当LLM回答你的问题时，它不是在"回忆"之前的对话——它是在<strong>把整个对话历史重新读一遍</strong>。</p>
+                <ul style="margin-top: 12px; margin-left: 20px;">
+                    <li><strong>聊天记录 = 给LLM看的材料</strong>，不是LLM的"记忆"</li>
+                    <li>LLM本身没有状态，每次都是"从零开始"处理上下文</li>
+                    <li>超过上下文窗口的内容，LLM会"忘掉"</li>
+                </ul>
+            </div>
+        </div>
+        <div class="page">
+            <div class="page-num">Page 3 / 3</div>
+            <h2>三、上下文窗口——LLM的"内存限制"</h2>
+            <div class="context-box">
+                <h4>⭐ 为什么上下文窗口很重要</h4>
+                <p>上下文窗口 = LLM一次性能处理的Token上限。超过这个上限，前面部分会被"遗忘"。</p>
+                <ul style="margin-top: 12px; margin-left: 20px;">
+                    <li>GPT-4 Turbo：128K Tokens（约10万汉字）</li>
+                    <li>Claude 3：200K Tokens（约15万汉字）</li>
+                    <li>MiniMax-M2.7：2048K Tokens（约150万汉字）</li>
+                </ul>
+            </div>
+            <div class="highlight-box danger">
+                <h4>⭐ 上下文管理的关键路径</h4>
+                <p>上下文越来越长 → Token消耗越来越快 → 成本越来越高 → 效果可能越来越差</p>
+                <p style="margin-top: 12px;"><strong>PM必须理解：</strong></p>
+                <ul style="margin-top: 8px; margin-left: 20px;">
+                    <li>不是塞越多上下文越好，超长上下文会稀释重点</li>
+                    <li>上下文有成本：输入Token + 输出Token = 总消耗</li>
+                    <li>好的Prompt = 在有限上下文里传递最关键的信息</li>
+                </ul>
+            </div>
+            <div class="highlight-box">
+                <h4>代表大模型一览</h4>
+                <div class="model-card">
+                    <h4>GPT系列（OpenAI）</h4>
+                    <p>技术标杆，最强推理能力，GPT-4o实现实时多模态交互。</p>
+                </div>
+                <div class="model-card">
+                    <h4>Claude（Anthropic）</h4>
+                    <p>长文本处理能力强，上下文窗口可达200K tokens。</p>
+                </div>
+                <div class="model-card">
+                    <h4>Gemini（Google）</h4>
+                    <p>原生多模态，与Google产品深度整合。</p>
+                </div>
+                <div class="model-card">
+                    <h4>MiniMax</h4>
+                    <p>超长上下文（2048K），中文场景优化。</p>
+                </div>
+            </div>
+            <div class="highlight-box success">
+                <h4>🎯 PM的核心认知升级</h4>
+                <p>大模型让人机交互从"学习软件操作"变成"用自然语言描述需求"。<strong>上下文管理是AI应用的核心竞争力</strong>——谁能把上下文用得更好，谁就能做出更强大的AI产品。</p>
+            </div>
+        </div>
+        <div class="nav-buttons">
+            <a href="1-6.html" class="nav-btn secondary">← 上一页</a>
+            <a href="1-8.html" class="nav-btn primary">下一页：AI Agent时代 →</a>
+        </div>
+    </main>
+    <footer class="footer">AI Builder for Product Manager · 认知层 · 课程1.2 · 第7章</footer>
+</body>
+</html>

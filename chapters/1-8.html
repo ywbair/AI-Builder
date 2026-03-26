@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>第8章：AI Agent时代 | AI Builder PM课程</title>
+    <style>
+        :root { --primary: #6366f1; --primary-dark: #4f46e5; --secondary: #10b981; --bg: #f8fafc; --card-bg: #ffffff; --text: #1e293b; --text-light: #64748b; --border: #e2e8f0; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: var(--bg); color: var(--text); line-height: 1.7; }
+        .header { background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%); color: white; padding: 40px 20px; }
+        .header-inner { max-width: 1000px; margin: 0 auto; }
+        .breadcrumb { font-size: 0.9rem; opacity: 0.8; margin-bottom: 12px; }
+        .breadcrumb a { color: white; text-decoration: none; }
+        .breadcrumb a:hover { text-decoration: underline; }
+        .chapter-badge { display: inline-block; background: rgba(255,255,255,0.2); padding: 4px 12px; border-radius: 4px; font-size: 0.85rem; margin-bottom: 8px; }
+        .header h1 { font-size: 2.2rem; font-weight: 700; margin-bottom: 8px; }
+        .header .subtitle { opacity: 0.9; font-size: 1.1rem; }
+        .progress-bar { background: rgba(255,255,255,0.2); height: 4px; margin-top: 20px; border-radius: 2px; }
+        .progress-fill { background: white; height: 100%; border-radius: 2px; width: 80%; }
+        .container { max-width: 1000px; margin: 0 auto; padding: 40px 20px; }
+        .page { background: var(--card-bg); border-radius: 16px; padding: 40px; margin-bottom: 32px; border: 1px solid var(--border); }
+        .page-num { color: var(--primary); font-size: 0.85rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+        .page h2 { font-size: 1.6rem; margin-bottom: 24px; color: var(--text); }
+        .page h3 { font-size: 1.2rem; margin: 24px 0 12px; color: var(--text); }
+        .page p { margin-bottom: 16px; color: var(--text); }
+        .highlight-box { background: linear-gradient(135deg, rgba(99,102,241,0.1) 0%, rgba(139,92,246,0.1) 100%); border-left: 4px solid var(--primary); padding: 20px 24px; border-radius: 0 8px 8px 0; margin: 24px 0; }
+        .highlight-box h4 { color: var(--primary); margin-bottom: 8px; }
+        .highlight-box.success { background: linear-gradient(135deg, rgba(16,185,129,0.1) 0%, rgba(5,150,105,0.1) 100%); border-left-color: var(--secondary); }
+        .highlight-box.warning { background: #fef3c7; border-left-color: #f59e0b; }
+        .highlight-box.warning h4 { color: #b45309; }
+        .highlight-box.danger { background: #fef2f2; border-left-color: #ef4444; }
+        .highlight-box.danger h4 { color: #ef4444; }
+        .agent-flow { background: var(--bg); border-radius: 12px; padding: 24px; margin: 24px 0; }
+        .agent-flow h4 { text-align: center; margin-bottom: 16px; }
+        .agent-loop { display: flex; flex-direction: column; align-items: center; gap: 16px; }
+        .agent-step { display: flex; align-items: center; gap: 16px; width: 100%; max-width: 500px; }
+        .agent-step-num { background: var(--primary); color: white; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 600; flex-shrink: 0; }
+        .agent-step-content { background: var(--card-bg); border: 2px solid var(--primary); border-radius: 8px; padding: 12px 16px; flex: 1; }
+        .agent-step-content .step-title { font-weight: 600; margin-bottom: 4px; }
+        .agent-step-content .step-desc { font-size: 0.85rem; color: var(--text-light); }
+        .loop-arrow { color: var(--secondary); font-size: 1.5rem; }
+        .rag-flow { background: var(--bg); border-radius: 12px; padding: 24px; margin: 24px 0; }
+        .rag-flow h4 { text-align: center; margin-bottom: 16px; }
+        .rag-steps { display: flex; justify-content: space-between; align-items: center; gap: 8px; flex-wrap: wrap; }
+        .rag-step { flex: 1; min-width: 100px; background: var(--card-bg); border: 2px solid var(--secondary); border-radius: 8px; padding: 16px; text-align: center; }
+        .rag-step .num { background: var(--secondary); color: white; width: 24px; height: 24px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-size: 0.8rem; margin-bottom: 8px; }
+        .rag-step .label { font-weight: 600; font-size: 0.9rem; color: var(--secondary); }
+        .rag-step .desc { font-size: 0.75rem; color: var(--text-light); margin-top: 4px; }
+        .rag-arrow { color: var(--secondary); font-size: 1.5rem; }
+        .compare-table { width: 100%; border-collapse: collapse; margin: 24px 0; }
+        .compare-table th, .compare-table td { padding: 14px 16px; text-align: left; border-bottom: 1px solid var(--border); }
+        .compare-table th { background: var(--bg); font-weight: 600; color: var(--text); }
+        .compare-table td { color: var(--text-light); }
+        .compare-table tr:hover { background: var(--bg); }
+        .pitfall-card { background: #fef2f2; border-left: 4px solid #ef4444; padding: 16px; border-radius: 0 8px 8px 0; margin-bottom: 12px; }
+        .pitfall-card h4 { color: #ef4444; margin-bottom: 8px; }
+        .pitfall-card p { margin: 0; font-size: 0.9rem; }
+        .footer { text-align: center; padding: 32px 20px; color: var(--text-light); font-size: 0.9rem; border-top: 1px solid var(--border); }
+        .nav-buttons { display: flex; justify-content: space-between; margin-top: 40px; gap: 16px; }
+        .nav-btn { padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: 500; display: inline-flex; align-items: center; gap: 8px; transition: all 0.2s; }
+        .nav-btn.primary { background: var(--primary); color: white; }
+        .nav-btn.primary:hover { background: var(--primary-dark); }
+        .nav-btn.secondary { background: var(--bg); color: var(--text); border: 1px solid var(--border); }
+        .nav-btn.secondary:hover { background: var(--border); }
+        @media (max-width: 768px) { .page { padding: 24px; } .header h1 { font-size: 1.6rem; } .rag-arrow { display: none; } }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-inner">
+            <div class="breadcrumb"><a href="../index.html">首页</a> / 认知层 / 课程1.2 / 第8章</div>
+            <div class="chapter-badge">课程 1.2：AI技术演进</div>
+            <h1>第8章：AI Agent时代</h1>
+            <p class="subtitle">Agent架构原理 + RAG + 关键路径</p>
+            <div class="progress-bar"><div class="progress-fill"></div></div>
+        </div>
+    </header>
+    <main class="container">
+        <div class="page">
+            <div class="page-num">Page 1 / 3</div>
+            <h2>一、什么是AI Agent（不只是聊天机器人）</h2>
+            <p>聊天机器人 = 问答。AI Agent = 完成任务。</p>
+            <table class="compare-table">
+                <thead>
+                    <tr>
+                        <th>维度</th>
+                        <th>聊天机器人</th>
+                        <th>AI Agent</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>交互模式</td>
+                        <td>一问一答</td>
+                        <td>多步骤执行</td>
+                    </tr>
+                    <tr>
+                        <td>目标达成</td>
+                        <td>给出回答</td>
+                        <td>完成具体任务</td>
+                    </tr>
+                    <tr>
+                        <td>自主性</td>
+                        <td>被动响应</td>
+                        <td>主动规划执行</td>
+                    </tr>
+                    <tr>
+                        <td>工具使用</td>
+                        <td>不能</td>
+                        <td>调用工具、API</td>
+                    </tr>
+                    <tr>
+                        <td>典型场景</td>
+                        <td>客服、问答</td>
+                        <td>自动化流程、数据分析</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="highlight-box success">
+                <h4>⭐ Agent的核心：规划 + 执行 + 反馈循环</h4>
+                <p>Agent不是一次问答就结束，而是：制定计划 → 执行步骤 → 检查结果 → 调整策略 → 继续执行，直到任务完成。</p>
+            </div>
+        </div>
+        <div class="page">
+            <div class="page-num">Page 2 / 3</div>
+            <h2>二、Agent的工作循环（PM必须理解）</h2>
+            <div class="agent-flow">
+                <h4>Agent 执行循环</h4>
+                <div class="agent-loop">
+                    <div class="agent-step">
+                        <div class="agent-step-num">1</div>
+                        <div class="agent-step-content">
+                            <div class="step-title">感知（Perceive）</div>
+                            <div class="step-desc">理解用户意图，分析当前状态和可用工具</div>
+                        </div>
+                    </div>
+                    <div class="loop-arrow">↓</div>
+                    <div class="agent-step">
+                        <div class="agent-step-num">2</div>
+                        <div class="agent-step-content">
+                            <div class="step-title">规划（Plan）</div>
+                            <div class="step-desc">拆解任务，决定下一步做什么（ReAct模式）</div>
+                        </div>
+                    </div>
+                    <div class="loop-arrow">↓</div>
+                    <div class="agent-step">
+                        <div class="agent-step-num">3</div>
+                        <div class="agent-step-content">
+                            <div class="step-title">执行（Act）</div>
+                            <div class="step-desc">调用工具、API或执行计算</div>
+                        </div>
+                    </div>
+                    <div class="loop-arrow">↓</div>
+                    <div class="agent-step">
+                        <div class="agent-step-num">4</div>
+                        <div class="agent-step-content">
+                            <div class="step-title">评估（Eval）</div>
+                            <div class="step-desc">检查执行结果，判断任务是否完成</div>
+                        </div>
+                    </div>
+                    <div class="loop-arrow">↻</div>
+                </div>
+            </div>
+            <div class="highlight-box danger">
+                <h4>⭐ Agent为什么容易"跑偏"</h4>
+                <p>Agent每一步都可能犯错——规划错误、执行错误、评估错误。而且这些错误会累积放大。</p>
+            </div>
+            <div class="pitfall-card">
+                <h4>❌ 典型失败模式：错误累积</h4>
+                <p>第1步错10% → 第2步基于错误信息又错10% → 第3步误差越来越大 → 最终结果完全偏离目标</p>
+            </div>
+            <div class="pitfall-card">
+                <h4>❌ 典型失败模式：死循环</h4>
+                <p>Agent反复执行同一组操作，无法判断任务已完成或无法完成，陷入无限循环。</p>
+            </div>
+            <div class="highlight-box">
+                <h4>⭐ PM的认知：Agent需要"护栏"</h4>
+                <p>设计Agent产品时，必须考虑：最大执行次数、结果验证机制、异常处理预案、人工介入节点。</p>
+            </div>
+        </div>
+        <div class="page">
+            <div class="page-num">Page 3 / 3</div>
+            <h2>三、RAG：知识库增强（解决LLM"不知道"的问题）</h2>
+            <p>LLM的知识有截止日期，不知道实时信息，不知道私有数据。RAG就是解决这个问题的。</p>
+            <div class="rag-flow">
+                <h4>RAG 工作流程</h4>
+                <div class="rag-steps">
+                    <div class="rag-step">
+                        <div class="num">1</div>
+                        <div class="label">检索</div>
+                        <div class="desc">从知识库找出相关内容</div>
+                    </div>
+                    <div class="rag-arrow">→</div>
+                    <div class="rag-step">
+                        <div class="num">2</div>
+                        <div class="label">增强</div>
+                        <div class="desc">把检索结果加入Prompt</div>
+                    </div>
+                    <div class="rag-arrow">→</div>
+                    <div class="rag-step">
+                        <div class="num">3</div>
+                        <div class="label">生成</div>
+                        <div class="desc">LLM基于上下文回答</div>
+                    </div>
+                </div>
+            </div>
+            <div class="highlight-box">
+                <h4>RAG 适用场景</h4>
+                <ul style="margin-top: 12px; margin-left: 20px;">
+                    <li>需要回答基于私有文档的问题（合同、制度、文档）</li>
+                    <li>需要引用实时数据（股价、库存、天气）</li>
+                    <li>需要引用特定领域知识（医学、法律、技术）</li>
+                </ul>
+            </div>
+            <div class="highlight-box warning">
+                <h4>⭐ 关键路径：上下文管理是AI应用的核心竞争力</h4>
+                <p><strong>ChatBot时期</strong>：拼Prompt质量<br>
+                <strong>Agent时期</strong>：拼上下文管理能力——谁能更好地组织、检索、注入上下文，谁的产品就更强</p>
+            </div>
+            <div class="highlight-box success">
+                <h4>🎯 PM的架构认知</h4>
+                <ul style="margin-top: 12px; margin-left: 20px;">
+                    <li><strong>LLM是引擎</strong>——决定推理能力上限</li>
+                    <li><strong>上下文是燃料</strong>——决定输出质量</li>
+                    <li><strong>Agent是架构</strong>——决定能完成什么任务</li>
+                    <li><strong>RAG是外挂</strong>——解决知识不足的问题</li>
+                </ul>
+                <p style="margin-top: 16px;">理解这四者的关系，PM就能真正理解AI应用是怎么设计的。</p>
+            </div>
+        </div>
+        <div class="nav-buttons">
+            <a href="1-7.html" class="nav-btn secondary">← 上一页</a>
+            <a href="1-9.html" class="nav-btn primary">下一页 →</a>
+        </div>
+    </main>
+    <footer class="footer">AI Builder for Product Manager · 认知层 · 课程1.2 · 第8章</footer>
+</body>
+</html>
