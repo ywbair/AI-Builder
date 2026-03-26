@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>第31章：复盘与沉淀 | AI Builder PM课程</title>
+    <style>
+        :root { --primary: #8b5cf6; --primary-dark: #7c3aed; --secondary: #10b981; --bg: #f8fafc; --card-bg: #ffffff; --text: #1e293b; --text-light: #64748b; --border: #e2e8f0; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: var(--bg); color: var(--text); line-height: 1.7; }
+        .header { background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%); color: white; padding: 40px 20px; }
+        .header-inner { max-width: 1000px; margin: 0 auto; }
+        .breadcrumb { font-size: 0.9rem; opacity: 0.8; margin-bottom: 12px; }
+        .breadcrumb a { color: white; text-decoration: none; }
+        .breadcrumb a:hover { text-decoration: underline; }
+        .chapter-badge { display: inline-block; background: rgba(255,255,255,0.2); padding: 4px 12px; border-radius: 4px; font-size: 0.85rem; margin-bottom: 8px; }
+        .header h1 { font-size: 2.2rem; font-weight: 700; margin-bottom: 8px; }
+        .header .subtitle { opacity: 0.9; font-size: 1.1rem; }
+        .progress-bar { background: rgba(255,255,255,0.2); height: 4px; margin-top: 20px; border-radius: 2px; }
+        .progress-fill { background: white; height: 100%; border-radius: 2px; width: 100%; }
+        .container { max-width: 1000px; margin: 0 auto; padding: 40px 20px; }
+        .page { background: var(--card-bg); border-radius: 16px; padding: 40px; margin-bottom: 32px; border: 1px solid var(--border); }
+        .page-num { color: var(--primary); font-size: 0.85rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+        .page h2 { font-size: 1.6rem; margin-bottom: 24px; color: var(--text); }
+        .page h3 { font-size: 1.2rem; margin: 24px 0 12px; color: var(--text); }
+        .page p { margin-bottom: 16px; color: var(--text); }
+        .dimension-card { background: linear-gradient(135deg, rgba(139,92,246,0.1) 0%, rgba(124,58,237,0.1) 100%); border-left: 4px solid var(--primary); padding: 20px; border-radius: 0 8px 8px 0; margin-bottom: 16px; }
+        .dimension-card h4 { color: var(--primary); margin-bottom: 8px; }
+        .dimension-card p { margin: 0; }
+        .output-card { background: #f0fdf4; border-left: 4px solid var(--secondary); padding: 20px; border-radius: 0 8px 8px 0; margin-bottom: 16px; }
+        .output-card h4 { color: var(--secondary); margin-bottom: 8px; }
+        .output-card ul { margin-left: 20px; }
+        .output-card li { margin-bottom: 6px; }
+        .final-box { background: linear-gradient(135deg, rgba(139,92,246,0.15) 0%, rgba(124,58,237,0.15) 100%); border: 2px solid var(--primary); padding: 32px; border-radius: 16px; margin: 32px 0; text-align: center; }
+        .final-box h3 { color: var(--primary); margin-bottom: 16px; font-size: 1.5rem; }
+        .final-box p { color: var(--text); margin-bottom: 12px; }
+        .footer { text-align: center; padding: 32px 20px; color: var(--text-light); font-size: 0.9rem; border-top: 1px solid var(--border); }
+        .nav-buttons { display: flex; justify-content: space-between; margin-top: 40px; gap: 16px; }
+        .nav-btn { padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: 500; display: inline-flex; align-items: center; gap: 8px; transition: all 0.2s; }
+        .nav-btn.primary { background: var(--primary); color: white; }
+        .nav-btn.primary:hover { background: var(--primary-dark); }
+        .nav-btn.secondary { background: var(--bg); color: var(--text); border: 1px solid var(--border); }
+        .nav-btn.secondary:hover { background: var(--border); }
+        @media (max-width: 768px) { .page { padding: 24px; } .header h1 { font-size: 1.6rem; } }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-inner">
+            <div class="breadcrumb"><a href="../index.html">首页</a> / 实践层 / 课程4.1 / 第31章</div>
+            <div class="chapter-badge">课程 4.1：端到端实战项目</div>
+            <h1>第31章：复盘与沉淀</h1>
+            <p class="subtitle">课程最后一章：复盘的四个维度和必须输出的文档</p>
+            <div class="progress-bar"><div class="progress-fill"></div></div>
+        </div>
+    </header>
+    <main class="container">
+        <div class="page">
+            <div class="page-num">Page 1 / 2</div>
+            <h2>复盘四维度</h2>
+            <div class="dimension-card">
+                <h4>维度一：做得好的</h4>
+                <p>哪些流程设计有效？哪些决策正确？哪些地方AI表现得特别好？</p>
+                <p style="margin-top: 8px;"><strong>自问：</strong>下次做类似项目，我会保留什么？</p>
+            </div>
+            <div class="dimension-card">
+                <h4>维度二：做得不好的</h4>
+                <p>哪些环节出问题？原因是什么？是任务拆解不完整？流程设计有漏洞？审核没到位？</p>
+                <p style="margin-top: 8px;"><strong>自问：</strong>下次遇到类似问题，我会怎么做？</p>
+            </div>
+            <div class="dimension-card">
+                <h4>维度三：如何改进</h4>
+                <p>基于前两个维度的分析，下次怎么做能更好？</p>
+                <p style="margin-top: 8px;"><strong>自问：</strong>要改进，第一步是什么？</p>
+            </div>
+            <div class="dimension-card">
+                <h4>维度四：经验沉淀</h4>
+                <p>可以固化成什么模板或检查清单？哪些经验可以复用？</p>
+                <p style="margin-top: 8px;"><strong>自问：</strong>三个月后，我还能记得这次学到的最重要的一件事是什么吗？</p>
+            </div>
+        </div>
+        <div class="page">
+            <div class="page-num">Page 2 / 2</div>
+            <h2>必须输出的文档</h2>
+            <div class="output-card">
+                <h4>文档一：项目复盘文档</h4>
+                <p>记录经验教训，包含四个维度的分析。</p>
+                <ul>
+                    <li>项目背景和目标</li>
+                    <li>执行过程回顾</li>
+                    <li>做得好的&做得不好的</li>
+                    <li>改进计划和经验复用</li>
+                </ul>
+            </div>
+            <div class="output-card">
+                <h4>文档二：可复用的工作流模板</h4>
+                <p>把这次验证有效的工作流固化成模板，下次可以直接用。</p>
+                <ul>
+                    <li>工作流SOP</li>
+                    <li>提示词模板</li>
+                    <li>审核检查清单</li>
+                </ul>
+            </div>
+            <div class="output-card">
+                <h4>文档三：踩坑记录与解决方案</h4>
+                <p>记录犯过的错和怎么解决的，避免重复踩坑。</p>
+                <ul>
+                    <li>问题描述</li>
+                    <li>根本原因</li>
+                    <li>解决方案</li>
+                    <li>预防措施</li>
+                </ul>
+            </div>
+            <div class="output-card">
+                <h4>文档四：工具使用心得</h4>
+                <p>记录各工具的擅长场景、不擅长场景、最佳实践。</p>
+                <ul>
+                    <li>工具选型建议</li>
+                    <li>提示词技巧</li>
+                    <li>常见错误</li>
+                </ul>
+            </div>
+            <div class="final-box">
+                <h3>🎉 恭喜完成 AI Builder PM课程！</h3>
+                <p>你已经学习了：</p>
+                <p><strong>认知层</strong> — 软件工程基础、AI技术演进、AI时代的机遇与挑战</p>
+                <p><strong>思维层</strong> — 工程思维、传统vs AI思维、人机协作姿势</p>
+                <p><strong>方法层</strong> — 任务拆解、流程设计、质量把控、工具链</p>
+                <p><strong>实践层</strong> — 项目选题、执行流程、复盘沉淀</p>
+                <p style="margin-top: 16px; font-size: 1.1rem;"><strong>下一步：选择一个真实项目，开始你的AI Builder实践之旅！</strong></p>
+            </div>
+        </div>
+        <div class="nav-buttons">
+            <a href="4-30.html" class="nav-btn secondary">← 上一页</a>
+            <a href="../index.html" class="nav-btn primary">返回课程首页</a>
+        </div>
+    </main>
+    <footer class="footer">AI Builder for Product Manager · 实践层 · 课程4.1 · 第31章 · 课程完结 🎉</footer>
+</body>
+</html>

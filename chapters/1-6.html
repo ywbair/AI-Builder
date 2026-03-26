@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>第6章：深度学习时代 | AI Builder PM课程</title>
+    <style>
+        :root { --primary: #6366f1; --primary-dark: #4f46e5; --secondary: #10b981; --bg: #f8fafc; --card-bg: #ffffff; --text: #1e293b; --text-light: #64748b; --border: #e2e8f0; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: var(--bg); color: var(--text); line-height: 1.7; }
+        .header { background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%); color: white; padding: 40px 20px; }
+        .header-inner { max-width: 1000px; margin: 0 auto; }
+        .breadcrumb { font-size: 0.9rem; opacity: 0.8; margin-bottom: 12px; }
+        .breadcrumb a { color: white; text-decoration: none; }
+        .breadcrumb a:hover { text-decoration: underline; }
+        .chapter-badge { display: inline-block; background: rgba(255,255,255,0.2); padding: 4px 12px; border-radius: 4px; font-size: 0.85rem; margin-bottom: 8px; }
+        .header h1 { font-size: 2.2rem; font-weight: 700; margin-bottom: 8px; }
+        .header .subtitle { opacity: 0.9; font-size: 1.1rem; }
+        .progress-bar { background: rgba(255,255,255,0.2); height: 4px; margin-top: 20px; border-radius: 2px; }
+        .progress-fill { background: white; height: 100%; border-radius: 2px; width: 60%; }
+        .container { max-width: 1000px; margin: 0 auto; padding: 40px 20px; }
+        .page { background: var(--card-bg); border-radius: 16px; padding: 40px; margin-bottom: 32px; border: 1px solid var(--border); }
+        .page-num { color: var(--primary); font-size: 0.85rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+        .page h2 { font-size: 1.6rem; margin-bottom: 24px; color: var(--text); }
+        .page h3 { font-size: 1.2rem; margin: 24px 0 12px; color: var(--text); }
+        .page p { margin-bottom: 16px; color: var(--text); }
+        .highlight-box { background: linear-gradient(135deg, rgba(99,102,241,0.1) 0%, rgba(139,92,246,0.1) 100%); border-left: 4px solid var(--primary); padding: 20px 24px; border-radius: 0 8px 8px 0; margin: 24px 0; }
+        .highlight-box h4 { color: var(--primary); margin-bottom: 8px; }
+        .timeline { position: relative; padding-left: 32px; }
+        .timeline::before { content: ''; position: absolute; left: 7px; top: 0; bottom: 0; width: 2px; background: var(--border); }
+        .timeline-item { position: relative; margin-bottom: 24px; }
+        .timeline-item::before { content: ''; position: absolute; left: -28px; top: 6px; width: 12px; height: 12px; border-radius: 50%; background: var(--primary); border: 3px solid var(--bg); }
+        .timeline-title { font-weight: 600; margin-bottom: 4px; }
+        .timeline-desc { color: var(--text-light); font-size: 0.9rem; }
+        .ability-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin: 24px 0; }
+        .ability-card { background: var(--bg); padding: 20px; border-radius: 12px; text-align: center; }
+        .ability-card .icon { font-size: 2rem; margin-bottom: 12px; }
+        .footer { text-align: center; padding: 32px 20px; color: var(--text-light); font-size: 0.9rem; border-top: 1px solid var(--border); }
+        .nav-buttons { display: flex; justify-content: space-between; margin-top: 40px; gap: 16px; }
+        .nav-btn { padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: 500; display: inline-flex; align-items: center; gap: 8px; transition: all 0.2s; }
+        .nav-btn.primary { background: var(--primary); color: white; }
+        .nav-btn.primary:hover { background: var(--primary-dark); }
+        .nav-btn.secondary { background: var(--bg); color: var(--text); border: 1px solid var(--border); }
+        .nav-btn.secondary:hover { background: var(--border); }
+        @media (max-width: 768px) { .page { padding: 24px; } .header h1 { font-size: 1.6rem; } }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-inner">
+            <div class="breadcrumb"><a href="../index.html">首页</a> / 认知层 / 课程1.2 / 第6章</div>
+            <div class="chapter-badge">课程 1.2：AI技术演进</div>
+            <h1>第6章：深度学习时代</h1>
+            <p class="subtitle">AI发展的第三个阶段：神经网络与感知突破</p>
+            <div class="progress-bar"><div class="progress-fill"></div></div>
+        </div>
+    </header>
+    <main class="container">
+        <div class="page">
+            <div class="page-num">Page 1 / 2</div>
+            <h2>核心突破：自动学习特征表示</h2>
+            <p>深度学习的核心突破是：神经网络可以自动从数据中学习特征表示，不需要人工设计特征。</p>
+            <div class="highlight-box">
+                <h4>🔄 对比</h4>
+                <p><strong>传统机器学习：</strong>人工设计特征 → 机器学习特征权重</p>
+                <p><strong>深度学习：</strong>机器自动学习特征表示</p>
+            </div>
+            <h3>关键里程碑</h3>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-title">2012年 AlexNet</div>
+                    <div class="timeline-desc">ImageNet挑战赛突破，深度学习复兴</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-title">2014年 GAN</div>
+                    <div class="timeline-desc">生成对抗网络，可以生成逼真图像</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-title">2016年 AlphaGo</div>
+                    <div class="timeline-desc">击败围棋世界冠军，复杂策略游戏突破</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-title">2018年 BERT</div>
+                    <div class="timeline-desc">自然语言处理重大突破</div>
+                </div>
+            </div>
+        </div>
+        <div class="page">
+            <div class="page-num">Page 2 / 2</div>
+            <h2>核心能力与应用</h2>
+            <div class="ability-grid">
+                <div class="ability-card">
+                    <div class="icon">👁️</div>
+                    <h4>计算机视觉</h4>
+                    <p>人脸识别、内容审核、自动驾驶感知</p>
+                </div>
+                <div class="ability-card">
+                    <div class="icon">🎤</div>
+                    <h4>语音识别</h4>
+                    <p>语音助手、实时翻译、语音合成</p>
+                </div>
+                <div class="ability-card">
+                    <div class="icon">📝</div>
+                    <h4>自然语言处理</h4>
+                    <p>机器翻译、情感分析、文本生成</p>
+                </div>
+                <div class="ability-card">
+                    <div class="icon">🎮</div>
+                    <h4>游戏AI</h4>
+                    <p>AlphaGo、Atari游戏、星际争霸</p>
+                </div>
+            </div>
+            <div class="highlight-box">
+                <h4>⚠️ 局限性</h4>
+                <ul style="margin-top: 12px; margin-left: 20px;">
+                    <li>仍是<strong>"感知"层面的突破</strong>：能看、能听、能读，但不理解含义</li>
+                    <li>需要<strong>大量数据和算力</strong></li>
+                    <li><strong>可解释性差</strong>：神经网络是黑盒</li>
+                    <li>缺乏<strong>真正的推理和常识</strong></li>
+                </ul>
+            </div>
+            <div class="highlight-box">
+                <h4>💡 PM的思考</h4>
+                <p>深度学习让AI开始能"看懂"图像、"听懂"语音。这带来了产品形态的变化——多模态交互成为可能。但PM需要认识到，这还不是真正的"理解"。</p>
+            </div>
+        </div>
+        <div class="nav-buttons">
+            <a href="1-5.html" class="nav-btn secondary">← 上一页</a>
+            <a href="1-7.html" class="nav-btn primary">下一页：大模型时代 →</a>
+        </div>
+    </main>
+    <footer class="footer">AI Builder for Product Manager · 认知层 · 课程1.2</footer>
+</body>
+</html>

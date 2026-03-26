@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>第16章：各自的擅长领域 | AI Builder PM课程</title>
+    <style>
+        :root { --primary: #10b981; --primary-dark: #059669; --secondary: #6366f1; --bg: #f8fafc; --card-bg: #ffffff; --text: #1e293b; --text-light: #64748b; --border: #e2e8f0; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: var(--bg); color: var(--text); line-height: 1.7; }
+        .header { background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%); color: white; padding: 40px 20px; }
+        .header-inner { max-width: 1000px; margin: 0 auto; }
+        .breadcrumb { font-size: 0.9rem; opacity: 0.8; margin-bottom: 12px; }
+        .breadcrumb a { color: white; text-decoration: none; }
+        .breadcrumb a:hover { text-decoration: underline; }
+        .chapter-badge { display: inline-block; background: rgba(255,255,255,0.2); padding: 4px 12px; border-radius: 4px; font-size: 0.85rem; margin-bottom: 8px; }
+        .header h1 { font-size: 2.2rem; font-weight: 700; margin-bottom: 8px; }
+        .header .subtitle { opacity: 0.9; font-size: 1.1rem; }
+        .progress-bar { background: rgba(255,255,255,0.2); height: 4px; margin-top: 20px; border-radius: 2px; }
+        .progress-fill { background: white; height: 100%; border-radius: 2px; width: 30%; }
+        .container { max-width: 1000px; margin: 0 auto; padding: 40px 20px; }
+        .page { background: var(--card-bg); border-radius: 16px; padding: 40px; margin-bottom: 32px; border: 1px solid var(--border); }
+        .page-num { color: var(--primary); font-size: 0.85rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+        .page h2 { font-size: 1.6rem; margin-bottom: 24px; color: var(--text); }
+        .page h3 { font-size: 1.2rem; margin: 24px 0 12px; color: var(--text); }
+        .page p { margin-bottom: 16px; color: var(--text); }
+        .highlight-box { background: linear-gradient(135deg, rgba(99,102,241,0.1) 0%, rgba(139,92,246,0.1) 100%); border-left: 4px solid var(--secondary); padding: 20px 24px; border-radius: 0 8px 8px 0; margin: 24px 0; }
+        .highlight-box h4 { color: var(--secondary); margin-bottom: 8px; }
+        .highlight-box.success { background: linear-gradient(135deg, rgba(16,185,129,0.1) 0%, rgba(5,150,105,0.1) 100%); border-left-color: var(--primary); }
+        .highlight-box.success h4 { color: var(--primary); }
+        .compare-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin: 24px 0; }
+        .compare-card { background: var(--bg); border-radius: 12px; padding: 24px; }
+        .compare-card h3 { margin-top: 0; text-align: center; }
+        .compare-card.pm h3 { color: var(--secondary); }
+        .compare-card.ai h3 { color: var(--primary); }
+        .skill-list { list-style: none; }
+        .skill-list li { padding: 10px 0; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 10px; }
+        .skill-list li:last-child { border-bottom: none; }
+        .skill-icon { font-size: 1.2rem; }
+        .footer { text-align: center; padding: 32px 20px; color: var(--text-light); font-size: 0.9rem; border-top: 1px solid var(--border); }
+        .nav-buttons { display: flex; justify-content: space-between; margin-top: 40px; gap: 16px; }
+        .nav-btn { padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: 500; display: inline-flex; align-items: center; gap: 8px; transition: all 0.2s; }
+        .nav-btn.primary { background: var(--primary); color: white; }
+        .nav-btn.primary:hover { background: var(--primary-dark); }
+        .nav-btn.secondary { background: var(--bg); color: var(--text); border: 1px solid var(--border); }
+        .nav-btn.secondary:hover { background: var(--border); }
+        @media (max-width: 768px) { .page { padding: 24px; } .header h1 { font-size: 1.6rem; } .compare-grid { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-inner">
+            <div class="breadcrumb"><a href="../index.html">首页</a> / 思维层 / 课程2.3 / 第16章</div>
+            <div class="chapter-badge">课程 2.3：人机协作的正确姿势</div>
+            <h1>第16章：各自的擅长领域</h1>
+            <p class="subtitle">理解PM和AI各自的优势，是人机协作的基础</p>
+            <div class="progress-bar"><div class="progress-fill"></div></div>
+        </div>
+    </header>
+    <main class="container">
+        <div class="page">
+            <div class="page-num">Page 1 / 2</div>
+            <h2>PM vs AI 各有所长</h2>
+            <div class="compare-grid">
+                <div class="compare-card pm">
+                    <h3>🧑‍💼 PM擅长</h3>
+                    <ul class="skill-list">
+                        <li><span class="skill-icon">🎯</span> 定义"做什么"</li>
+                        <li><span class="skill-icon">💡</span> 用户洞察与同理心</li>
+                        <li><span class="skill-icon">✅</span> 判断"对不对"</li>
+                        <li><span class="skill-icon">⚖️</span> 决策"用哪个方案"</li>
+                        <li><span class="skill-icon">🤝</span> 跨职能协调</li>
+                        <li><span class="skill-icon">📈</span> 长期规划与方向判断</li>
+                        <li><span class="skill-icon">⚠️</span> 处理边界情况</li>
+                    </ul>
+                </div>
+                <div class="compare-card ai">
+                    <h3>🤖 AI擅长</h3>
+                    <ul class="skill-list">
+                        <li><span class="skill-icon">⚡</span> 执行"怎么做"</li>
+                        <li><span class="skill-icon">📚</span> 信息检索与整理</li>
+                        <li><span class="skill-icon">💡</span> 生成"多种可能"</li>
+                        <li><span class="skill-icon">🔄</span> 快速"试错迭代"</li>
+                        <li><span class="skill-icon">📝</span> 格式转换、规范化</li>
+                        <li><span class="skill-icon">📊</span> 数据处理、报表生成</li>
+                        <li><span class="skill-icon">🔧</span> 结构化任务执行</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="highlight-box">
+                <h4>🔑 核心原则</h4>
+                <p><strong>人做判断，AI执行。人负责结果，AI负责过程。</strong></p>
+            </div>
+        </div>
+        <div class="page">
+            <div class="page-num">Page 2 / 2</div>
+            <h2>PM必须自己做的事情</h2>
+            <p>这些事情不能交给AI，必须PM亲自做：</p>
+            <div class="highlight-box success">
+                <h4>✅ PM的不可替代性</h4>
+                <ul style="margin-top: 12px; margin-left: 20px;">
+                    <li><strong>产品方向和战略决策</strong>：做什么产品、服务什么用户、解决什么问题</li>
+                    <li><strong>用户需求深度挖掘</strong>：同理心、用户访谈、洞察用户真正的问题</li>
+                    <li><strong>跨部门利益协调</strong>：技术、设计、业务多方利益的平衡</li>
+                    <li><strong>风险判断和决策</strong>：在不确定性中做决策</li>
+                    <li><strong>最终质量把关</strong>：对人负责，确保交付物符合标准</li>
+                </ul>
+            </div>
+            <h3>PM可以用AI辅助的事情</h3>
+            <p>这些事情可以让AI做初稿，PM审核判断：</p>
+            <ul style="margin-left: 24px;">
+                <li>PRD初稿撰写</li>
+                <li>竞品信息收集整理</li>
+                <li>会议纪要整理</li>
+                <li>数据分析</li>
+                <li>方案草稿生成</li>
+                <li>文档格式规范化</li>
+            </ul>
+        </div>
+        <div class="nav-buttons">
+            <a href="2-15.html" class="nav-btn secondary">← 上一页</a>
+            <a href="2-17.html" class="nav-btn primary">下一页：最佳实践流程 →</a>
+        </div>
+    </main>
+    <footer class="footer">AI Builder for Product Manager · 思维层 · 课程2.3</footer>
+</body>
+</html>

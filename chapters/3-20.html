@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>第20章：常见错误与修正 | AI Builder PM课程</title>
+    <style>
+        :root { --primary: #6366f1; --primary-dark: #4f46e5; --secondary: #10b981; --danger: #ef4444; --warning: #f59e0b; --bg: #f8fafc; --card-bg: #ffffff; --text: #1e293b; --text-light: #64748b; --border: #e2e8f0; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: var(--bg); color: var(--text); line-height: 1.7; }
+        .header { background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%); color: white; padding: 40px 20px; }
+        .header-inner { max-width: 1000px; margin: 0 auto; }
+        .breadcrumb { font-size: 0.9rem; opacity: 0.8; margin-bottom: 12px; }
+        .breadcrumb a { color: white; text-decoration: none; }
+        .breadcrumb a:hover { text-decoration: underline; }
+        .chapter-badge { display: inline-block; background: rgba(255,255,255,0.2); padding: 4px 12px; border-radius: 4px; font-size: 0.85rem; margin-bottom: 8px; }
+        .header h1 { font-size: 2.2rem; font-weight: 700; margin-bottom: 8px; }
+        .header .subtitle { opacity: 0.9; font-size: 1.1rem; }
+        .progress-bar { background: rgba(255,255,255,0.2); height: 4px; margin-top: 20px; border-radius: 2px; }
+        .progress-fill { background: white; height: 100%; border-radius: 2px; width: 61%; }
+        .container { max-width: 1000px; margin: 0 auto; padding: 40px 20px; }
+        .page { background: var(--card-bg); border-radius: 16px; padding: 40px; margin-bottom: 32px; border: 1px solid var(--border); }
+        .page-num { color: var(--primary); font-size: 0.85rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+        .page h2 { font-size: 1.6rem; margin-bottom: 24px; color: var(--text); }
+        .page h3 { font-size: 1.2rem; margin: 24px 0 12px; color: var(--text); }
+        .page p { margin-bottom: 16px; color: var(--text); }
+        .error-card { background: #fef2f2; border-left: 4px solid var(--danger); padding: 20px; border-radius: 0 8px 8px 0; margin-bottom: 16px; }
+        .error-card h4 { color: var(--danger); margin-bottom: 8px; }
+        .fix-card { background: #f0fdf4; border-left: 4px solid var(--secondary); padding: 20px; border-radius: 0 8px 8px 0; margin-bottom: 16px; }
+        .fix-card h4 { color: var(--secondary); margin-bottom: 8px; }
+        .warning-box { background: #fef3c7; border-left: 4px solid var(--warning); padding: 20px; border-radius: 0 8px 8px 0; margin: 20px 0; }
+        .warning-box h4 { color: #b45309; margin-bottom: 8px; }
+        .summary-box { background: linear-gradient(135deg, rgba(99,102,241,0.1) 0%, rgba(139,92,246,0.1) 100%); border-left: 4px solid var(--primary); padding: 24px; border-radius: 0 8px 8px 0; margin: 24px 0; }
+        .summary-box h4 { color: var(--primary); margin-bottom: 12px; }
+        .footer { text-align: center; padding: 32px 20px; color: var(--text-light); font-size: 0.9rem; border-top: 1px solid var(--border); }
+        .nav-buttons { display: flex; justify-content: space-between; margin-top: 40px; gap: 16px; }
+        .nav-btn { padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: 500; display: inline-flex; align-items: center; gap: 8px; transition: all 0.2s; }
+        .nav-btn.primary { background: var(--primary); color: white; }
+        .nav-btn.primary:hover { background: var(--primary-dark); }
+        .nav-btn.secondary { background: var(--bg); color: var(--text); border: 1px solid var(--border); }
+        .nav-btn.secondary:hover { background: var(--border); }
+        @media (max-width: 768px) { .page { padding: 24px; } .header h1 { font-size: 1.6rem; } }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-inner">
+            <div class="breadcrumb"><a href="../index.html">首页</a> / 方法层 / 课程3.1 / 第20章</div>
+            <div class="chapter-badge">课程 3.1：任务拆解</div>
+            <h1>第20章：常见错误与修正</h1>
+            <p class="subtitle">拆解中的五大错误以及如何避免</p>
+            <div class="progress-bar"><div class="progress-fill"></div></div>
+        </div>
+    </header>
+    <main class="container">
+        <div class="page">
+            <div class="page-num">Page 1 / 2</div>
+            <h2>拆解中的五大错误</h2>
+            <div class="error-card">
+                <h4>❌ 错误一：拆解粒度太粗</h4>
+                <p>任务太大，AI无法有效执行。比如"做一个App"，AI不知道从哪下手。</p>
+            </div>
+            <div class="fix-card">
+                <h4>✅ 修正：继续细化到AI可执行的程度</h4>
+                <p>把"做一个App"拆解到"完成登录模块的原型设计"这个粒度。</p>
+            </div>
+            <div class="error-card">
+                <h4>❌ 错误二：拆解粒度太细</h4>
+                <p>环节太多，流程冗长，反而增加了出错概率和沟通成本。</p>
+            </div>
+            <div class="fix-card">
+                <h4>✅ 修正：合并到更高层次的模块</h4>
+                <p>如果一个步骤AI能连贯完成，就不要强行拆开。</p>
+            </div>
+            <div class="error-card">
+                <h4>❌ 错误三：缺少验收标准</h4>
+                <p>不知道什么时候算完成，AI交付后无法判断质量。</p>
+            </div>
+            <div class="fix-card">
+                <h4>✅ 修正：每个任务明确"完成的定义"</h4>
+                <p>比如"输出10条用户访谈问题，覆盖产品功能、使用场景、付费意愿三个维度"。</p>
+            </div>
+        </div>
+        <div class="page">
+            <div class="page-num">Page 2 / 2</div>
+            <h2>更多常见错误</h2>
+            <div class="error-card">
+                <h4>❌ 错误四：忽略依赖关系</h4>
+                <p>任务顺序混乱，后面的人才发现前面少做了东西。</p>
+            </div>
+            <div class="fix-card">
+                <h4>✅ 修正：明确前置条件和输出物</h4>
+                <p>每个任务写清楚：依赖哪个任务、输出什么、交付给谁。</p>
+            </div>
+            <div class="error-card">
+                <h4>❌ 错误五：拆解角度混乱</h4>
+                <p>有时候按流程拆、有时候按模块拆，逻辑不统一。</p>
+            </div>
+            <div class="fix-card">
+                <h4>✅ 修正：保持同一纬度拆解</h4>
+                <p>要么按流程阶段，要么按职责模块，不要混用。</p>
+            </div>
+            <div class="warning-box">
+                <h4>⚠️ 自检清单</h4>
+                <p>完成拆解后，问自己这五个问题：</p>
+                <ul style="margin-top: 12px; margin-left: 20px;">
+                    <li>每个子任务AI能独立完成吗？</li>
+                    <li>子任务数量是否在合理范围（3-7个）？</li>
+                    <li>每个子任务有明确的验收标准吗？</li>
+                    <li>任务之间的依赖关系清晰吗？</li>
+                    <li>拆解的逻辑是一致的吗？</li>
+                </ul>
+            </div>
+            <div class="summary-box">
+                <h4>📚 课程3.1总结</h4>
+                <p>完成"任务拆解"课程后，你应该：</p>
+                <ul style="margin-top: 12px; margin-left: 20px;">
+                    <li>理解为什么拆解是AI时代最重要的能力</li>
+                    <li>掌握STAR法则，能够拆解任意复杂任务</li>
+                    <li>理解三级拆解层级（流程→模块→操作）</li>
+                    <li>避免五大常见拆解错误</li>
+                </ul>
+                <p style="margin-top: 16px;">下一章我们将学习<strong>课程3.2：流程设计</strong>，看看如何把人机协作的边界设计清楚。</p>
+            </div>
+        </div>
+        <div class="nav-buttons">
+            <a href="3-19.html" class="nav-btn secondary">← 上一页</a>
+            <a href="3-21.html" class="nav-btn primary">下一页 →</a>
+        </div>
+    </main>
+    <footer class="footer">AI Builder for Product Manager · 方法层 · 课程3.1 · 第20章</footer>
+</body>
+</html>

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>第4章：规则系统时代 | AI Builder PM课程</title>
+    <style>
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --secondary: #10b981;
+            --bg: #f8fafc;
+            --card-bg: #ffffff;
+            --text: #1e293b;
+            --text-light: #64748b;
+            --border: #e2e8f0;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: var(--bg); color: var(--text); line-height: 1.7; }
+        .header { background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%); color: white; padding: 40px 20px; }
+        .header-inner { max-width: 1000px; margin: 0 auto; }
+        .breadcrumb { font-size: 0.9rem; opacity: 0.8; margin-bottom: 12px; }
+        .breadcrumb a { color: white; text-decoration: none; }
+        .breadcrumb a:hover { text-decoration: underline; }
+        .chapter-badge { display: inline-block; background: rgba(255,255,255,0.2); padding: 4px 12px; border-radius: 4px; font-size: 0.85rem; margin-bottom: 8px; }
+        .header h1 { font-size: 2.2rem; font-weight: 700; margin-bottom: 8px; }
+        .header .subtitle { opacity: 0.9; font-size: 1.1rem; }
+        .progress-bar { background: rgba(255,255,255,0.2); height: 4px; margin-top: 20px; border-radius: 2px; }
+        .progress-fill { background: white; height: 100%; border-radius: 2px; width: 40%; }
+        .container { max-width: 1000px; margin: 0 auto; padding: 40px 20px; }
+        .page { background: var(--card-bg); border-radius: 16px; padding: 40px; margin-bottom: 32px; border: 1px solid var(--border); }
+        .page-num { color: var(--primary); font-size: 0.85rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+        .page h2 { font-size: 1.6rem; margin-bottom: 24px; color: var(--text); }
+        .page h3 { font-size: 1.2rem; margin: 24px 0 12px; color: var(--text); }
+        .page p { margin-bottom: 16px; color: var(--text); }
+        .highlight-box { background: linear-gradient(135deg, rgba(99,102,241,0.1) 0%, rgba(139,92,246,0.1) 100%); border-left: 4px solid var(--primary); padding: 20px 24px; border-radius: 0 8px 8px 0; margin: 24px 0; }
+        .highlight-box h4 { color: var(--primary); margin-bottom: 8px; }
+        .concept-card { background: var(--bg); border-radius: 12px; padding: 24px; margin-bottom: 20px; }
+        .concept-card h3 { margin-top: 0; }
+        .code-block { background: #1e1e1e; color: #d4d4d4; padding: 20px; border-radius: 8px; font-family: monospace; margin: 16px 0; overflow-x: auto; }
+        .case-list { list-style: none; }
+        .case-list li { padding: 12px 0; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 12px; }
+        .case-list li:last-child { border-bottom: none; }
+        .case-icon { font-size: 1.5rem; }
+        .footer { text-align: center; padding: 32px 20px; color: var(--text-light); font-size: 0.9rem; border-top: 1px solid var(--border); }
+        .nav-buttons { display: flex; justify-content: space-between; margin-top: 40px; gap: 16px; }
+        .nav-btn { padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: 500; display: inline-flex; align-items: center; gap: 8px; transition: all 0.2s; }
+        .nav-btn.primary { background: var(--primary); color: white; }
+        .nav-btn.primary:hover { background: var(--primary-dark); }
+        .nav-btn.secondary { background: var(--bg); color: var(--text); border: 1px solid var(--border); }
+        .nav-btn.secondary:hover { background: var(--border); }
+        @media (max-width: 768px) { .page { padding: 24px; } .header h1 { font-size: 1.6rem; } }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-inner">
+            <div class="breadcrumb"><a href="../index.html">首页</a> / 认知层 / 课程1.2 / 第4章</div>
+            <div class="chapter-badge">课程 1.2：AI技术演进</div>
+            <h1>第4章：规则系统时代</h1>
+            <p class="subtitle">AI发展的第一个阶段：专家系统与if-else逻辑</p>
+            <div class="progress-bar"><div class="progress-fill"></div></div>
+        </div>
+    </header>
+    <main class="container">
+        <div class="page">
+            <div class="page-num">Page 1 / 2</div>
+            <h2>什么是规则系统</h2>
+            <p>规则系统是AI发展的第一个阶段。在这个阶段，人类专家把知识整理成明确的规则，让机器按照这些规则执行。</p>
+            <div class="highlight-box">
+                <h4>💡 核心原理</h4>
+                <p>人类编写规则 → 机器执行规则 → 得出结果</p>
+                <p style="margin-top: 12px;">就像一本操作手册：遇到情况A，就执行操作B。</p>
+            </div>
+            <div class="code-block">
+                if 条件1 then 动作1<br>
+                if 条件2 then 动作2<br>
+                if 条件3 then 动作3<br>
+                ...<br><br>
+                // 例如：<br>
+                if 邮件包含"免费" and 包含"点击" then 标记为"垃圾邮件"
+            </div>
+            <h3>典型案例</h3>
+            <ul class="case-list">
+                <li><span class="case-icon">🦠</span><div><strong>专家系统MYCIN</strong>：1970年代的医疗诊断系统，根据细菌特征推荐抗生素</div></li>
+                <li><span class="case-icon">🔒</span><div><strong>早期杀毒软件</strong>：基于特征码匹配识别病毒</div></li>
+                <li><span class="case-icon">🤖</span><div><strong>自动化脚本</strong>：客服自动回复、路由规则等</div></li>
+            </ul>
+        </div>
+        <div class="page">
+            <div class="page-num">Page 2 / 2</div>
+            <h2>规则系统的特点与局限</h2>
+            <div class="concept-card">
+                <h3>✅ 优点</h3>
+                <ul style="margin-left: 20px; margin-top: 12px;">
+                    <li><strong>透明可解释</strong>：规则是人写的，可以检查和理解</li>
+                    <li><strong>稳定可靠</strong>：在明确规则下，结果可预测</li>
+                    <li><strong>易于调试</strong>：出了问题可以逐条检查规则</li>
+                </ul>
+            </div>
+            <div class="concept-card">
+                <h3>❌ 局限</h3>
+                <ul style="margin-left: 20px; margin-top: 12px;">
+                    <li><strong>适用场景有限</strong>：只能处理能明确定义规则的问题</li>
+                    <li><strong>无法处理复杂问题</strong>：现实世界的规则太多太复杂</li>
+                    <li><strong>无法自我学习</strong>：规则需要人工编写和维护</li>
+                    <li><strong>知识获取瓶颈</strong>：专家经验难以完整表达</li>
+                </ul>
+            </div>
+            <div class="highlight-box">
+                <h4>🎯 PM视角</h4>
+                <p>规则系统就像PM制定的"需求规范文档"——明确定义触发条件和处理逻辑。但和规则系统一样，规范文档也很难覆盖所有边界情况。</p>
+                <p style="margin-top: 12px;">这促使人们开始思考：能不能让机器自己学习规则？</p>
+            </div>
+        </div>
+        <div class="nav-buttons">
+            <a href="1-3.html" class="nav-btn secondary">← 上一页</a>
+            <a href="1-5.html" class="nav-btn primary">下一页：机器学习时代 →</a>
+        </div>
+    </main>
+    <footer class="footer">AI Builder for Product Manager · 认知层 · 课程1.2</footer>
+</body>
+</html>

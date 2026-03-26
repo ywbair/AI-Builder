@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>第29章：项目选题 | AI Builder PM课程</title>
+    <style>
+        :root { --primary: #8b5cf6; --primary-dark: #7c3aed; --secondary: #10b981; --bg: #f8fafc; --card-bg: #ffffff; --text: #1e293b; --text-light: #64748b; --border: #e2e8f0; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: var(--bg); color: var(--text); line-height: 1.7; }
+        .header { background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%); color: white; padding: 40px 20px; }
+        .header-inner { max-width: 1000px; margin: 0 auto; }
+        .breadcrumb { font-size: 0.9rem; opacity: 0.8; margin-bottom: 12px; }
+        .breadcrumb a { color: white; text-decoration: none; }
+        .breadcrumb a:hover { text-decoration: underline; }
+        .chapter-badge { display: inline-block; background: rgba(255,255,255,0.2); padding: 4px 12px; border-radius: 4px; font-size: 0.85rem; margin-bottom: 8px; }
+        .header h1 { font-size: 2.2rem; font-weight: 700; margin-bottom: 8px; }
+        .header .subtitle { opacity: 0.9; font-size: 1.1rem; }
+        .progress-bar { background: rgba(255,255,255,0.2); height: 4px; margin-top: 20px; border-radius: 2px; }
+        .progress-fill { background: white; height: 100%; border-radius: 2px; width: 90%; }
+        .container { max-width: 1000px; margin: 0 auto; padding: 40px 20px; }
+        .page { background: var(--card-bg); border-radius: 16px; padding: 40px; margin-bottom: 32px; border: 1px solid var(--border); }
+        .page-num { color: var(--primary); font-size: 0.85rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+        .page h2 { font-size: 1.6rem; margin-bottom: 24px; color: var(--text); }
+        .page h3 { font-size: 1.2rem; margin: 24px 0 12px; color: var(--text); }
+        .page p { margin-bottom: 16px; color: var(--text); }
+        .principle-card { background: linear-gradient(135deg, rgba(139,92,246,0.1) 0%, rgba(124,58,237,0.1) 100%); border-left: 4px solid var(--primary); padding: 20px; border-radius: 0 8px 8px 0; margin-bottom: 16px; }
+        .principle-card h4 { color: var(--primary); margin-bottom: 8px; }
+        .principle-card ul { margin-left: 20px; }
+        .principle-card li { margin-bottom: 6px; }
+        .project-card { background: var(--bg); border-radius: 12px; padding: 20px; margin-bottom: 16px; border-left: 4px solid var(--secondary); }
+        .project-card h4 { color: var(--text); margin-bottom: 8px; }
+        .project-card ul { margin-left: 20px; }
+        .project-card li { margin-bottom: 6px; color: var(--text-light); }
+        .footer { text-align: center; padding: 32px 20px; color: var(--text-light); font-size: 0.9rem; border-top: 1px solid var(--border); }
+        .nav-buttons { display: flex; justify-content: space-between; margin-top: 40px; gap: 16px; }
+        .nav-btn { padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: 500; display: inline-flex; align-items: center; gap: 8px; transition: all 0.2s; }
+        .nav-btn.primary { background: var(--primary); color: white; }
+        .nav-btn.primary:hover { background: var(--primary-dark); }
+        .nav-btn.secondary { background: var(--bg); color: var(--text); border: 1px solid var(--border); }
+        .nav-btn.secondary:hover { background: var(--border); }
+        @media (max-width: 768px) { .page { padding: 24px; } .header h1 { font-size: 1.6rem; } }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-inner">
+            <div class="breadcrumb"><a href="../index.html">首页</a> / 实践层 / 课程4.1 / 第29章</div>
+            <div class="chapter-badge">课程 4.1：端到端实战项目</div>
+            <h1>第29章：项目选题</h1>
+            <p class="subtitle">实践层第一章：如何选择一个合适的实战项目</p>
+            <div class="progress-bar"><div class="progress-fill"></div></div>
+        </div>
+    </header>
+    <main class="container">
+        <div class="page">
+            <div class="page-num">Page 1 / 2</div>
+            <h2>选题五原则</h2>
+            <div class="principle-card">
+                <h4>原则一：真实场景</h4>
+                <p>选择你真实会用到、有实际需求的场景。不是虚构场景，是真的会用的。</p>
+                <p style="margin-top: 8px;"><strong>反例：</strong>"假设我要做一个外卖App"</p>
+                <p><strong>正例：</strong>"我要做一个团队周报汇总工具，解决我们团队每周汇总周报耗时2小时的问题"</p>
+            </div>
+            <div class="principle-card">
+                <h4>原则二：有明确交付物</h4>
+                <p>项目结束时要有能用的东西。不是报告，不是文档，是可以运行或使用的产出。</p>
+                <ul>
+                    <li>一个可用的工具/自动化脚本</li>
+                    <li>一份可以复用的模板/SOP</li>
+                    <li>一个可以上线的原型</li>
+                </ul>
+            </div>
+            <div class="principle-card">
+                <h4>原则三：覆盖核心知识点</h4>
+                <p>项目要能覆盖课程学到的核心技能点：任务拆解、流程设计、质量把控、工具链。</p>
+            </div>
+            <div class="principle-card">
+                <h4>原则四：难度适中</h4>
+                <p>4-8周可完成。每周投入4-6小时，总计20-40小时。</p>
+                <ul>
+                    <li>太简单：学不到东西</li>
+                    <li>太难：容易半途而废</li>
+                    <li>适中：有点挑战但能完成</li>
+                </ul>
+            </div>
+            <div class="principle-card">
+                <h4>原则五：有实际价值</h4>
+                <p>完成后真的会用。不是为了交作业，是为了解决真实问题。</p>
+            </div>
+        </div>
+        <div class="page">
+            <div class="page-num">Page 2 / 2</div>
+            <h2>推荐项目类型</h2>
+            <div class="project-card">
+                <h4>类型一：内部工具开发</h4>
+                <p style="margin-bottom: 8px;"><strong>举例：</strong></p>
+                <ul>
+                    <li>自动化数据报表工具</li>
+                    <li>会议纪要整理工具</li>
+                    <li>周报/月报自动生成工具</li>
+                    <li>竞品信息收集工具</li>
+                </ul>
+                <p style="margin-top: 8px;"><strong>覆盖知识点：</strong>任务拆解、流程设计、质量把控</p>
+            </div>
+            <div class="project-card">
+                <h4>类型二：知识库搭建</h4>
+                <p style="margin-bottom: 8px;"><strong>举例：</strong></p>
+                <ul>
+                    <li>产品知识库</li>
+                    <li>FAQ问答系统</li>
+                    <li>行业资料库</li>
+                </ul>
+                <p style="margin-top: 8px;"><strong>覆盖知识点：</strong>任务拆解、信息整理、输出验证</p>
+            </div>
+            <div class="project-card">
+                <h4>类型三：流程自动化</h4>
+                <p style="margin-bottom: 8px;"><strong>举例：</strong></p>
+                <ul>
+                    <li>审批流程优化</li>
+                    <li>报表自动生成和发送</li>
+                    <li>数据采集和整理自动化</li>
+                </ul>
+                <p style="margin-top: 8px;"><strong>覆盖知识点：</strong>流程设计、工具链、异常处理</p>
+            </div>
+            <div class="project-card">
+                <h4>类型四：小产品原型</h4>
+                <p style="margin-bottom: 8px;"><strong>举例：</strong></p>
+                <ul>
+                    <li>微信小程序概念验证</li>
+                    <li>H5活动页原型</li>
+                    <li>Chrome扩展工具</li>
+                </ul>
+                <p style="margin-top: 8px;"><strong>覆盖知识点：</strong>全流程，适合有一定基础的同学</p>
+            </div>
+        </div>
+        <div class="nav-buttons">
+            <a href="3-28.html" class="nav-btn secondary">← 上一页</a>
+            <a href="4-30.html" class="nav-btn primary">下一页 →</a>
+        </div>
+    </main>
+    <footer class="footer">AI Builder for Product Manager · 实践层 · 课程4.1 · 第29章</footer>
+</body>
+</html>
