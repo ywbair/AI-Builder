@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>第6章：深度学习时代 | AI Builder PM课程</title>
+    <style>
+        :root { --primary: #6366f1; --primary-dark: #4f46e5; --secondary: #10b981; --bg: #f8fafc; --card-bg: #ffffff; --text: #1e293b; --text-light: #64748b; --border: #e2e8f0; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: var(--bg); color: var(--text); line-height: 1.7; }
+        .header { background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%); color: white; padding: 40px 20px; }
+        .header-inner { max-width: 1000px; margin: 0 auto; }
+        .breadcrumb { font-size: 0.9rem; opacity: 0.8; margin-bottom: 12px; }
+        .breadcrumb a { color: white; text-decoration: none; }
+        .breadcrumb a:hover { text-decoration: underline; }
+        .chapter-badge { display: inline-block; background: rgba(255,255,255,0.2); padding: 4px 12px; border-radius: 4px; font-size: 0.85rem; margin-bottom: 8px; }
+        .header h1 { font-size: 2.2rem; font-weight: 700; margin-bottom: 8px; }
+        .header .subtitle { opacity: 0.9; font-size: 1.1rem; }
+        .progress-bar { background: rgba(255,255,255,0.2); height: 4px; margin-top: 20px; border-radius: 2px; }
+        .progress-fill { background: white; height: 100%; border-radius: 2px; width: 60%; }
+        .container { max-width: 1000px; margin: 0 auto; padding: 40px 20px; }
+        .page { background: var(--card-bg); border-radius: 16px; padding: 40px; margin-bottom: 32px; border: 1px solid var(--border); }
+        .page-num { color: var(--primary); font-size: 0.85rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+        .page h2 { font-size: 1.6rem; margin-bottom: 24px; color: var(--text); }
+        .page h3 { font-size: 1.2rem; margin: 24px 0 12px; color: var(--text); }
+        .page p { margin-bottom: 16px; color: var(--text); }
+        .highlight-box { background: linear-gradient(135deg, rgba(99,102,241,0.1) 0%, rgba(139,92,246,0.1) 100%); border-left: 4px solid var(--primary); padding: 20px 24px; border-radius: 0 8px 8px 0; margin: 24px 0; }
+        .highlight-box h4 { color: var(--primary); margin-bottom: 8px; }
+        .highlight-box.success { background: linear-gradient(135deg, rgba(16,185,129,0.1) 0%, rgba(5,150,105,0.1) 100%); border-left-color: var(--secondary); }
+        .highlight-box.success h4 { color: var(--secondary); }
+        .highlight-box.danger { background: #fef2f2; border-left-color: #ef4444; }
+        .highlight-box.danger h4 { color: #ef4444; }
+        .highlight-box.warning { background: #fef3c7; border-left-color: #f59e0b; }
+        .highlight-box.warning h4 { color: #b45309; }
+        .example-box { background: #f0fdf4; border: 2px solid var(--secondary); border-radius: 12px; padding: 24px; margin: 24px 0; }
+        .example-box h4 { color: var(--secondary); margin-bottom: 12px; }
+        .example-content { background: var(--card-bg); border-radius: 8px; padding: 16px; font-size: 0.9rem; }
+        .quote-box { background: linear-gradient(135deg, rgba(139,92,246,0.1) 0%, rgba(139,92,246,0.05) 100%); border-left: 4px solid #8b5cf6; padding: 20px; border-radius: 0 8px 8px 0; margin: 24px 0; }
+        .quote-box .quote { font-size: 1.1rem; color: var(--text); margin-bottom: 8px; }
+        .quote-box .source { font-size: 0.85rem; color: var(--text-light); }
+        .timeline { position: relative; padding-left: 32px; border-left: 3px solid var(--border); margin: 24px 0; }
+        .timeline-item { position: relative; margin-bottom: 24px; }
+        .timeline-item::before { content: ''; position: absolute; left: -38px; top: 4px; width: 16px; height: 16px; background: var(--primary); border-radius: 50%; border: 3px solid white; }
+        .timeline-item h4 { margin-bottom: 4px; }
+        .timeline-item p { font-size: 0.9rem; color: var(--text-light); margin: 0; }
+        .ability-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin: 24px 0; }
+        .ability-card { background: var(--bg); border-radius: 12px; padding: 24px; text-align: center; border-top: 4px solid var(--primary); }
+        .ability-card h4 { margin-bottom: 8px; }
+        .ability-card p { font-size: 0.9rem; color: var(--text-light); margin: 0; }
+        .ability-card .icon { font-size: 2.5rem; margin-bottom: 12px; }
+        .vs-table { width: 100%; border-collapse: collapse; margin: 24px 0; }
+        .vs-table th, .vs-table td { padding: 12px 16px; text-align: left; border-bottom: 1px solid var(--border); }
+        .vs-table th { background: var(--bg); font-weight: 600; }
+        .vs-table .good { color: var(--secondary); }
+        .vs-table .bad { color: #ef4444; }
+        .footer { text-align: center; padding: 32px 20px; color: var(--text-light); font-size: 0.9rem; border-top: 1px solid var(--border); }
+        .nav-buttons { display: flex; justify-content: space-between; margin-top: 40px; gap: 16px; }
+        .nav-btn { padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: 500; display: inline-flex; align-items: center; gap: 8px; transition: all 0.2s; }
+        .nav-btn.primary { background: var(--primary); color: white; }
+        .nav-btn.primary:hover { background: var(--primary-dark); }
+        .nav-btn.secondary { background: var(--bg); color: var(--text); border: 1px solid var(--border); }
+        .nav-btn.secondary:hover { background: var(--border); }
+        @media (max-width: 768px) { .page { padding: 24px; } .header h1 { font-size: 1.6rem; } .ability-grid { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-inner">
+            <div class="breadcrumb"><a href="../index.html">首页</a> / 认知层 / 课程1.2 / 第6章</div>
+            <div class="chapter-badge">课程 1.2：AI技术演进</div>
+            <h1>第6章：深度学习时代</h1>
+            <p class="subtitle">神经网络与感知突破</p>
+            <div class="progress-bar"><div class="progress-fill"></div></div>
+        </div>
+    </header>
+    <main class="container">
+        <div class="page">
+            <div class="page-num">Page 1 / 2</div>
+            <h2>核心突破：自动学习特征表示</h2>
+            <div class="highlight-box">
+                <h4>关键区别</h4>
+                <p><strong>传统机器学习：</strong>人工设计特征 → 机器学习特征权重</p>
+                <p><strong>深度学习：</strong>机器自动从数据中学习特征表示</p>
+            </div>
+            <div class="quote-box">
+                <div class="quote">"Attention is All You Need"</div>
+                <div class="source">— Vasquez et al., Google Brain, 2017</div>
+            </div>
+            <div class="example-box">
+                <h4>例子：识别一只猫</h4>
+                <div class="example-content">
+                    <strong>传统ML（人工设计特征）：</strong><br>
+                    人工告诉机器：猫有尖耳朵、有胡须、有毛...<br>
+                    问题：特征描述难以穷尽，"动漫猫"可能识别失败<br><br>
+                    <strong>深度学习（自动学习）：</strong><br>
+                    给机器100万张猫的图片<br>
+                    机器自动学习：边缘→纹理→形状→高层特征→"猫"
+                </div>
+            </div>
+            <h3>关键里程碑</h3>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <h4>2012年 AlexNet</h4>
+                    <p>ImageNet挑战赛突破，深度学习复兴</p>
+                </div>
+                <div class="timeline-item">
+                    <h4>2014年 GAN</h4>
+                    <p>生成对抗网络，可以生成逼真图像</p>
+                </div>
+                <div class="timeline-item">
+                    <h4>2016年 AlphaGo</h4>
+                    <p>击败围棋世界冠军，复杂策略游戏突破</p>
+                </div>
+                <div class="timeline-item">
+                    <h4>2018年 BERT</h4>
+                    <p>自然语言处理重大突破</p>
+                </div>
+            </div>
+        </div>
+        <div class="page">
+            <div class="page-num">Page 2 / 2</div>
+            <h2>核心能力与局限性</h2>
+            <h3>四大核心能力</h3>
+            <div class="ability-grid">
+                <div class="ability-card">
+                    <div class="icon">👁️</div>
+                    <h4>计算机视觉</h4>
+                    <p>人脸识别、内容审核、自动驾驶感知</p>
+                </div>
+                <div class="ability-card">
+                    <div class="icon">🎤</div>
+                    <h4>语音识别</h4>
+                    <p>语音助手、实时翻译、语音合成</p>
+                </div>
+                <div class="ability-card">
+                    <div class="icon">📝</div>
+                    <h4>自然语言处理</h4>
+                    <p>机器翻译、情感分析、文本生成</p>
+                </div>
+                <div class="ability-card">
+                    <div class="icon">🎮</div>
+                    <h4>游戏AI</h4>
+                    <p>AlphaGo、Atari游戏、星际争霸</p>
+                </div>
+            </div>
+            <table class="vs-table">
+                <thead>
+                    <tr><th>维度</th><th>传统ML</th><th>深度学习</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>特征工程</td><td class="bad">人工设计</td><td class="good">自动学习</td></tr>
+                    <tr><td>数据需求</td><td class="bad">较少</td><td class="bad">海量数据</td></tr>
+                    <tr><td>算力需求</td><td class="good">较低</td><td class="bad">非常高</td></tr>
+                    <tr><td>可解释性</td><td class="good">较高</td><td class="bad">很低（黑盒）</td></tr>
+                </tbody>
+            </table>
+            <div class="highlight-box danger">
+                <h4>局限性</h4>
+                <ul style="margin-top: 12px; margin-left: 20px;">
+                    <li>仍是<strong>"感知"层面</strong>的突破：能看、能听，但不能真正"理解"</li>
+                    <li>需要<strong>大量数据和算力</strong></li>
+                    <li><strong>可解释性差</strong>：神经网络是黑盒</li>
+                    <li>缺乏<strong>真正的推理和常识</strong></li>
+                </ul>
+            </div>
+            <div class="highlight-box success">
+                <h4>PM的启发</h4>
+                <p>深度学习让AI开始能"看懂"图像、"听懂"语音。这带来了产品形态的变化——多模态交互成为可能。但PM需要认识到，这还不是真正的"理解"。</p>
+            </div>
+        </div>
+        <div class="page">
+            <div class="page-num">Page 3 / 3</div>
+            <h2>❌ 失败模式：训练与生产环境差异（Domain Shift）</h2>
+            <div class="highlight-box danger">
+                <h4>案例：某CV公司人脸识别系统上线后准确率骤降40%</h4>
+                <p style="margin-top: 12px;"><strong>背景：</strong>某AI公司为一家连锁超市提供人脸识别系统，用于会员识别和精准营销。实验室测试阶段准确率高达98%，但正式上线后准确率跌至57%。</p>
+                <div class="example-content" style="margin-top: 12px; background: var(--card-bg); border-radius: 8px; padding: 16px;">
+                    <strong>训练数据：</strong>实验室高清摄像头拍摄的正面照，光照均匀，背景干净<br>
+                    <strong>生产环境：</strong><br>
+                    · 超市入口光线复杂（逆光、阴影混杂）<br>
+                    · 顾客行走中，非正面照占比70%<br>
+                    · 顾客戴墨镜、口罩、帽子的比例高达40%<br>
+                    · 摄像头角度与实验室差异巨大<br>
+                    <strong>结果：</strong>系统把大量顾客误识为其他人，投诉爆发，3个月后项目终止<br>
+                    <strong>根因：</strong>训练数据分布与生产环境存在系统性差异，模型在未见过的数据上泛化失败
+                </div>
+            </div>
+            <div class="highlight-box warning">
+                <h4>Domain Shift 的常见类型</h4>
+                <ul style="margin-top: 12px; margin-left: 20px;">
+                    <li><strong>光照偏移：</strong>训练数据室内均匀光照，生产环境户外复杂光照</li>
+                    <li><strong>角度偏移：</strong>训练数据正面照为主，实际场景大量侧脸、俯拍</li>
+                    <li><strong>时间偏移：</strong>训练数据来自某个时期，生产环境数据分布随时间变化（如季节、热点）</li>
+                    <li><strong>设备偏移：</strong>不同摄像头、分辨率、噪点特征差异</li>
+                    <li><strong>人群偏移：</strong>训练数据覆盖的人群特征与实际用户群不符</li>
+                </ul>
+            </div>
+            <div class="highlight-box">
+                <h4>✅ 正确姿势</h4>
+                <ul style="margin-top: 12px; margin-left: 20px;">
+                    <li><strong>数据收集要模拟真实场景：</strong>在目标环境实地采集训练数据，而不是在理想环境下采集</li>
+                    <li><strong>做数据分布审计：</strong>在正式上线前，用生产环境的实际样本做测试，评估性能衰减程度</li>
+                    <li><strong>设计降级策略：</strong>当识别置信度低于阈值时，系统应有人工兜底或优雅降级，而不是给出错误结果</li>
+                    <li><strong>持续更新模型：</strong>定期用新采集的真实生产数据更新模型，缩小分布差异</li>
+                </ul>
+            </div>
+        </div>
+        <div class="nav-buttons">
+            <a href="1-5.html" class="nav-btn secondary">← 上一页</a>
+            <a href="1-7.html" class="nav-btn primary">下一页：大模型时代 →</a>
+        </div>
+    </main>
+    <footer class="footer">AI Builder for Product Manager · 认知层 · 课程1.2</footer>
+</body>
+</html>

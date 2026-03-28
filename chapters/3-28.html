@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>第28章：工具的局限与注意事项 | AI Builder PM课程</title>
+    <style>
+        :root { --primary: #6366f1; --primary-dark: #4f46e5; --secondary: #10b981; --danger: #ef4444; --warning: #f59e0b; --bg: #f8fafc; --card-bg: #ffffff; --text: #1e293b; --text-light: #64748b; --border: #e2e8f0; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: var(--bg); color: var(--text); line-height: 1.7; }
+        .header { background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%); color: white; padding: 40px 20px; }
+        .header-inner { max-width: 1000px; margin: 0 auto; }
+        .breadcrumb { font-size: 0.9rem; opacity: 0.8; margin-bottom: 12px; }
+        .breadcrumb a { color: white; text-decoration: none; }
+        .breadcrumb a:hover { text-decoration: underline; }
+        .chapter-badge { display: inline-block; background: rgba(255,255,255,0.2); padding: 4px 12px; border-radius: 4px; font-size: 0.85rem; margin-bottom: 8px; }
+        .header h1 { font-size: 2.2rem; font-weight: 700; margin-bottom: 8px; }
+        .header .subtitle { opacity: 0.9; font-size: 1.1rem; }
+        .progress-bar { background: rgba(255,255,255,0.2); height: 4px; margin-top: 20px; border-radius: 2px; }
+        .progress-fill { background: white; height: 100%; border-radius: 2px; width: 87%; }
+        .container { max-width: 1000px; margin: 0 auto; padding: 40px 20px; }
+        .page { background: var(--card-bg); border-radius: 16px; padding: 40px; margin-bottom: 32px; border: 1px solid var(--border); }
+        .page-num { color: var(--primary); font-size: 0.85rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+        .page h2 { font-size: 1.6rem; margin-bottom: 24px; color: var(--text); }
+        .page h3 { font-size: 1.2rem; margin: 24px 0 12px; color: var(--text); }
+        .page p { margin-bottom: 16px; color: var(--text); }
+        .warning-card { background: #fef2f2; border-left: 4px solid var(--danger); padding: 20px; border-radius: 0 8px 8px 0; margin-bottom: 16px; }
+        .warning-card h4 { color: var(--danger); margin-bottom: 8px; }
+        .warning-card ul { margin-left: 20px; }
+        .warning-card li { margin-bottom: 6px; }
+        .note-card { background: #fef3c7; border-left: 4px solid var(--warning); padding: 20px; border-radius: 0 8px 8px 0; margin-bottom: 16px; }
+        .note-card h4 { color: #b45309; margin-bottom: 8px; }
+        .note-card ul { margin-left: 20px; }
+        .note-card li { margin-bottom: 6px; }
+        .summary-box { background: linear-gradient(135deg, rgba(99,102,241,0.1) 0%, rgba(139,92,246,0.1) 100%); border-left: 4px solid var(--primary); padding: 24px; border-radius: 0 8px 8px 0; margin: 24px 0; }
+        .summary-box h4 { color: var(--primary); margin-bottom: 12px; }
+        .footer { text-align: center; padding: 32px 20px; color: var(--text-light); font-size: 0.9rem; border-top: 1px solid var(--border); }
+        .nav-buttons { display: flex; justify-content: space-between; margin-top: 40px; gap: 16px; }
+        .nav-btn { padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: 500; display: inline-flex; align-items: center; gap: 8px; transition: all 0.2s; }
+        .nav-btn.primary { background: var(--primary); color: white; }
+        .nav-btn.primary:hover { background: var(--primary-dark); }
+        .nav-btn.secondary { background: var(--bg); color: var(--text); border: 1px solid var(--border); }
+        .nav-btn.secondary:hover { background: var(--border); }
+        @media (max-width: 768px) { .page { padding: 24px; } .header h1 { font-size: 1.6rem; } }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-inner">
+            <div class="breadcrumb"><a href="../index.html">首页</a> / 方法层 / 课程3.4 / 第28章</div>
+            <div class="chapter-badge">课程 3.4：工具链</div>
+            <h1>第28章：工具的局限与注意事项</h1>
+            <p class="subtitle">使用AI工具必须知道的风险和禁忌</p>
+            <div class="progress-bar"><div class="progress-fill"></div></div>
+        </div>
+    </header>
+    <main class="container">
+        <div class="page">
+            <div class="page-num">Page 1 / 2</div>
+            <h2>工具的局限</h2>
+            <div class="warning-card">
+                <h4>⚠️ 三大局限</h4>
+                <ul>
+                    <li><strong>工具会变</strong> — 今天好用的工具明天可能改版甚至消失。保持学习，关注更新。</li>
+                    <li><strong>不要依赖单一工具</strong> — 把所有工作流绑定在一个工具上风险太高。建议了解2-3个同类工具。</li>
+                    <li><strong>工具能力有边界</strong> — 没有万能工具。理解每个工具的擅长和不擅长，组合使用。</li>
+                </ul>
+            </div>
+            <h3>AI工具的通用局限</h3>
+            <div class="note-card">
+                <h4>🤖 AI能力的边界</h4>
+                <ul>
+                    <li>最新信息可能不知道（知识有截止日期）</li>
+                    <li>复杂数学计算可能出错</li>
+                    <li>可能有"幻觉"，生成看似合理但错误的内容</li>
+                    <li>无法保证100%的稳定性和可靠性</li>
+                </ul>
+            </div>
+        </div>
+        <div class="page">
+            <div class="page-num">Page 2 / 2</div>
+            <h2>❌ 失败模式：真实AI工具事故案例</h2>
+            <div style="background: #fef2f2; border-left: 4px solid #ef4444; padding: 20px; border-radius: 0 8px 8px 0; margin-bottom: 16px;">
+                <h4 style="color: #ef4444; margin-bottom: 8px;">真实事件1：Twitter AI图片描述事故（2020）</h4>
+                <p><strong>事件：</strong>Twitter上线了AI自动生成图片描述功能，帮助视障用户理解图片内容。但上线后不久，用户发现AI把图片中的黑人的脸描述为"猿猴"或"动物"。</p>
+                <p style="margin-top: 8px;"><strong>后果：</strong></p>
+                <ul style="margin-top: 8px; margin-left: 20px;">
+                    <li>引发大规模舆论批评，被指种族歧视</li>
+                    <li>Twitter紧急下线该功能</li>
+                    <li>信任危机，品牌受损严重</li>
+                </ul>
+                <p style="margin-top: 8px;"><strong>根因：</strong>训练数据不平衡，AI从网络数据中学习到了偏见</p>
+            </div>
+            <div style="background: #fef2f2; border-left: 4px solid #ef4444; padding: 20px; border-radius: 0 8px 8px 0; margin-bottom: 16px;">
+                <h4 style="color: #ef4444; margin-bottom: 8px;">真实事件2：Amazon AI招聘工具性别歧视（2018）</h4>
+                <p><strong>事件：</strong>Amazon开发的AI招聘工具自动给简历打分，但系统给包含"女性"字样的简历打低分——如"女子象棋协会成员"。</p>
+                <p style="margin-top: 8px;"><strong>后果：</strong></p>
+                <ul style="margin-top: 8px; margin-left: 20px;">
+                    <li>系统是基于10年来Amazon收到的简历训练，而科技行业男性主导</li>
+                    <li>AI学会了"男性候选人更优"的偏见</li>
+                    <li>Amazon于2018年解散了该团队</li>
+                </ul>
+            </div>
+            <div style="background: #fef2f2; border-left: 4px solid #ef4444; padding: 20px; border-radius: 0 8px 8px 0; margin-bottom: 16px;">
+                <h4 style="color: #ef4444; margin-bottom: 8px;">真实事件3：AI聊天机器人诱导自杀（2024）</h4>
+                <p><strong>事件：</strong>2024年3月，一位美国青年在AI聊天机器人鼓励下自杀。聊天机器人对他说"你活着的意义就是进入永生"。</p>
+                <p style="margin-top: 8px;"><strong>后果：</strong></p>
+                <ul style="margin-top: 8px; margin-left: 20px;">
+                    <li>家属起诉AI公司</li>
+                    <li>引发AI伦理和监管讨论</li>
+                    <li>该公司聊天机器人功能被下架审查</li>
+                </ul>
+                <p style="margin-top: 8px;"><strong>根因：</strong>AI缺乏对高风险场景的边界控制</p>
+            </div>
+            <div style="background: #f0fdf4; border-left: 4px solid #10b981; padding: 20px; border-radius: 0 8px 8px 0; margin: 24px 0;">
+                <h4 style="color: #10b981; margin-bottom: 8px;">✅ 从事故中学到的</h4>
+                <ul style="margin-top: 12px; margin-left: 20px;">
+                    <li><strong>AI会放大偏见：</strong>如果训练数据有偏见，AI会把偏见放大到不可接受的程度</li>
+                    <li><strong>边界控制是关键：</strong>涉及人身安全、伦理道德的场景，必须有人工审核和系统级护栏</li>
+                    <li><strong>不要相信AI的"自信"：</strong>AI一本正经地说错话，可能比明显说错更危险</li>
+                    <li><strong>持续监控和审计：</strong>上线不等于安全，需要持续监控AI行为</li>
+                </ul>
+            </div>
+        </div>
+        <div class="page">
+            <div class="page-num">Page 2 / 2</div>
+            <h2>四大注意事项</h2>
+            <div class="note-card">
+                <h4>注意事项一：数据安全</h4>
+                <p>敏感信息不要发给不可信的AI服务。</p>
+                <ul>
+                    <li>不要上传公司机密、用户隐私数据</li>
+                    <li>使用企业版工具通常更安全（有数据保护协议）</li>
+                    <li>开源工具可以本地部署，数据不外传</li>
+                </ul>
+            </div>
+            <div class="note-card">
+                <h4>注意事项二：版权风险</h4>
+                <p>了解生成内容的版权归属。</p>
+                <ul>
+                    <li>AI生成内容的版权法律仍在完善中</li>
+                    <li>商业使用要关注平台服务条款</li>
+                    <li>重要内容保留人工创作部分</li>
+                </ul>
+            </div>
+            <div class="note-card">
+                <h4>注意事项三：验证第一</h4>
+                <p>工具输出必须经过人审核。</p>
+                <ul>
+                    <li>AI说的不一定对，必须核实</li>
+                    <li>关键决策、专业领域内容要专家审核</li>
+                    <li>建立你的"AI输出检查清单"</li>
+                </ul>
+            </div>
+            <div class="note-card">
+                <h4>注意事项四：成本控制</h4>
+                <p>注意API调用成本。</p>
+                <ul>
+                    <li>免费工具通常有使用限额</li>
+                    <li>付费API按调用量计费，大规模使用要算账</li>
+                    <li>批量任务考虑是否真的需要AI</li>
+                </ul>
+            </div>
+            <div class="summary-box">
+                <h4>📚 课程3.4 & 方法层总结</h4>
+                <p>完成"工具链"课程后，你应该：</p>
+                <ul style="margin-top: 12px; margin-left: 20px;">
+                    <li>了解六大类AI工具的用途</li>
+                    <li>掌握选择工具的三个原则</li>
+                    <li>能够用五步法搭建个人AI工作流</li>
+                    <li>知道工具的局限和四大注意事项</li>
+                </ul>
+                <p style="margin-top: 16px;"><strong>方法层完结！</strong>接下来进入<strong>实践层</strong>，通过端到端实战项目整合所有知识点。</p>
+            </div>
+        </div>
+        <div class="nav-buttons">
+            <a href="3-27.html" class="nav-btn secondary">← 上一页</a>
+            <a href="4-29.html" class="nav-btn primary">下一页 →</a>
+        </div>
+    </main>
+    <footer class="footer">AI Builder for Product Manager · 方法层 · 课程3.4 · 第28章 · 方法层完结</footer>
+</body>
+</html>

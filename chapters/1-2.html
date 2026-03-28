@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>第2章：传统产品研发流程 | AI Builder PM课程</title>
+    <style>
+        :root { --primary: #6366f1; --primary-dark: #4f46e5; --secondary: #10b981; --bg: #f8fafc; --card-bg: #ffffff; --text: #1e293b; --text-light: #64748b; --border: #e2e8f0; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: var(--bg); color: var(--text); line-height: 1.7; }
+        .header { background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%); color: white; padding: 40px 20px; }
+        .header-inner { max-width: 1000px; margin: 0 auto; }
+        .breadcrumb { font-size: 0.9rem; opacity: 0.8; margin-bottom: 12px; }
+        .breadcrumb a { color: white; text-decoration: none; }
+        .breadcrumb a:hover { text-decoration: underline; }
+        .chapter-badge { display: inline-block; background: rgba(255,255,255,0.2); padding: 4px 12px; border-radius: 4px; font-size: 0.85rem; margin-bottom: 8px; }
+        .header h1 { font-size: 2.2rem; font-weight: 700; margin-bottom: 8px; }
+        .header .subtitle { opacity: 0.9; font-size: 1.1rem; }
+        .progress-bar { background: rgba(255,255,255,0.2); height: 4px; margin-top: 20px; border-radius: 2px; }
+        .progress-fill { background: white; height: 100%; border-radius: 2px; width: 30%; }
+        .container { max-width: 1000px; margin: 0 auto; padding: 40px 20px; }
+        .page { background: var(--card-bg); border-radius: 16px; padding: 40px; margin-bottom: 32px; border: 1px solid var(--border); }
+        .page-num { color: var(--primary); font-size: 0.85rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+        .page h2 { font-size: 1.6rem; margin-bottom: 24px; color: var(--text); }
+        .page h3 { font-size: 1.2rem; margin: 24px 0 12px; color: var(--text); }
+        .page p { margin-bottom: 16px; color: var(--text); }
+        .highlight-box { background: linear-gradient(135deg, rgba(99,102,241,0.1) 0%, rgba(139,92,246,0.1) 100%); border-left: 4px solid var(--primary); padding: 20px 24px; border-radius: 0 8px 8px 0; margin: 24px 0; }
+        .highlight-box h4 { color: var(--primary); margin-bottom: 8px; }
+        .highlight-box.success { background: linear-gradient(135deg, rgba(16,185,129,0.1) 0%, rgba(5,150,105,0.1) 100%); border-left-color: var(--secondary); }
+        .highlight-box.success h4 { color: var(--secondary); }
+        .highlight-box.danger { background: #fef2f2; border-left-color: #ef4444; }
+        .highlight-box.danger h4 { color: #ef4444; }
+        .highlight-box.warning { background: #fef3c7; border-left-color: #f59e0b; }
+        .highlight-box.warning h4 { color: #b45309; }
+        .example-box { background: #f0fdf4; border: 2px solid var(--secondary); border-radius: 12px; padding: 24px; margin: 24px 0; }
+        .example-box h4 { color: var(--secondary); margin-bottom: 12px; }
+        .quote-box { background: linear-gradient(135deg, rgba(139,92,246,0.1) 0%, rgba(139,92,246,0.05) 100%); border-left: 4px solid #8b5cf6; padding: 20px; border-radius: 0 8px 8px 0; margin: 24px 0; }
+        .quote-box .quote { font-size: 1.1rem; color: var(--text); margin-bottom: 8px; }
+        .quote-box .source { font-size: 0.85rem; color: var(--text-light); font-style: normal; }
+        .flow-diagram { background: var(--bg); border-radius: 12px; padding: 32px; margin: 24px 0; text-align: center; }
+        .flow-step { display: inline-block; padding: 12px 20px; background: var(--primary); color: white; border-radius: 8px; margin: 4px; font-weight: 500; }
+        .flow-arrow { display: inline-block; color: var(--primary); font-size: 1.5rem; margin: 0 4px; vertical-align: middle; }
+        .phase-table { width: 100%; border-collapse: collapse; margin: 24px 0; }
+        .phase-table th, .phase-table td { padding: 14px 16px; text-align: left; border-bottom: 1px solid var(--border); }
+        .phase-table th { background: var(--bg); font-weight: 600; color: var(--primary); }
+        .phase-table td { color: var(--text-light); font-size: 0.9rem; }
+        .phase-table tr:hover { background: var(--bg); }
+        .phase-num { display: inline-flex; align-items: center; justify-content: center; width: 24px; height: 24px; background: var(--primary); color: white; border-radius: 50%; font-size: 0.8rem; font-weight: 600; margin-right: 8px; }
+        .pain-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin: 24px 0; }
+        .pain-card { background: #fef2f2; border-left: 4px solid #ef4444; padding: 20px; border-radius: 0 8px 8px 0; }
+        .pain-card h4 { color: #ef4444; margin-bottom: 8px; font-size: 1rem; }
+        .pain-card p { margin: 0; font-size: 0.9rem; color: var(--text-light); }
+        .timeline { position: relative; padding-left: 24px; border-left: 3px solid var(--border); margin: 24px 0; }
+        .timeline-item { position: relative; margin-bottom: 24px; }
+        .timeline-item::before { content: ''; position: absolute; left: -30px; top: 4px; width: 16px; height: 16px; background: var(--primary); border-radius: 50%; border: 3px solid white; }
+        .timeline-item h4 { margin-bottom: 4px; }
+        .timeline-item p { margin: 0; font-size: 0.9rem; color: var(--text-light); }
+        .footer { text-align: center; padding: 32px 20px; color: var(--text-light); font-size: 0.9rem; border-top: 1px solid var(--border); }
+        .nav-buttons { display: flex; justify-content: space-between; margin-top: 40px; gap: 16px; }
+        .nav-btn { padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: 500; display: inline-flex; align-items: center; gap: 8px; transition: all 0.2s; }
+        .nav-btn.primary { background: var(--primary); color: white; }
+        .nav-btn.primary:hover { background: var(--primary-dark); }
+        .nav-btn.secondary { background: var(--bg); color: var(--text); border: 1px solid var(--border); }
+        .nav-btn.secondary:hover { background: var(--border); }
+        @media (max-width: 768px) { .page { padding: 24px; } .header h1 { font-size: 1.6rem; } .pain-grid { grid-template-columns: 1fr; } .flow-step { display: block; margin: 8px 0; } .flow-arrow { display: block; margin: 8px auto; } }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-inner">
+            <div class="breadcrumb"><a href="../index.html">首页</a> / 认知层 / 课程1.1 / 第2章</div>
+            <div class="chapter-badge">课程 1.1：软件工程基础</div>
+            <h1>第2章：传统产品研发流程</h1>
+            <p class="subtitle">瀑布模型 + PM各阶段产出</p>
+            <div class="progress-bar"><div class="progress-fill"></div></div>
+        </div>
+    </header>
+    <main class="container">
+        <div class="page">
+            <div class="page-num">Page 1 / 3</div>
+            <h2>瀑布模型：线性顺序的开发流程</h2>
+            <div class="flow-diagram">
+                <span class="flow-step">需求分析</span>
+                <span class="flow-arrow">→</span>
+                <span class="flow-step">产品设计</span>
+                <span class="flow-arrow">→</span>
+                <span class="flow-step">技术开发</span>
+                <span class="flow-arrow">→</span>
+                <span class="flow-step">测试</span>
+                <span class="flow-arrow">→</span>
+                <span class="flow-step">部署</span>
+                <span class="flow-arrow">→</span>
+                <span class="flow-step">运维</span>
+            </div>
+            <div class="quote-box">
+                <div class="quote">"The waterfall model is a sequential design process in which progress is seen as flowing steadily downwards through phases."</div>
+                <div class="source">— Winston W. Royce, 1970</div>
+            </div>
+            <div class="highlight-box">
+                <h4>瀑布模型的特点</h4>
+                <ul style="margin-top: 12px; margin-left: 20px;">
+                    <li><strong>阶段分明</strong>：每个阶段有明确的开始和结束</li>
+                    <li><strong>顺序执行</strong>：前一阶段完成，后一阶段才能开始</li>
+                    <li><strong>文档驱动</strong>：每个阶段有明确的交付物（文档）</li>
+                </ul>
+            </div>
+            <div class="example-box">
+                <h4>例子：一个功能从需求到上线要多久？</h4>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <h4><span class="phase-num">1</span>需求分析（1周）</h4>
+                        <p>用户访谈、竞品分析、PRD撰写</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h4><span class="phase-num">2</span>产品设计（1周）</h4>
+                        <p>原型图、交互设计、设计评审</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h4><span class="phase-num">3</span>技术开发（2-4周）</h4>
+                        <p>前端、后端、联调</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h4><span class="phase-num">4</span>测试（1-2周）</h4>
+                        <p>功能测试、回归测试</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h4><span class="phase-num">5</span>部署上线（1周）</h4>
+                        <p>发布、监控、修复问题</p>
+                    </div>
+                </div>
+                <p style="margin-top: 16px; font-weight: 600;">总计：约6-10周（1.5-2.5个月）</p>
+            </div>
+        </div>
+        <div class="page">
+            <div class="page-num">Page 2 / 3</div>
+            <h2>PM在各阶段的核心产出</h2>
+            <table class="phase-table">
+                <thead>
+                    <tr><th>阶段</th><th>PM产出</th><th>交付物要求</th><th>对接方式</th></tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>需求分析</strong></td>
+                        <td>PRD、用户故事</td>
+                        <td>功能列表、优先级、验收标准</td>
+                        <td>需求评审会</td>
+                    </tr>
+                    <tr>
+                        <td><strong>产品设计</strong></td>
+                        <td>原型图、流程图</td>
+                        <td>高保真原型、交互说明</td>
+                        <td>设计评审会</td>
+                    </tr>
+                    <tr>
+                        <td><strong>技术开发</strong></td>
+                        <td>需求澄清、FAQ</td>
+                        <td>随时答疑、需求变更记录</td>
+                        <td>每日站会、即时通讯</td>
+                    </tr>
+                    <tr>
+                        <td><strong>测试</strong></td>
+                        <td>测试用例评审</td>
+                        <td>UAT测试用例、测试报告</td>
+                        <td>测试用例评审会</td>
+                    </tr>
+                    <tr>
+                        <td><strong>部署</strong></td>
+                        <td>发布确认</td>
+                        <td>上线检查清单、监控指标</td>
+                        <td>发布评审会</td>
+                    </tr>
+                    <tr>
+                        <td><strong>运维</strong></td>
+                        <td>用户反馈、数据监控</td>
+                        <td>迭代需求池</td>
+                        <td>迭代规划会</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="highlight-box success">
+                <h4>PM是桥梁</h4>
+                <p>PM = 连接用户和技术团队的桥梁。需求传递准确性直接影响产品质量。</p>
+            </div>
+        </div>
+        <div class="page">
+            <div class="page-num">Page 3 / 3</div>
+            <h2>PM在传统流程中的痛点</h2>
+            <div class="pain-grid">
+                <div class="pain-card">
+                    <h4>😤 等开发周期</h4>
+                    <p>需求评审后等排期，一个功能等2-4周，这段时间PM能做的事有限。</p>
+                </div>
+                <div class="pain-card">
+                    <h4>😤 改需求代价大</h4>
+                    <p>开发过程中改需求或市场变化，返工成本极高。</p>
+                </div>
+                <div class="pain-card">
+                    <h4>😤 跨部门沟通损耗</h4>
+                    <p>会议多、文档多，信息层层传递容易失真。</p>
+                </div>
+                <div class="pain-card">
+                    <h4>😤 验证周期长</h4>
+                    <p>上线后才知道用户反馈好不好。方向错了，几个月就浪费了。</p>
+                </div>
+            </div>
+            <div class="highlight-box warning">
+                <h4>例子：一个需求变更要经历多少流程？</h4>
+                <p style="margin-top: 12px;"><strong>原流程：</strong>PM发现需求有问题 → 重新写PRD → 重新评审 → 重新排期 → 重新开发 → 重新测试 → 重新发布</p>
+                <p style="margin-top: 8px;"><strong>时间损耗：</strong>重新评审（3-5天）+ 重新排期（1-2周）+ 重新开发（2-4周）= 1个月没了</p>
+            </div>
+            <div class="highlight-box danger">
+                <h4>传统流程的根因</h4>
+                <p>瀑布模型的本质是<strong>"先把事情想清楚，再动手"</strong>。但问题是：市场在变、用户在变、技术也在变，等你想清楚了，情况可能已经变了。</p>
+            </div>
+        </div>
+        <div class="page">
+            <div class="page-num">Page 4 / 4</div>
+            <h2>❌ 失败模式：瀑布模型的代价——市场窗口错失</h2>
+            <div class="highlight-box danger">
+                <h4>案例：某硬件厂商用瀑布模型开发智能手表，项目上线时风口已过</h4>
+                <p style="margin-top: 12px;"><strong>背景：</strong>2019年，某中型硬件厂商看到智能手表市场开始升温，决定开发一款智能手表产品。</p>
+                <div class="example-box" style="margin-top: 12px;">
+                    <h4>项目时间线</h4>
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <h4><strong style="color: var(--primary);">2019.Q1</strong>立项启动</h4>
+                            <p>市场调研、需求分析、团队组建</p>
+                        </div>
+                        <div class="timeline-item">
+                            <h4><strong style="color: var(--primary);">2019.Q2-Q3</strong>产品设计</h4>
+                            <p>外观设计、硬件方案、供应链谈判</p>
+                        </div>
+                        <div class="timeline-item">
+                            <h4><strong style="color: var(--primary);">2019.Q4-2020.Q3</strong>技术开发</h4>
+                            <p>硬件研发、固件开发、App开发</p>
+                        </div>
+                        <div class="timeline-item">
+                            <h4><strong style="color: var(--primary);">2020.Q4</strong>测试</h4>
+                            <p>功能测试、认证测试</p>
+                        </div>
+                        <div class="timeline-item">
+                            <h4><strong style="color: var(--primary);">2021.Q1</strong>终于上市</h4>
+                            <p>历时2年，终于量产</p>
+                        </div>
+                    </div>
+                </div>
+                <p style="margin-top: 12px;"><strong>市场状况：</strong></p>
+                <ul style="margin-top: 8px; margin-left: 20px;">
+                    <li>2019年：智能手表市场开始增长，苹果、华为刚起步</li>
+                    <li>2021年：苹果Apple Watch已占市场60%，华为占20%</li>
+                    <li>该厂商产品上市时，两家已占据80%市场份额</li>
+                </ul>
+                <p style="margin-top: 12px;"><strong>结果：</strong>产品上市后反响平平，库存积压，最终亏损超过5000万，项目团队解散</p>
+                <p style="margin-top: 8px;"><strong>根因：</strong>瀑布模型的长周期无法应对快速变化的市场。等2年开发完，风口已过，市场已被先行者占领</p>
+            </div>
+            <div class="highlight-box warning">
+                <h4>瀑布模型的核心问题：周期太长</h4>
+                <p>在快速变化的市场中，<strong>速度就是生命</strong>。一个功能用瀑布模型需要6个月开发，而竞争对手用敏捷/AI辅助可能只需要3周。</p>
+                <p style="margin-top: 8px;">等你想清楚了，市场可能已经变了。这是瀑布模型在竞争激烈行业的致命缺陷。</p>
+            </div>
+        </div>
+        <div class="nav-buttons">
+            <a href="1-1.html" class="nav-btn secondary">← 上一页</a>
+            <a href="1-3.html" class="nav-btn primary">下一页：传统范式的局限 →</a>
+        </div>
+    </main>
+    <footer class="footer">AI Builder for Product Manager · 认知层 · 课程1.1</footer>
+</body>
+</html>

@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>第27章：搭建个人AI工作流 | AI Builder PM课程</title>
+    <style>
+        :root { --primary: #6366f1; --primary-dark: #4f46e5; --secondary: #10b981; --bg: #f8fafc; --card-bg: #ffffff; --text: #1e293b; --text-light: #64748b; --border: #e2e8f0; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: var(--bg); color: var(--text); line-height: 1.7; }
+        .header { background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%); color: white; padding: 40px 20px; }
+        .header-inner { max-width: 1000px; margin: 0 auto; }
+        .breadcrumb { font-size: 0.9rem; opacity: 0.8; margin-bottom: 12px; }
+        .breadcrumb a { color: white; text-decoration: none; }
+        .breadcrumb a:hover { text-decoration: underline; }
+        .chapter-badge { display: inline-block; background: rgba(255,255,255,0.2); padding: 4px 12px; border-radius: 4px; font-size: 0.85rem; margin-bottom: 8px; }
+        .header h1 { font-size: 2.2rem; font-weight: 700; margin-bottom: 8px; }
+        .header .subtitle { opacity: 0.9; font-size: 1.1rem; }
+        .progress-bar { background: rgba(255,255,255,0.2); height: 4px; margin-top: 20px; border-radius: 2px; }
+        .progress-fill { background: white; height: 100%; border-radius: 2px; width: 84%; }
+        .container { max-width: 1000px; margin: 0 auto; padding: 40px 20px; }
+        .page { background: var(--card-bg); border-radius: 16px; padding: 40px; margin-bottom: 32px; border: 1px solid var(--border); }
+        .page-num { color: var(--primary); font-size: 0.85rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+        .page h2 { font-size: 1.6rem; margin-bottom: 24px; color: var(--text); }
+        .page h3 { font-size: 1.2rem; margin: 24px 0 12px; color: var(--text); }
+        .page p { margin-bottom: 16px; color: var(--text); }
+        .step-card { background: linear-gradient(135deg, rgba(99,102,241,0.1) 0%, rgba(139,92,246,0.1) 100%); border-left: 4px solid var(--primary); padding: 20px; border-radius: 0 8px 8px 0; margin-bottom: 16px; }
+        .step-card h4 { color: var(--primary); margin-bottom: 8px; }
+        .step-card ul { margin-left: 20px; }
+        .step-card li { margin-bottom: 6px; }
+        .example-box { background: #fef3c7; border-left: 4px solid #f59e0b; padding: 20px; border-radius: 0 8px 8px 0; margin: 20px 0; }
+        .example-box h4 { color: #b45309; margin-bottom: 12px; }
+        .footer { text-align: center; padding: 32px 20px; color: var(--text-light); font-size: 0.9rem; border-top: 1px solid var(--border); }
+        .nav-buttons { display: flex; justify-content: space-between; margin-top: 40px; gap: 16px; }
+        .nav-btn { padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: 500; display: inline-flex; align-items: center; gap: 8px; transition: all 0.2s; }
+        .nav-btn.primary { background: var(--primary); color: white; }
+        .nav-btn.primary:hover { background: var(--primary-dark); }
+        .nav-btn.secondary { background: var(--bg); color: var(--text); border: 1px solid var(--border); }
+        .nav-btn.secondary:hover { background: var(--border); }
+        @media (max-width: 768px) { .page { padding: 24px; } .header h1 { font-size: 1.6rem; } }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-inner">
+            <div class="breadcrumb"><a href="../index.html">首页</a> / 方法层 / 课程3.4 / 第27章</div>
+            <div class="chapter-badge">课程 3.4：工具链</div>
+            <h1>第27章：搭建个人AI工作流</h1>
+            <p class="subtitle">五步搭建属于你的AI工作流</p>
+            <div class="progress-bar"><div class="progress-fill"></div></div>
+        </div>
+    </header>
+    <main class="container">
+        <div class="page">
+            <div class="page-num">Page 1 / 2</div>
+            <h2>搭建步骤</h2>
+            <div class="step-card">
+                <h4>步骤一：识别高频任务</h4>
+                <p>列出每天/每周重复做的事情，评估哪些可以AI辅助。</p>
+                <ul>
+                    <li>列出日常工作清单</li>
+                    <li>标注每个任务的出现频率</li>
+                    <li>标注每个任务的耗时</li>
+                    <li>优先处理高频且耗时的任务</li>
+                </ul>
+            </div>
+            <div class="step-card">
+                <h4>步骤二：选择合适的AI工具</h4>
+                <p>根据任务类型选择工具，不要用一把锤子解决所有问题。</p>
+                <ul>
+                    <li>文本写作 → ChatGPT/Claude</li>
+                    <li>代码相关 → Copilot/Claude Code</li>
+                    <li>信息搜索 → Perplexity/秘塔</li>
+                    <li>知识管理 → Notion/Obsidian</li>
+                </ul>
+            </div>
+            <div class="step-card">
+                <h4>步骤三：设计工作流模板</h4>
+                <p>把流程固化下来，明确输入、处理、输出。</p>
+                <ul>
+                    <li>用模板文档描述工作流</li>
+                    <li>明确触发条件和执行步骤</li>
+                    <li>定义审核点和验收标准</li>
+                    <li>预留异常处理方案</li>
+                </ul>
+            </div>
+        </div>
+        <div class="page">
+            <div class="page-num">Page 2 / 2</div>
+            <h2>继续：测试、优化、沉淀</h2>
+            <div class="step-card">
+                <h4>步骤四：测试和优化</h4>
+                <p>小范围试跑，记录问题并优化，逐步扩大使用范围。</p>
+                <ul>
+                    <li>先在非关键任务上测试</li>
+                    <li>记录AI表现和出错类型</li>
+                    <li>调整提示词和工作流</li>
+                    <li>逐步扩大应用场景</li>
+                </ul>
+            </div>
+            <div class="step-card">
+                <h4>步骤五：沉淀为固定流程</h4>
+                <p>形成标准操作程序（SOP），可以分享给团队。</p>
+                <ul>
+                    <li>文档化工作流模板</li>
+                    <li>总结常见问题和解决方案</li>
+                    <li>持续迭代优化</li>
+                    <li>考虑团队协作和知识共享</li>
+                </ul>
+            </div>
+            <div class="example-box">
+                <h4>📝 示例：周报AI工作流</h4>
+                <p><strong>步骤一：</strong>识别高频任务 → 每周写周报，耗时1小时</p>
+                <p><strong>步骤二：</strong>选择工具 → Claude（擅长长文本分析）</p>
+                <p><strong>步骤三：</strong>设计模板 → 触发(周五5点)→输入(工作记录)→处理(AI整理)→输出(周报草稿)→审核(人修改)</p>
+                <p><strong>步骤四：</strong>测试优化 → 第一版发现AI遗漏某些细节，调整输入格式</p>
+                <p><strong>步骤五：</strong>沉淀 → 形成标准模板，耗时从1小时缩短到20分钟</p>
+            </div>
+        </div>
+        <div class="page">
+            <div class="page-num">Page 3 / 3</div>
+            <h2>❌ 失败模式：搭了用不起来</h2>
+            <div style="background: #fef2f2; border-left: 4px solid #ef4444; padding: 20px; border-radius: 0 8px 8px 0; margin-bottom: 16px;">
+                <h4 style="color: #ef4444; margin-bottom: 8px;">TOP3原因：为什么AI工作流搭了却用不起来</h4>
+                <p style="margin-top: 8px;"><strong>原因1：没有明确触发场景</strong></p>
+                <ul style="margin-top: 4px; margin-left: 20px;">
+                    <li>PM学完AI工具后很兴奋，设计了5个"完美"工作流</li>
+                    <li>但平时根本想不起来用，因为没有明确的"什么时候用这个工作流"</li>
+                    <li>结果：工作流躺在笔记里吃灰</li>
+                </ul>
+                <p style="margin-top: 12px;"><strong>原因2：步骤太多记不住</strong></p>
+                <ul style="margin-top: 4px; margin-left: 20px;">
+                    <li>PM设计了一个8步的周报工作流</li>
+                    <li>第一次用还顺利，第二次就忘了第5步是什么</li>
+                    <li>第三天想"算了，手写吧"，工作流宣告废弃</li>
+                </ul>
+                <p style="margin-top: 12px;"><strong>原因3：效果不明显放弃</strong></p>
+                <ul style="margin-top: 4px; margin-left: 20px;">
+                    <li>PM设计了"竞品分析AI工作流"，但用了2次发现AI生成的分析深度不如自己预期</li>
+                    <li>觉得"这还不如我自己写"，就放弃了</li>
+                    <li>实际上：应该先接受AI初稿的70分水平，再逐步调优，而不是期望一步到位</li>
+                </ul>
+            </div>
+            <div style="background: #fef2f2; border-left: 4px solid #ef4444; padding: 20px; border-radius: 0 8px 8px 0; margin-bottom: 16px;">
+                <h4 style="color: #ef4444; margin-bottom: 8px;">典型案例：学了一大堆工具，实际工作一个都没用</h4>
+                <p><strong>场景：</strong>某PM花了3个月学了ChatGPT、Claude、Copilot、Notion AI、Midjourney等10+工具。</p>
+                <p style="margin-top: 8px;"><strong>实际工作状态：</strong></p>
+                <ul style="margin-top: 8px; margin-left: 20px;">
+                    <li>每个工具都浅尝辄止，没有一个用精</li>
+                    <li>平时还是用最原始的方式工作</li>
+                    <li>学到的技能因为没有反复练习，一周后就忘了</li>
+                </ul>
+                <p style="margin-top: 8px;"><strong>根因：</strong>工具焦虑驱动学习，而不是需求驱动学习</p>
+            </div>
+            <div style="background: #f0fdf4; border-left: 4px solid #10b981; padding: 20px; border-radius: 0 8px 8px 0; margin: 24px 0;">
+                <h4 style="color: #10b981; margin-bottom: 8px;">✅ 正确姿势：让工作流用起来的3个技巧</h4>
+                <ul style="margin-top: 12px; margin-left: 20px;">
+                    <li><strong>先固化再优化：</strong>先用最简单的方式跑通流程（哪怕只有3步），跑通后再加环节优化——而不是一开始设计"完美流程"</li>
+                    <li><strong>设置触发提醒：</strong>在日历/待办工具里设置固定提醒，如"每周五下午4点——用AI写周报"</li>
+                    <li><strong>只学用得上的：</strong>先识别自己最高频的任务，只学解决那个任务的工具，学到精通再扩展——而不是学一堆工具但都不精</li>
+                </ul>
+            </div>
+        </div>
+        <div class="nav-buttons">
+            <a href="3-26.html" class="nav-btn secondary">← 上一页</a>
+            <a href="3-28.html" class="nav-btn primary">下一页 →</a>
+        </div>
+    </main>
+    <footer class="footer">AI Builder for Product Manager · 方法层 · 课程3.4 · 第27章</footer>
+</body>
+</html>

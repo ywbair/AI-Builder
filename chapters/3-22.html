@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>第22章：工作流的设计 | AI Builder PM课程</title>
+    <style>
+        :root { --primary: #6366f1; --primary-dark: #4f46e5; --secondary: #10b981; --bg: #f8fafc; --card-bg: #ffffff; --text: #1e293b; --text-light: #64748b; --border: #e2e8f0; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: var(--bg); color: var(--text); line-height: 1.7; }
+        .header { background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%); color: white; padding: 40px 20px; }
+        .header-inner { max-width: 1000px; margin: 0 auto; }
+        .breadcrumb { font-size: 0.9rem; opacity: 0.8; margin-bottom: 12px; }
+        .breadcrumb a { color: white; text-decoration: none; }
+        .breadcrumb a:hover { text-decoration: underline; }
+        .chapter-badge { display: inline-block; background: rgba(255,255,255,0.2); padding: 4px 12px; border-radius: 4px; font-size: 0.85rem; margin-bottom: 8px; }
+        .header h1 { font-size: 2.2rem; font-weight: 700; margin-bottom: 8px; }
+        .header .subtitle { opacity: 0.9; font-size: 1.1rem; }
+        .progress-bar { background: rgba(255,255,255,0.2); height: 4px; margin-top: 20px; border-radius: 2px; }
+        .progress-fill { background: white; height: 100%; border-radius: 2px; width: 68%; }
+        .container { max-width: 1000px; margin: 0 auto; padding: 40px 20px; }
+        .page { background: var(--card-bg); border-radius: 16px; padding: 40px; margin-bottom: 32px; border: 1px solid var(--border); }
+        .page-num { color: var(--primary); font-size: 0.85rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+        .page h2 { font-size: 1.6rem; margin-bottom: 24px; color: var(--text); }
+        .page h3 { font-size: 1.2rem; margin: 24px 0 12px; color: var(--text); }
+        .page p { margin-bottom: 16px; color: var(--text); }
+        .element-card { background: linear-gradient(135deg, rgba(99,102,241,0.1) 0%, rgba(139,92,246,0.1) 100%); border-left: 4px solid var(--primary); padding: 20px; border-radius: 0 8px 8px 0; margin-bottom: 16px; }
+        .element-card h4 { color: var(--primary); margin-bottom: 8px; }
+        .element-card p { margin: 0; }
+        .template-box { background: var(--bg); border: 2px solid var(--border); border-radius: 12px; padding: 24px; margin: 20px 0; font-family: monospace; }
+        .template-box h4 { color: var(--text); margin-bottom: 16px; font-family: sans-serif; }
+        .template-box p { margin-bottom: 8px; font-size: 0.9rem; }
+        .template-box .label { color: var(--primary); font-weight: 600; }
+        .footer { text-align: center; padding: 32px 20px; color: var(--text-light); font-size: 0.9rem; border-top: 1px solid var(--border); }
+        .nav-buttons { display: flex; justify-content: space-between; margin-top: 40px; gap: 16px; }
+        .nav-btn { padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: 500; display: inline-flex; align-items: center; gap: 8px; transition: all 0.2s; }
+        .nav-btn.primary { background: var(--primary); color: white; }
+        .nav-btn.primary:hover { background: var(--primary-dark); }
+        .nav-btn.secondary { background: var(--bg); color: var(--text); border: 1px solid var(--border); }
+        .nav-btn.secondary:hover { background: var(--border); }
+        @media (max-width: 768px) { .page { padding: 24px; } .header h1 { font-size: 1.6rem; } }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-inner">
+            <div class="breadcrumb"><a href="../index.html">首页</a> / 方法层 / 课程3.2 / 第22章</div>
+            <div class="chapter-badge">课程 3.2：流程设计</div>
+            <h1>第22章：工作流的设计</h1>
+            <p class="subtitle">工作流五要素——触发、输入、处理、输出、审核点</p>
+            <div class="progress-bar"><div class="progress-fill"></div></div>
+        </div>
+    </header>
+    <main class="container">
+        <div class="page">
+            <div class="page-num">Page 1 / 2</div>
+            <h2>工作流五要素</h2>
+            <div class="element-card">
+                <h4>要素一：触发条件</h4>
+                <p>什么时候开始这个工作流？触发方式决定了流程的启动时机。</p>
+                <p style="margin-top: 8px;"><strong>常见触发方式：</strong></p>
+                <ul style="margin-top: 8px; margin-left: 20px;">
+                    <li>手动触发：人点击开始</li>
+                    <li>定时任务：每天早上9点自动运行</li>
+                    <li>事件触发：当某个事件发生时（如收到邮件、新用户注册）</li>
+                </ul>
+            </div>
+            <div class="element-card">
+                <h4>要素二：输入</h4>
+                <p>给AI什么材料？输入的质量决定输出的质量。</p>
+                <p style="margin-top: 8px;"><strong>常见输入类型：</strong></p>
+                <ul style="margin-top: 8px; margin-left: 20px;">
+                    <li>文档资料（需求文档、参考资料）</li>
+                    <li>结构化数据（表格、数据库）</li>
+                    <li>明确指令（告诉AI要做什么）</li>
+                </ul>
+            </div>
+            <div class="element-card">
+                <h4>要素三：处理</h4>
+                <p>AI具体做什么？生成什么？执行什么操作？</p>
+                <p style="margin-top: 8px;"><strong>常见处理类型：</strong></p>
+                <ul style="margin-top: 8px; margin-left: 20px;">
+                    <li>内容生成（文案、代码、报告）</li>
+                    <li>信息分析（数据处理、趋势识别）</li>
+                    <li>任务执行（发邮件、整理文件）</li>
+                </ul>
+            </div>
+            <div class="element-card">
+                <h4>要素四：输出</h4>
+                <p>AI产出什么？交付物是什么形态？</p>
+                <p style="margin-top: 8px;"><strong>常见输出类型：</strong></p>
+                <ul style="margin-top: 8px; margin-left: 20px;">
+                    <li>文本内容（报告、文案、邮件）</li>
+                    <li>结构化数据（表格、JSON）</li>
+                    <li>文件（生成的文档、代码文件）</li>
+                </ul>
+            </div>
+            <div class="element-card" style="border-left-color: var(--secondary); background: linear-gradient(135deg, rgba(16,185,129,0.1) 0%, rgba(5,150,105,0.1) 100%);">
+                <h4 style="color: var(--secondary);">要素五：审核点</h4>
+                <p>在哪里需要人判断？审核点是质量控制的关键。</p>
+                <p style="margin-top: 8px;"><strong>审核点设计原则：</strong></p>
+                <ul style="margin-top: 8px; margin-left: 20px;">
+                    <li>关键决策后必须审核</li>
+                    <li>阶段性产出要审核</li>
+                    <li>最终交付前必须审核</li>
+                </ul>
+            </div>
+        </div>
+        <div class="page">
+            <div class="page-num">Page 2 / 2</div>
+            <h2>工作流设计模板</h2>
+            <div class="template-box">
+                <h4>【工作流名称】</h4>
+                <p><span class="label">触发：</span>______（什么时候开始）</p>
+                <p><span class="label">输入：</span>______（给AI什么材料）</p>
+                <p><span class="label">处理：</span></p>
+                <p style="margin-left: 20px;">步骤1：______</p>
+                <p style="margin-left: 20px;">步骤2：______</p>
+                <p style="margin-left: 20px;">步骤3：______</p>
+                <p><span class="label">输出：</span>______（AI产出什么）</p>
+                <p><span class="label">审核点：</span>______（在哪里需要人判断）</p>
+                <p><span class="label">异常处理：</span>______（出问题怎么办）</p>
+            </div>
+            <div class="element-card">
+                <h4>💡 示例：周报生成工作流</h4>
+                <p><strong>触发：</strong>每周五下午5点</p>
+                <p><strong>输入：</strong>本周工作记录、会议纪要、邮件往来</p>
+                <p><strong>处理：</strong>1. AI整理本周工作内容 → 2. AI识别关键成果 → 3. AI生成周报初稿</p>
+                <p><strong>输出：</strong>格式化的周报文档</p>
+                <p><strong>审核点：</strong>初稿生成后，人审核内容准确性</p>
+                <p><strong>异常处理：</strong>如果某天记录缺失，AI标注"信息不足"，人补充后再生成</p>
+            </div>
+        </div>
+        <div class="page">
+            <div class="page-num">Page 3 / 3</div>
+            <h2>❌ 失败模式：工作流设计太复杂，团队绕路执行</h2>
+            <div style="background: #fef2f2; border-left: 4px solid #ef4444; padding: 20px; border-radius: 0 8px 8px 0; margin-bottom: 16px;">
+                <h4 style="color: #ef4444; margin-bottom: 8px;">典型案例：某公司设计了10步审核工作流，团队开发脚本跳过所有步骤</h4>
+                <p><strong>背景：</strong>某中型公司为了"规范"AI使用流程，设计了一个包含10个步骤的审批流：申请 → 审批 → 风险评估 → 审核 → 复核 → 再次审核 → 部门长确认 → 法务审查 → IT验证 → 最终审批。</p>
+                <p style="margin-top: 8px;"><strong>现实：</strong></p>
+                <ul style="margin-top: 8px; margin-left: 20px;">
+                    <li>每个任务都要走完10步，平均等待时间3天</li>
+                    <li>团队私下开发了一个自动化脚本，模拟人工点击跳过所有审批节点</li>
+                    <li>质量关卡形同虚设，所有任务"秒过审批"</li>
+                    <li>2个月后老板发现这个问题，但脚本已经运行了500+次</li>
+                </ul>
+            </div>
+            <div style="background: #fef2f2; border-left: 4px solid #ef4444; padding: 20px; border-radius: 0 8px 8px 0; margin-bottom: 16px;">
+                <h4 style="color: #ef4444; margin-bottom: 8px;">典型案例：流程设计合理，但执行变形</h4>
+                <p><strong>场景：</strong>某团队设计了"AI生成 → PM审核 → 修改 → 交付"的标准流程。但实际执行中：</p>
+                <ul style="margin-top: 8px; margin-left: 20px;">
+                    <li>PM因为工作忙，AI生成后直接使用，跳过了审核环节</li>
+                    <li>AI生成的错误内容直接流向了业务方</li>
+                    <li>出问题后大家互相推卸——PM说"AI写的"，AI说"我只是工具"</li>
+                </ul>
+                <p style="margin-top: 8px;"><strong>问题本质：</strong>流程设计时假设每个人都会遵守，但实际执行中流程被"优化"掉了</p>
+            </div>
+            <div style="background: #f0fdf4; border-left: 4px solid #10b981; padding: 20px; border-radius: 0 8px 8px 0; margin: 24px 0;">
+                <h4 style="color: #10b981; margin-bottom: 8px;">✅ 正确姿势：流程要轻、可执行、可迭代</h4>
+                <ul style="margin-top: 12px; margin-left: 20px;">
+                    <li><strong>流程分级：</strong>简单任务（文案、邮件）用1-2步，复杂任务（PRD、方案）用完整流程——不是所有任务都值得走完10步</li>
+                    <li><strong>审核点要少而精：</strong>只有关键决策点才设置审核，不要为了"流程完整"而加审核</li>
+                    <li><strong>流程要迭代：</strong>设计完流程后先试运行2周，收集反馈再调整——不要一开始就设计"完美流程"</li>
+                    <li><strong>让团队参与设计：</strong>流程设计时让实际执行的人参与，他们最知道哪些环节会卡住</li>
+                    <li><strong>监控执行率而非流程完整性：</strong>考核的是"流程被执行了多少"，而不是"流程有多完善"</li>
+                </ul>
+            </div>
+        </div>
+        <div class="nav-buttons">
+            <a href="3-21.html" class="nav-btn secondary">← 上一页</a>
+            <a href="3-23.html" class="nav-btn primary">下一页 →</a>
+        </div>
+    </main>
+    <footer class="footer">AI Builder for Product Manager · 方法层 · 课程3.2 · 第22章</footer>
+</body>
+</html>

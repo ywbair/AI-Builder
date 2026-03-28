@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>第7章：大模型时代 | AI Builder PM课程</title>
+    <style>
+        :root { --primary: #6366f1; --primary-dark: #4f46e5; --secondary: #10b981; --bg: #f8fafc; --card-bg: #ffffff; --text: #1e293b; --text-light: #64748b; --border: #e2e8f0; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: var(--bg); color: var(--text); line-height: 1.7; }
+        .header { background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%); color: white; padding: 40px 20px; }
+        .header-inner { max-width: 1000px; margin: 0 auto; }
+        .breadcrumb { font-size: 0.9rem; opacity: 0.8; margin-bottom: 12px; }
+        .breadcrumb a { color: white; text-decoration: none; }
+        .breadcrumb a:hover { text-decoration: underline; }
+        .chapter-badge { display: inline-block; background: rgba(255,255,255,0.2); padding: 4px 12px; border-radius: 4px; font-size: 0.85rem; margin-bottom: 8px; }
+        .header h1 { font-size: 2.2rem; font-weight: 700; margin-bottom: 8px; }
+        .header .subtitle { opacity: 0.9; font-size: 1.1rem; }
+        .progress-bar { background: rgba(255,255,255,0.2); height: 4px; margin-top: 20px; border-radius: 2px; }
+        .progress-fill { background: white; height: 100%; border-radius: 2px; width: 70%; }
+        .container { max-width: 1000px; margin: 0 auto; padding: 40px 20px; }
+        .page { background: var(--card-bg); border-radius: 16px; padding: 40px; margin-bottom: 32px; border: 1px solid var(--border); }
+        .page-num { color: var(--primary); font-size: 0.85rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+        .page h2 { font-size: 1.6rem; margin-bottom: 24px; color: var(--text); }
+        .page h3 { font-size: 1.2rem; margin: 24px 0 12px; color: var(--text); }
+        .page p { margin-bottom: 16px; color: var(--text); }
+        .highlight-box { background: linear-gradient(135deg, rgba(99,102,241,0.1) 0%, rgba(139,92,246,0.1) 100%); border-left: 4px solid var(--primary); padding: 20px 24px; border-radius: 0 8px 8px 0; margin: 24px 0; }
+        .highlight-box h4 { color: var(--primary); margin-bottom: 8px; }
+        .highlight-box.success { background: linear-gradient(135deg, rgba(16,185,129,0.1) 0%, rgba(5,150,105,0.1) 100%); border-left-color: var(--secondary); }
+        .highlight-box.warning { background: #fef3c7; border-left-color: #f59e0b; }
+        .highlight-box.warning h4 { color: #b45309; }
+        .highlight-box.danger { background: #fef2f2; border-left-color: #ef4444; }
+        .highlight-box.danger h4 { color: #ef4444; }
+        .timeline { position: relative; padding-left: 32px; }
+        .timeline::before { content: ''; position: absolute; left: 7px; top: 0; bottom: 0; width: 2px; background: var(--border); }
+        .timeline-item { position: relative; margin-bottom: 24px; }
+        .timeline-item::before { content: ''; position: absolute; left: -28px; top: 6px; width: 12px; height: 12px; border-radius: 50%; background: var(--primary); border: 3px solid var(--bg); }
+        .timeline-title { font-weight: 600; margin-bottom: 4px; }
+        .timeline-desc { color: var(--text-light); font-size: 0.9rem; }
+        .model-card { background: var(--bg); border-radius: 12px; padding: 20px; margin-bottom: 12px; border-left: 4px solid var(--primary); }
+        .model-card h4 { margin-bottom: 8px; }
+        .model-card p { margin: 0; font-size: 0.9rem; color: var(--text-light); }
+        .token-flow { background: var(--bg); border-radius: 12px; padding: 24px; margin: 24px 0; }
+        .token-flow h4 { text-align: center; margin-bottom: 16px; }
+        .flow-steps { display: flex; justify-content: space-between; align-items: center; gap: 8px; flex-wrap: wrap; }
+        .flow-step { flex: 1; min-width: 120px; background: var(--card-bg); border: 2px solid var(--primary); border-radius: 8px; padding: 16px; text-align: center; }
+        .flow-step .num { background: var(--primary); color: white; width: 24px; height: 24px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-size: 0.8rem; margin-bottom: 8px; }
+        .flow-step .label { font-weight: 600; font-size: 0.9rem; }
+        .flow-step .desc { font-size: 0.75rem; color: var(--text-light); margin-top: 4px; }
+        .flow-arrow { color: var(--primary); font-size: 1.5rem; }
+        .context-box { background: linear-gradient(135deg, rgba(239,68,68,0.1) 0%, rgba(239,68,68,0.05) 100%); border: 2px solid #ef4444; border-radius: 12px; padding: 24px; margin: 24px 0; }
+        .context-box h4 { color: #ef4444; margin-bottom: 12px; }
+        .example-box { background: #f0fdf4; border: 2px solid var(--secondary); border-radius: 12px; padding: 24px; margin: 24px 0; }
+        .example-box h4 { color: var(--secondary); margin-bottom: 12px; }
+        .example-box .example-title { font-weight: 600; color: var(--text); margin-bottom: 8px; }
+        .example-box .example-content { background: var(--card-bg); border-radius: 8px; padding: 16px; font-family: monospace; font-size: 0.85rem; margin: 8px 0; }
+        .token-calc { background: var(--bg); border-radius: 8px; padding: 16px; margin: 16px 0; }
+        .token-calc table { width: 100%; border-collapse: collapse; }
+        .token-calc th, .token-calc td { padding: 8px 12px; text-align: left; border-bottom: 1px solid var(--border); font-size: 0.9rem; }
+        .token-calc th { font-weight: 600; }
+        .token-calc td { color: var(--text-light); }
+        .quote-box { background: linear-gradient(135deg, rgba(139,92,246,0.1) 0%, rgba(139,92,246,0.05) 100%); border-left: 4px solid #8b5cf6; padding: 20px; border-radius: 0 8px 8px 0; margin: 24px 0; font-style: italic; }
+        .quote-box .quote { font-size: 1.1rem; color: var(--text); margin-bottom: 8px; }
+        .quote-box .source { font-size: 0.85rem; color: var(--text-light); font-style: normal; }
+        .footer { text-align: center; padding: 32px 20px; color: var(--text-light); font-size: 0.9rem; border-top: 1px solid var(--border); }
+        .nav-buttons { display: flex; justify-content: space-between; margin-top: 40px; gap: 16px; }
+        .nav-btn { padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: 500; display: inline-flex; align-items: center; gap: 8px; transition: all 0.2s; }
+        .nav-btn.primary { background: var(--primary); color: white; }
+        .nav-btn.primary:hover { background: var(--primary-dark); }
+        .nav-btn.secondary { background: var(--bg); color: var(--text); border: 1px solid var(--border); }
+        .nav-btn.secondary:hover { background: var(--border); }
+        @media (max-width: 768px) { .page { padding: 24px; } .header h1 { font-size: 1.6rem; } .flow-arrow { display: none; } }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-inner">
+            <div class="breadcrumb"><a href="../index.html">首页</a> / 认知层 / 课程1.2 / 第7章</div>
+            <div class="chapter-badge">课程 1.2：AI技术演进</div>
+            <h1>第7章：大模型时代</h1>
+            <p class="subtitle">LLM工作原理 + Token机制 + 上下文管理</p>
+            <div class="progress-bar"><div class="progress-fill"></div></div>
+        </div>
+    </header>
+    <main class="container">
+        <div class="page">
+            <div class="page-num">Page 1 / 4</div>
+            <h2>一、大模型时代的核心跃迁</h2>
+            <div class="highlight-box success">
+                <h4>突破一：统一的海量理解能力</h4>
+                <p>一个模型能同时理解文字、代码、图像，不再是各自独立的"专家系统"。</p>
+            </div>
+            <div class="highlight-box success">
+                <h4>突破二：涌现能力（Emergent Abilities）</h4>
+                <p>当模型规模超过某个临界点，突然涌现出小模型没有的能力——复杂推理、代码生成、多步骤规划。量变引起质变。</p>
+            </div>
+            <div class="highlight-box success">
+                <h4>突破三：自然语言作为通用接口</h4>
+                <p>人类用自然语言描述需求，AI理解并执行。第一次，机器真正听懂了人类的意图。</p>
+            </div>
+            <h3>技术里程碑</h3>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-title">2017年 Transformer 架构</div>
+                    <div class="timeline-desc">Google论文《Attention is All You Need》——大模型的核心基础设施</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-title">2020年 GPT-3</div>
+                    <div class="timeline-desc">1750亿参数，Few-shot learning震惊业界，AI从"专项"走向"通用"</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-title">2022-2023年 ChatGPT · GPT-4</div>
+                    <div class="timeline-desc">对话界面引爆行业，GPT-4成为首个图灵测试级别的大模型</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-title">2023-2024年 开源崛起</div>
+                    <div class="timeline-desc">Llama、Claude、Gemini等百花齐放，大模型进入普及阶段</div>
+                </div>
+            </div>
+        </div>
+        <div class="page">
+            <div class="page-num">Page 2 / 4</div>
+            <h2>二、LLM是怎么跑起来的</h2>
+            <p>理解LLM的工作原理，不需要懂代码，只需要懂这个流程：</p>
+            <div class="token-flow">
+                <h4>LLM 的基本工作流程</h4>
+                <div class="flow-steps">
+                    <div class="flow-step">
+                        <div class="num">1</div>
+                        <div class="label">输入 Prompt</div>
+                        <div class="desc">用户的问题或指令</div>
+                    </div>
+                    <div class="flow-arrow">→</div>
+                    <div class="flow-step">
+                        <div class="num">2</div>
+                        <div class="label">Token 化</div>
+                        <div class="desc">文字转数字ID</div>
+                    </div>
+                    <div class="flow-arrow">→</div>
+                    <div class="flow-step">
+                        <div class="num">3</div>
+                        <div class="label">LLM 推理</div>
+                        <div class="desc">神经网络计算</div>
+                    </div>
+                    <div class="flow-arrow">→</div>
+                    <div class="flow-step">
+                        <div class="num">4</div>
+                        <div class="label">Token 解码</div>
+                        <div class="desc">数字转文字</div>
+                    </div>
+                    <div class="flow-arrow">→</div>
+                    <div class="flow-step">
+                        <div class="num">5</div>
+                        <div class="label">输出 Response</div>
+                        <div class="desc">回答用户</div>
+                    </div>
+                </div>
+            </div>
+            <div class="quote-box">
+                <div class="quote">"Attention is All You Need"</div>
+                <div class="source">— Vasquez et al., Google Brain, 2017</div>
+            </div>
+            <div class="highlight-box">
+                <h4>Transformer 核心原理：注意力机制</h4>
+                <p>Transformer 通过"注意力机制"理解词与词之间的关系。比如这句话：</p>
+                <div class="example-box">
+                    <div class="example-content">"我把苹果手机充了电，现在可以用了"</div>
+                    <p>LLM需要理解"苹果"在这里是"手机"而不是"水果"，靠的就是词与词之间的"注意力"权重。</p>
+                </div>
+            </div>
+        </div>
+        <div class="page">
+            <div class="page-num">Page 3 / 4</div>
+            <h2>三、Token：LLM的计量单位</h2>
+            <div class="highlight-box">
+                <h4>什么是 Token</h4>
+                <p>Token = LLM处理文本的基本单位</p>
+                <div class="token-calc">
+                    <table>
+                        <tr><th>内容</th><th>Token数</th></tr>
+                        <tr><td>1个中文字</td><td>约1-2个Token</td></tr>
+                        <tr><td>1个英文单词</td><td>约1-2个Token</td></tr>
+                        <tr><td>1个标点符号</td><td>约1个Token</td></tr>
+                        <tr><td>1000个汉字</td><td>约1000-2000个Token</td></tr>
+                    </table>
+                </div>
+            </div>
+            <div class="example-box">
+                <h4>例子：Token是怎么计算的</h4>
+                <div class="example-content">
+                    输入："你好，请帮我写一封邮件"
+                    Token化：[你, 好, ，, 请, 帮, 我, 写, 一, 封, 邮, 件]
+                    ≈ 12个Token
+                </div>
+            </div>
+            <div class="highlight-box warning">
+                <h4>Token按量计费</h4>
+                <p>LLM不是按"字数"收费，是按"Token"计费。</p>
+                <div class="token-calc">
+                    <table>
+                        <tr><th>模型</th><th>输入价格</th><th>备注</th></tr>
+                        <tr><td>GPT-4o</td><td>$2.5/1M Token</td><td>约0.002元/千Token</td></tr>
+                        <tr><td>Claude 3.5</td><td>$3/1M Token</td><td>约0.02元/千Token</td></tr>
+                        <tr><td>MiniMax-M2.7</td><td>约¥0.01/千Token</td><td>中文优化</td></tr>
+                    </table>
+                </div>
+            </div>
+            <div class="highlight-box">
+                <h4>上下文不是"聊天记录"，是LLM的"工作内存"</h4>
+                <p>当LLM回答问题时，它不是在"回忆"——而是在<strong>把整个对话历史重新读一遍</strong>。</p>
+                <ul style="margin-top: 12px; margin-left: 20px;">
+                    <li>聊天记录 = 给LLM看的材料，不是LLM的"记忆"</li>
+                    <li>LLM本身没有状态，每次都是"从零开始"处理上下文</li>
+                    <li>超过上下文窗口的内容，LLM会"忘掉"</li>
+                </ul>
+            </div>
+        </div>
+        <div class="page">
+            <div class="page-num">Page 4 / 4</div>
+            <h2>四、上下文窗口：LLM的内存限制</h2>
+            <div class="context-box">
+                <h4>上下文窗口 = LLM一次性能处理的Token上限</h4>
+                <div class="token-calc">
+                    <table>
+                        <tr><th>模型</th><th>上下文窗口</th><th>约等于</th></tr>
+                        <tr><td>GPT-4 Turbo</td><td>128K Tokens</td><td>约10万汉字</td></tr>
+                        <tr><td>Claude 3</td><td>200K Tokens</td><td>约15万汉字</td></tr>
+                        <tr><td>MiniMax-M2.7</td><td>2048K Tokens</td><td>约150万汉字</td></tr>
+                    </table>
+                </div>
+            </div>
+            <div class="example-box">
+                <h4>例子：上下文越来越长会发生什么</h4>
+                <div class="example-content">
+                    对话轮次 1：消耗 500 Token → OK
+                    对话轮次 10：消耗 5000 Token → OK
+                    对话轮次 100：消耗 50000 Token → 接近上限，前面内容开始被"遗忘"
+                </div>
+            </div>
+            <div class="highlight-box danger">
+                <h4>关键路径：上下文管理的代价</h4>
+                <p>上下文越来越长 → Token消耗越来越快 → 成本越来越高 → 效果可能越来越差</p>
+                <ul style="margin-top: 12px; margin-left: 20px;">
+                    <li>不是塞越多上下文越好，超长上下文会稀释重点</li>
+                    <li>上下文有成本：输入Token + 输出Token = 总消耗</li>
+                    <li>好的Prompt = 在有限上下文里传递最关键的信息</li>
+                </ul>
+            </div>
+            <div class="example-box">
+                <h4>例子：差劲的Prompt vs 好的Prompt</h4>
+                <div class="example-title">❌ 差劲的Prompt（塞了一堆无关信息）</div>
+                <div class="example-content">
+                    "我今天早上吃了包子，中午吃了米饭，下午开了会，晚上想点外卖，你知道附近有什么好吃的吗？我喜欢吃辣的，不要太远，最好有优惠"
+                </div>
+                <div class="example-title">✅ 好的Prompt（只给关键信息）</div>
+                <div class="example-content">
+                    "我是外卖用户，喜欢辣味，附近3公里内有什么推荐？要有优惠"
+                </div>
+                <p style="margin-top: 12px;">效果几乎一样，但Token消耗少了一半。</p>
+            </div>
+            <div class="highlight-box success">
+                <h4>核心认知</h4>
+                <p>上下文管理是AI应用的核心竞争力——谁能把上下文用得更好，谁就能做出更强大的AI产品。</p>
+            </div>
+        </div>
+        <div class="page">
+            <div class="page-num">Page 5 / 5</div>
+            <h2>❌ 失败模式：大模型幻觉的危害</h2>
+            <div class="highlight-box danger">
+                <h4>案例：某电商客服机器人因幻觉给出错误建议，用户投诉激增</h4>
+                <p style="margin-top: 12px;"><strong>背景：</strong>某中型电商平台2023年上线了LLM驱动的客服机器人，初期运行良好。半年后，用户开始大量投诉。</p>
+                <div class="example-content" style="margin-top: 12px; background: var(--card-bg); border-radius: 8px; padding: 16px;">
+                    <strong>用户问：</strong>"这个保健品我能吃吗？我有高血压和糖尿病"<br>
+                    <strong>机器人答：</strong>"可以的，这个保健品对高血压和糖尿病有辅助治疗作用，建议每天服用两粒。"<br>
+                    <strong>实际情况：</strong>该保健品含有甘草成分，会与降压药产生相互作用，可能导致血压异常。<br>
+                    <strong>后果：</strong>一位老年用户听从建议后出现血压骤升紧急就医，平台被投诉到药监局<br>
+                    <strong>根因：</strong>LLM在训练数据中看到了大量保健品描述，但没有学过医学知识边界，生成了看似专业但实际上错误的建议
+                </div>
+            </div>
+            <div class="highlight-box warning">
+                <h4>幻觉的危害程度量化</h4>
+                <div style="overflow-x: auto; margin-top: 12px;">
+                    <table style="width: 100%; border-collapse: collapse; font-size: 0.9rem;">
+                        <thead>
+                            <tr style="background: var(--bg);">
+                                <th style="padding: 12px; text-align: left; border-bottom: 1px solid var(--border);">场景</th>
+                                <th style="padding: 12px; text-align: left; border-bottom: 1px solid var(--border);">幻觉危害程度</th>
+                                <th style="padding: 12px; text-align: left; border-bottom: 1px solid var(--border);">后果</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td style="padding: 10px; border-bottom: 1px solid var(--border);">一般性问答（闲聊）</td>
+                                <td style="padding: 10px; border-bottom: 1px solid var(--border); color: #f59e0b;">低</td>
+                                <td style="padding: 10px; border-bottom: 1px solid var(--border);">用户体验下降</td>
+                            </tr>
+                            <tr style="background: var(--bg);">
+                                <td style="padding: 10px; border-bottom: 1px solid var(--border);">产品信息查询</td>
+                                <td style="padding: 10px; border-bottom: 1px solid var(--border); color: #f59e0b;">中</td>
+                                <td style="padding: 10px; border-bottom: 1px solid var(--border);">购买决策错误</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 10px; border-bottom: 1px solid var(--border);">医疗/法律/财务建议</td>
+                                <td style="padding: 10px; border-bottom: 1px solid var(--border); color: #ef4444;">极高</td>
+                                <td style="padding: 10px; border-bottom: 1px solid var(--border);">人身伤害/法律风险/财产损失</td>
+                            </tr>
+                            <tr style="background: var(--bg);">
+                                <td style="padding: 10px; border-bottom: 1px solid var(--border);">企业内部决策建议</td>
+                                <td style="padding: 10px; border-bottom: 1px solid var(--border); color: #f59e0b;">中-高</td>
+                                <td style="padding: 10px; border-bottom: 1px solid var(--border);">商业判断失误</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="highlight-box">
+                <h4>✅ 正确姿势</h4>
+                <ul style="margin-top: 12px; margin-left: 20px;">
+                    <li><strong>高风险场景必须人工把关：</strong>医疗、法律、财务建议类场景，AI只能做信息整理，不能做决策建议</li>
+                    <li><strong>RAG + 知识库约束：</strong>让LLM的回答范围限制在已知事实内，减少虚构空间</li>
+                    <li><strong>输出加风险提示：</strong>涉及专业领域时，明确告知用户"此信息仅供参考，不构成专业建议"</li>
+                    <li><strong>建立幻觉检测流程：</strong>对AI输出的关键事实进行交叉验证，特别是数字、日期、条款类信息</li>
+                </ul>
+            </div>
+        </div>
+        <div class="nav-buttons">
+            <a href="1-6.html" class="nav-btn secondary">← 上一页</a>
+            <a href="1-8.html" class="nav-btn primary">下一页：AI Agent时代 →</a>
+        </div>
+    </main>
+    <footer class="footer">AI Builder for Product Manager · 认知层 · 课程1.2 · 第7章</footer>
+</body>
+</html>

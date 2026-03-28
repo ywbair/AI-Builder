@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>第9章：当前AI的能力边界 | AI Builder PM课程</title>
+    <style>
+        :root { --primary: #6366f1; --primary-dark: #4f46e5; --secondary: #10b981; --danger: #ef4444; --bg: #f8fafc; --card-bg: #ffffff; --text: #1e293b; --text-light: #64748b; --border: #e2e8f0; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: var(--bg); color: var(--text); line-height: 1.7; }
+        .header { background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%); color: white; padding: 40px 20px; }
+        .header-inner { max-width: 1000px; margin: 0 auto; }
+        .breadcrumb { font-size: 0.9rem; opacity: 0.8; margin-bottom: 12px; }
+        .breadcrumb a { color: white; text-decoration: none; }
+        .breadcrumb a:hover { text-decoration: underline; }
+        .chapter-badge { display: inline-block; background: rgba(255,255,255,0.2); padding: 4px 12px; border-radius: 4px; font-size: 0.85rem; margin-bottom: 8px; }
+        .header h1 { font-size: 2.2rem; font-weight: 700; margin-bottom: 8px; }
+        .header .subtitle { opacity: 0.9; font-size: 1.1rem; }
+        .progress-bar { background: rgba(255,255,255,0.2); height: 4px; margin-top: 20px; border-radius: 2px; }
+        .progress-fill { background: white; height: 100%; border-radius: 2px; width: 82%; }
+        .container { max-width: 1000px; margin: 0 auto; padding: 40px 20px; }
+        .page { background: var(--card-bg); border-radius: 16px; padding: 40px; margin-bottom: 32px; border: 1px solid var(--border); }
+        .page-num { color: var(--primary); font-size: 0.85rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+        .page h2 { font-size: 1.6rem; margin-bottom: 24px; color: var(--text); }
+        .page h3 { font-size: 1.2rem; margin: 24px 0 12px; color: var(--text); }
+        .page p { margin-bottom: 16px; color: var(--text); }
+        .highlight-box { background: linear-gradient(135deg, rgba(99,102,241,0.1) 0%, rgba(139,92,246,0.1) 100%); border-left: 4px solid var(--primary); padding: 20px 24px; border-radius: 0 8px 8px 0; margin: 24px 0; }
+        .highlight-box h4 { color: var(--primary); margin-bottom: 8px; }
+        .highlight-box.success { background: linear-gradient(135deg, rgba(16,185,129,0.1) 0%, rgba(5,150,105,0.1) 100%); border-left-color: var(--secondary); }
+        .highlight-box.success h4 { color: var(--secondary); }
+        .highlight-box.danger { background: #fef2f2; border-left-color: var(--danger); }
+        .highlight-box.danger h4 { color: var(--danger); }
+        .highlight-box.warning { background: #fef3c7; border-left-color: #f59e0b; }
+        .highlight-box.warning h4 { color: #b45309; }
+        .example-box { background: #f0fdf4; border: 2px solid var(--secondary); border-radius: 12px; padding: 24px; margin: 24px 0; }
+        .example-box h4 { color: var(--secondary); margin-bottom: 12px; }
+        .example-content { background: var(--card-bg); border-radius: 8px; padding: 16px; font-size: 0.9rem; }
+        .quote-box { background: linear-gradient(135deg, rgba(139,92,246,0.1) 0%, rgba(139,92,246,0.05) 100%); border-left: 4px solid #8b5cf6; padding: 20px; border-radius: 0 8px 8px 0; margin: 24px 0; }
+        .quote-box .quote { font-size: 1.1rem; color: var(--text); margin-bottom: 8px; }
+        .quote-box .source { font-size: 0.85rem; color: var(--text-light); }
+        .ability-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin: 24px 0; }
+        .ability-card { background: var(--bg); border-radius: 12px; padding: 20px; }
+        .ability-card h4 { margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+        .ability-card p { font-size: 0.9rem; color: var(--text-light); margin: 0; }
+        .ability-card .icon { font-size: 1.5rem; }
+        .vs-table { width: 100%; border-collapse: collapse; margin: 24px 0; }
+        .vs-table th, .vs-table td { padding: 12px 16px; text-align: left; border-bottom: 1px solid var(--border); }
+        .vs-table th { background: var(--bg); font-weight: 600; }
+        .vs-table .good { color: var(--secondary); }
+        .vs-table .bad { color: var(--danger); }
+        .case-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin: 24px 0; }
+        .case-card { background: var(--bg); border-radius: 12px; padding: 20px; }
+        .case-card h4 { margin-bottom: 8px; }
+        .case-card p { font-size: 0.9rem; color: var(--text-light); margin: 0; }
+        .footer { text-align: center; padding: 32px 20px; color: var(--text-light); font-size: 0.9rem; border-top: 1px solid var(--border); }
+        .nav-buttons { display: flex; justify-content: space-between; margin-top: 40px; gap: 16px; }
+        .nav-btn { padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: 500; display: inline-flex; align-items: center; gap: 8px; transition: all 0.2s; }
+        .nav-btn.primary { background: var(--primary); color: white; }
+        .nav-btn.primary:hover { background: var(--primary-dark); }
+        .nav-btn.secondary { background: var(--bg); color: var(--text); border: 1px solid var(--border); }
+        .nav-btn.secondary:hover { background: var(--border); }
+        @media (max-width: 768px) { .page { padding: 24px; } .header h1 { font-size: 1.6rem; } .ability-grid { grid-template-columns: 1fr; } .case-grid { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-inner">
+            <div class="breadcrumb"><a href="../index.html">首页</a> / 认知层 / 课程1.3 / 第9章</div>
+            <div class="chapter-badge">课程 1.3：AI技术边界与产品机会</div>
+            <h1>第9章：当前AI的能力边界</h1>
+            <p class="subtitle">AI能做什么、不能做什么</p>
+            <div class="progress-bar"><div class="progress-fill"></div></div>
+        </div>
+    </header>
+    <main class="container">
+        <div class="page">
+            <div class="page-num">Page 1 / 2</div>
+            <h2>AI当前能做什么</h2>
+            <div class="ability-grid">
+                <div class="ability-card">
+                    <h4>✅ 文本生成与理解</h4>
+                    <p>写作、摘要、翻译、问答、对话</p>
+                </div>
+                <div class="ability-card">
+                    <h4>✅ 代码生成与Debug</h4>
+                    <p>补全代码、解释代码、修复Bug</p>
+                </div>
+                <div class="ability-card">
+                    <h4>✅ 图像理解</h4>
+                    <p>识别图表、分析截图、看图说话</p>
+                </div>
+                <div class="ability-card">
+                    <h4>✅ 多步骤推理</h4>
+                    <p>复杂问题分解、逻辑推理</p>
+                </div>
+            </div>
+            <div class="example-box">
+                <h4>例子：AI做得好的场景</h4>
+                <div class="example-content">
+                    <strong>文案写作：</strong>生成10种不同风格的营销文案<br>
+                    <strong>代码辅助：</strong>解释一段Python代码并找出潜在Bug<br>
+                    <strong>数据分析：</strong>根据数据表格生成分析报告<br>
+                    <strong>文档处理：</strong>从PDF中提取关键信息并总结
+                </div>
+            </div>
+        </div>
+        <div class="page">
+            <div class="page-num">Page 2 / 2</div>
+            <h2>AI不能做什么</h2>
+            <table class="vs-table">
+                <thead>
+                    <tr><th>能力</th><th>AI表现</th><th>说明</th></tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>实时信息</td>
+                        <td class="bad">❌ 不知道</td>
+                        <td>知识有截止日期，需要RAG补充</td>
+                    </tr>
+                    <tr>
+                        <td>精确数字计算</td>
+                        <td class="bad">⚠️ 不稳定</td>
+                        <td>复杂数学可能出错，需要验证</td>
+                    </tr>
+                    <tr>
+                        <td>长期记忆</td>
+                        <td class="bad">❌ 没有</td>
+                        <td>每次对话都是独立的</td>
+                    </tr>
+                    <tr>
+                        <td>真实情感理解</td>
+                        <td class="bad">⚠️ 表面</td>
+                        <td>能模仿但不是真正理解</td>
+                    </tr>
+                    <tr>
+                        <td>复杂决策</td>
+                        <td class="bad">⚠️ 有限</td>
+                        <td>需要人工把关，不能自主做重大决策</td>
+                    </tr>
+                    <tr>
+                        <td>100%准确性</td>
+                        <td class="bad">❌ 不保证</td>
+                        <td>可能"幻觉"——生成看似合理但错误的答案</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="highlight-box danger">
+                <h4>"幻觉"问题：AI最大的坑</h4>
+                <p>AI会一本正经地说错误的话。</p>
+                <div class="example-content" style="margin-top: 12px;">
+                    <strong>例子：</strong><br>
+                    问：鲁迅和周树人是什么关系？<br>
+                    AI答：他们是同一所学校的学生，但周树人是老师...<br>
+                    <strong>实际情况：</strong>鲁迅就是周树人<br>
+                    <strong>这就是"幻觉"——AI编造了看似合理但完全错误的答案</strong>
+                </div>
+            </div>
+            <div class="highlight-box warning">
+                <h4>PM必须知道的三个原则</h4>
+                <ul style="margin-top: 12px; margin-left: 20px;">
+                    <li><strong>审核第一</strong>：AI输出必须人工审核，不能直接使用</li>
+                    <li><strong>知识有截止</strong>：AI不知道最新发生的事</li>
+                    <li><strong>不保证准确</strong>：AI说的不一定对，要交叉验证</li>
+                </ul>
+            </div>
+        </div>
+        <div class="page">
+            <div class="page-num">Page 3 / 3</div>
+            <h2>❌ 失败模式：看起来AI能做、实际效果很差的5个场景</h2>
+            <div class="highlight-box danger">
+                <h4>场景1：AI做用户访谈总结</h4>
+                <p style="margin-top: 8px;"><strong>看起来能做：</strong>AI可以转录录音、总结要点</p>
+                <p><strong>实际坑：</strong>AI无法捕捉用户的语气、情绪、沉默背后的含义。可能漏掉"话没说完"的线索，可能把反讽当成正面意见</p>
+                <p style="margin-top: 8px;"><strong>真实案例：</strong>某产品团队用AI总结用户访谈，AI把用户说"这个功能还行吧"（失望语气）识别成了"正面评价"，导致团队误判需求优先级</p>
+            </div>
+            <div class="highlight-box danger">
+                <h4>场景2：AI做竞品分析</h4>
+                <p style="margin-top: 8px;"><strong>看起来能做：</strong>AI可以搜索大量信息、生成分析报告</p>
+                <p><strong>实际坑：</strong>AI搜索的信息可能过时或不准确，且无法获得内部数据（竞品真实用户数、转化率、定价策略）</p>
+                <p style="margin-top: 8px;"><strong>真实案例：</strong>某团队基于AI生成的竞品报告做了差异化策略，结果报告中的竞品数据是2年前的，直接导致策略偏差</p>
+            </div>
+            <div class="highlight-box danger">
+                <h4>场景3：AI做PRD初稿</h4>
+                <p style="margin-top: 8px;"><strong>看起来能做：</strong>给一个主题就能生成完整PRD</p>
+                <p><strong>实际坑：</strong>AI不了解你的产品现状、团队技术能力、用户场景细节，生成的PRD听起来专业但无法落地</p>
+                <p style="margin-top: 8px;"><strong>真实案例：</strong>PM让AI生成PRD，AI写了"实时语音转文字，延迟小于100ms"，团队评估后发现技术实现需要3个月，直接打回重写</p>
+            </div>
+            <div class="highlight-box danger">
+                <h4>场景4：AI做数据洞察</h4>
+                <p style="margin-top: 8px;"><strong>看起来能做：</strong>AI可以分析数据、发现规律</p>
+                <p><strong>实际坑：</strong>AI不知道因果关系，只能看到相关性。可能把"虚假相关"当成洞察，还可能帮你编造数据解释</p>
+                <p style="margin-top: 8px;"><strong>真实案例：</strong>AI发现"用户活跃度和订单量高度相关"，建议团队想办法提升活跃度。结果真相是：订单量导致用户必须登录查看，活跃度是结果不是原因，提高活跃度并不能提高订单量</p>
+            </div>
+            <div class="highlight-box danger">
+                <h4>场景5：AI做创意发散</h4>
+                <p style="margin-top: 8px;"><strong>看起来能做：</strong>AI可以生成大量创意点子</p>
+                <p><strong>实际坑：</strong>AI的创意是对训练数据的重组，缺乏真正的"原创性"和"用户视角"，容易落入俗套</p>
+                <p style="margin-top: 8px;"><strong>真实案例：</strong>让AI帮想10个拉新方案，AI给出的方案都是"邀请好友得优惠券"、"老带新返现"——行业已知的常规套路，没有差异化的创新</p>
+            </div>
+            <div class="highlight-box">
+                <h4>✅ 正确姿势：判断AI是否适合这个任务</h4>
+                <p style="margin-top: 8px;">在让AI做事之前，先问自己三个问题：</p>
+                <ul style="margin-top: 12px; margin-left: 20px;">
+                    <li>这个任务需要真实的情感理解或用户洞察吗？ → AI不行</li>
+                    <li>这个任务需要获取私有的、实时的内部数据吗？ → AI不行</li>
+                    <li>这个任务的后果是否不可逆（财务、法律、人身安全）？ → 必须人工把关</li>
+                </ul>
+            </div>
+        </div>
+        <div class="nav-buttons">
+            <a href="1-8.html" class="nav-btn secondary">← 上一页</a>
+            <a href="1-10.html" class="nav-btn primary">下一页 →</a>
+        </div>
+    </main>
+    <footer class="footer">AI Builder for Product Manager · 认知层 · 课程1.3</footer>
+</body>
+</html>

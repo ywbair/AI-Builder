@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>第25章：验证与迭代 | AI Builder PM课程</title>
+    <style>
+        :root { --primary: #6366f1; --primary-dark: #4f46e5; --secondary: #10b981; --bg: #f8fafc; --card-bg: #ffffff; --text: #1e293b; --text-light: #64748b; --border: #e2e8f0; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: var(--bg); color: var(--text); line-height: 1.7; }
+        .header { background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%); color: white; padding: 40px 20px; }
+        .header-inner { max-width: 1000px; margin: 0 auto; }
+        .breadcrumb { font-size: 0.9rem; opacity: 0.8; margin-bottom: 12px; }
+        .breadcrumb a { color: white; text-decoration: none; }
+        .breadcrumb a:hover { text-decoration: underline; }
+        .chapter-badge { display: inline-block; background: rgba(255,255,255,0.2); padding: 4px 12px; border-radius: 4px; font-size: 0.85rem; margin-bottom: 8px; }
+        .header h1 { font-size: 2.2rem; font-weight: 700; margin-bottom: 8px; }
+        .header .subtitle { opacity: 0.9; font-size: 1.1rem; }
+        .progress-bar { background: rgba(255,255,255,0.2); height: 4px; margin-top: 20px; border-radius: 2px; }
+        .progress-fill { background: white; height: 100%; border-radius: 2px; width: 77%; }
+        .container { max-width: 1000px; margin: 0 auto; padding: 40px 20px; }
+        .page { background: var(--card-bg); border-radius: 16px; padding: 40px; margin-bottom: 32px; border: 1px solid var(--border); }
+        .page-num { color: var(--primary); font-size: 0.85rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+        .page h2 { font-size: 1.6rem; margin-bottom: 24px; color: var(--text); }
+        .page h3 { font-size: 1.2rem; margin: 24px 0 12px; color: var(--text); }
+        .page p { margin-bottom: 16px; color: var(--text); }
+        .method-card { background: linear-gradient(135deg, rgba(99,102,241,0.1) 0%, rgba(139,92,246,0.1) 100%); border-left: 4px solid var(--primary); padding: 20px; border-radius: 0 8px 8px 0; margin-bottom: 16px; }
+        .method-card h4 { color: var(--primary); margin-bottom: 8px; }
+        .iter-card { background: #f0fdf4; border-left: 4px solid var(--secondary); padding: 20px; border-radius: 0 8px 8px 0; margin-bottom: 16px; }
+        .iter-card h4 { color: var(--secondary); margin-bottom: 8px; }
+        .iter-card ul { margin-left: 20px; }
+        .iter-card li { margin-bottom: 6px; }
+        .summary-box { background: linear-gradient(135deg, rgba(99,102,241,0.1) 0%, rgba(139,92,246,0.1) 100%); border-left: 4px solid var(--primary); padding: 24px; border-radius: 0 8px 8px 0; margin: 24px 0; }
+        .summary-box h4 { color: var(--primary); margin-bottom: 12px; }
+        .footer { text-align: center; padding: 32px 20px; color: var(--text-light); font-size: 0.9rem; border-top: 1px solid var(--border); }
+        .nav-buttons { display: flex; justify-content: space-between; margin-top: 40px; gap: 16px; }
+        .nav-btn { padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: 500; display: inline-flex; align-items: center; gap: 8px; transition: all 0.2s; }
+        .nav-btn.primary { background: var(--primary); color: white; }
+        .nav-btn.primary:hover { background: var(--primary-dark); }
+        .nav-btn.secondary { background: var(--bg); color: var(--text); border: 1px solid var(--border); }
+        .nav-btn.secondary:hover { background: var(--border); }
+        @media (max-width: 768px) { .page { padding: 24px; } .header h1 { font-size: 1.6rem; } }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-inner">
+            <div class="breadcrumb"><a href="../index.html">首页</a> / 方法层 / 课程3.3 / 第25章</div>
+            <div class="chapter-badge">课程 3.3：质量把控</div>
+            <h1>第25章：验证与迭代</h1>
+            <p class="subtitle">验证的三种方法和迭代的核心原则</p>
+            <div class="progress-bar"><div class="progress-fill"></div></div>
+        </div>
+    </header>
+    <main class="container">
+        <div class="page">
+            <div class="page-num">Page 1 / 2</div>
+            <h2>验证的三种方法</h2>
+            <div class="method-card">
+                <h4>方法一：抽检</h4>
+                <p>从大量输出中随机抽取一部分验证。</p>
+                <p style="margin-top: 8px;"><strong>适用场景：</strong>输出量大、逐条验证成本太高时</p>
+                <p><strong>优点：</strong>效率高，成本低</p>
+                <p><strong>缺点：</strong>可能漏掉问题</p>
+                <p style="margin-top: 8px;"><strong>例子：</strong>AI生成了100条文案，抽查10条检查质量</p>
+            </div>
+            <div class="method-card">
+                <h4>方法二：穷举</h4>
+                <p>逐条验证所有输出。</p>
+                <p style="margin-top: 8px;"><strong>适用场景：</strong>输出量少、但准确率要求高时</p>
+                <p><strong>优点：</strong>准确率高</p>
+                <p><strong>缺点：</strong>效率低，成本高</p>
+                <p style="margin-top: 8px;"><strong>例子：</strong>重要合同条款、关键数据、用户-facing文案</p>
+            </div>
+            <div class="method-card">
+                <h4>方法三：交叉验证</h4>
+                <p>用另一个AI或工具验证输出。</p>
+                <p style="margin-top: 8px;"><strong>适用场景：</strong>重要任务、需要多重确认时</p>
+                <p><strong>优点：</strong>可靠度高</p>
+                <p><strong>缺点：</strong>成本高，耗时</p>
+                <p style="margin-top: 8px;"><strong>例子：</strong>让一个AI生成，让另一个AI检查错误</p>
+            </div>
+        </div>
+        <div class="page">
+            <div class="page-num">Page 2 / 2</div>
+            <h2>迭代的核心原则</h2>
+            <div class="iter-card">
+                <h4>四个迭代原则</h4>
+                <ul>
+                    <li><strong>原则一：发现问题及时修正</strong><br>不要等到最后才改。问题发现越早，修复成本越低。</li>
+                    <li><strong>原则二：记录常见错误类型</strong><br>建立个人错误清单，下次遇到类似问题知道怎么改。</li>
+                    <li><strong>原则三：优化提示词</strong><br>AI的问题往往是通过提示词可以解决的。好的提示词是迭代出来的。</li>
+                    <li><strong>原则四：沉淀最佳实践</strong><br>好的实践也要记录，形成个人知识库。</li>
+                </ul>
+            </div>
+        </div>
+        <div class="page">
+            <div class="page-num">Page 4 / 4</div>
+            <h2>❌ 失败模式：验证集与测试集不一致</h2>
+            <div style="background: #fef2f2; border-left: 4px solid #ef4444; padding: 20px; border-radius: 0 8px 8px 0; margin-bottom: 16px;">
+                <h4 style="color: #ef4444; margin-bottom: 8px;">典型案例：模型在验证集F1=0.92，测试集F1=0.61，因数据分布不一致</h4>
+                <p><strong>背景：</strong>某PM团队用AI辅助做用户评论分类（正面/负面/中性），模型在验证集上表现很好（F1=0.92），但上线后实际效果很差。</p>
+                <p style="margin-top: 8px;"><strong>数据对比：</strong></p>
+                <div style="overflow-x: auto; margin-top: 12px;">
+                    <table style="width: 100%; border-collapse: collapse; font-size: 0.9rem;">
+                        <thead>
+                            <tr style="background: var(--bg);">
+                                <th style="padding: 10px; text-align: left; border-bottom: 1px solid var(--border);">数据集</th>
+                                <th style="padding: 10px; text-align: left; border-bottom: 1px solid var(--border);">F1分数</th>
+                                <th style="padding: 10px; text-align: left; border-bottom: 1px solid var(--border);">原因</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td style="padding: 10px; border-bottom: 1px solid var(--border);">验证集</td>
+                                <td style="padding: 10px; border-bottom: 1px solid var(--border); color: #10b981;">0.92</td>
+                                <td style="padding: 10px; border-bottom: 1px solid var(--border);">数据干净，都是标准格式</td>
+                            </tr>
+                            <tr style="background: var(--bg);">
+                                <td style="padding: 10px; border-bottom: 1px solid var(--border);">测试集</td>
+                                <td style="padding: 10px; border-bottom: 1px solid var(--border); color: #f59e0b;">0.75</td>
+                                <td style="padding: 10px; border-bottom: 1px solid var(--border);">有少量噪声数据</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 10px; border-bottom: 1px solid var(--border);">生产环境</td>
+                                <td style="padding: 10px; border-bottom: 1px solid var(--border); color: #ef4444;">0.61</td>
+                                <td style="padding: 10px; border-bottom: 1px solid var(--border);">用户评论充满emoji、缩写、错别字</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p style="margin-top: 12px;"><strong>根因分析：</strong></p>
+                <ul style="margin-top: 8px; margin-left: 20px;">
+                    <li>验证集用的是"干净数据"（研发整理的高质量标注数据）</li>
+                    <li>生产环境是"脏数据"（真实用户评论，有emoji、缩写、表情包、错别字）</li>
+                    <li>数据分布差异导致模型泛化失败</li>
+                </ul>
+            </div>
+            <div style="background: #fef2f2; border-left: 4px solid #ef4444; padding: 20px; border-radius: 0 8px 8px 0; margin-bottom: 16px;">
+                <h4 style="color: #ef4444; margin-bottom: 8px;">典型案例：时序数据泄露导致"虚假的高准确率"</h4>
+                <p><strong>场景：</strong>某PM用历史数据训练销量预测模型，验证准确率98%。上线后预测完全不准。</p>
+                <p style="margin-top: 8px;"><strong>问题所在：</strong></p>
+                <ul style="margin-top: 8px; margin-left: 20px;">
+                    <li>验证集和训练集都用了2019-2022的数据</li>
+                    <li>但2023年的数据分布完全不同（疫情后消费习惯改变）</li>
+                    <li>用"过去"预测"未来"失败了</li>
+                </ul>
+            </div>
+            <div style="background: #f0fdf4; border-left: 4px solid #10b981; padding: 20px; border-radius: 0 8px 8px 0; margin: 24px 0;">
+                <h4 style="color: #10b981; margin-bottom: 8px;">✅ 正确姿势：验证集必须模拟真实分布</h4>
+                <ul style="margin-top: 12px; margin-left: 20px;">
+                    <li><strong>数据同分布：</strong>验证集要和生产环境的数据分布一致，包括噪声、格式、时间分布</li>
+                    <li><strong>时间序列数据要用时间切分：</strong>用历史数据训练，用最近的数据验证——而不是随机切分</li>
+                    <li><strong>上线前做小规模A/B测试：</strong>不要完全相信离线验证，先在真实环境小流量测试</li>
+                    <li><strong>持续监控：</strong>模型上线后持续监控效果，发现数据分布变化要及时重新训练</li>
+                </ul>
+            </div>
+        </div>
+        <div class="summary-box">
+                <h4>📚 课程3.3总结</h4>
+                <p>完成"质量把控"课程后，你应该：</p>
+                <ul style="margin-top: 12px; margin-left: 20px;">
+                    <li>理解为什么AI输出必须审核</li>
+                    <li>掌握审核的三个时机（关卡、终验、异常）</li>
+                    <li>掌握审核的四个维度（准确、完整、一致、可执行）</li>
+                    <li>了解验证的三种方法（抽检、穷举、交叉验证）</li>
+                    <li>掌握迭代的四个原则</li>
+                </ul>
+                <p style="margin-top: 16px;">下一章我们将学习<strong>课程3.4：工具链</strong>，了解AI工作流工具。</p>
+            </div>
+        </div>
+        <div class="nav-buttons">
+            <a href="3-24.html" class="nav-btn secondary">← 上一页</a>
+            <a href="3-26.html" class="nav-btn primary">下一页 →</a>
+        </div>
+    </main>
+    <footer class="footer">AI Builder for Product Manager · 方法层 · 课程3.3 · 第25章</footer>
+</body>
+</html>

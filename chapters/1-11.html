@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>第11章：常见误区排雷 | AI Builder PM课程</title>
+    <style>
+        :root { --primary: #6366f1; --primary-dark: #4f46e5; --secondary: #10b981; --danger: #ef4444; --bg: #f8fafc; --card-bg: #ffffff; --text: #1e293b; --text-light: #64748b; --border: #e2e8f0; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: var(--bg); color: var(--text); line-height: 1.7; }
+        .header { background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%); color: white; padding: 40px 20px; }
+        .header-inner { max-width: 1000px; margin: 0 auto; }
+        .breadcrumb { font-size: 0.9rem; opacity: 0.8; margin-bottom: 12px; }
+        .breadcrumb a { color: white; text-decoration: none; }
+        .breadcrumb a:hover { text-decoration: underline; }
+        .chapter-badge { display: inline-block; background: rgba(255,255,255,0.2); padding: 4px 12px; border-radius: 4px; font-size: 0.85rem; margin-bottom: 8px; }
+        .header h1 { font-size: 2.2rem; font-weight: 700; margin-bottom: 8px; }
+        .header .subtitle { opacity: 0.9; font-size: 1.1rem; }
+        .progress-bar { background: rgba(255,255,255,0.2); height: 4px; margin-top: 20px; border-radius: 2px; }
+        .progress-fill { background: white; height: 100%; border-radius: 2px; width: 100%; }
+        .container { max-width: 1000px; margin: 0 auto; padding: 40px 20px; }
+        .page { background: var(--card-bg); border-radius: 16px; padding: 40px; margin-bottom: 32px; border: 1px solid var(--border); }
+        .page-num { color: var(--primary); font-size: 0.85rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+        .page h2 { font-size: 1.6rem; margin-bottom: 24px; color: var(--text); }
+        .page h3 { font-size: 1.2rem; margin: 24px 0 12px; color: var(--text); }
+        .page p { margin-bottom: 16px; color: var(--text); }
+        .mistake-card { background: #fef2f2; border-left: 4px solid var(--danger); padding: 20px; border-radius: 0 8px 8px 0; margin-bottom: 16px; }
+        .mistake-card h4 { color: var(--danger); margin-bottom: 8px; }
+        .mistake-card .wrong { text-decoration: line-through; color: var(--text-light); }
+        .mistake-card .fact { color: var(--text); font-weight: 500; }
+        .correct-card { background: #f0fdf4; border-left: 4px solid var(--secondary); padding: 20px; border-radius: 0 8px 8px 0; margin-bottom: 16px; }
+        .correct-card h4 { color: var(--secondary); margin-bottom: 8px; }
+        .correct-card .truth { font-weight: 500; }
+        .summary-box { background: linear-gradient(135deg, rgba(99,102,241,0.1) 0%, rgba(139,92,246,0.1) 100%); border-left: 4px solid var(--primary); padding: 24px; border-radius: 0 8px 8px 0; margin: 24px 0; }
+        .summary-box h4 { color: var(--primary); margin-bottom: 12px; }
+        .footer { text-align: center; padding: 32px 20px; color: var(--text-light); font-size: 0.9rem; border-top: 1px solid var(--border); }
+        .nav-buttons { display: flex; justify-content: space-between; margin-top: 40px; gap: 16px; }
+        .nav-btn { padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: 500; display: inline-flex; align-items: center; gap: 8px; transition: all 0.2s; }
+        .nav-btn.primary { background: var(--primary); color: white; }
+        .nav-btn.primary:hover { background: var(--primary-dark); }
+        .nav-btn.secondary { background: var(--bg); color: var(--text); border: 1px solid var(--border); }
+        .nav-btn.secondary:hover { background: var(--border); }
+        @media (max-width: 768px) { .page { padding: 24px; } .header h1 { font-size: 1.6rem; } }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-inner">
+            <div class="breadcrumb"><a href="../index.html">首页</a> / 认知层 / 课程1.3 / 第11章</div>
+            <div class="chapter-badge">课程 1.3：AI时代的机遇与挑战</div>
+            <h1>第11章：常见误区排雷</h1>
+            <p class="subtitle">认知层最后一章：建立正确心智</p>
+            <div class="progress-bar"><div class="progress-fill"></div></div>
+        </div>
+    </header>
+    <main class="container">
+        <div class="page">
+            <div class="page-num">Page 1 / 2</div>
+            <h2>❌ PM常见的五个误区</h2>
+            <div class="mistake-card">
+                <h4>误区一："AI会取代PM"</h4>
+                <p><span class="wrong">AI会取代产品经理这个岗位</span></p>
+                <p><span class="fact">事实：AI会取代部分PM工作，但PM的核心能力——用户洞察、同理心、跨职能协调——无法被取代。</span></p>
+            </div>
+            <div class="mistake-card">
+                <h4>误区二："学会用ChatGPT就够了"</h4>
+                <p><span class="wrong">会用ChatGPT就掌握了AI能力</span></p>
+                <p><span class="fact">事实：ChatGPT只是入口。真正有价值的是"用AI解决真实产品问题"的能力。</span></p>
+            </div>
+            <div class="mistake-card">
+                <h4>误区三："AI生成的需求文档可以直接用"</h4>
+                <p><span class="wrong">AI输出的内容是准确的，可以直接使用</span></p>
+                <p><span class="fact">事实：AI会"幻觉"，需要PM审核和判断。信任但要验证。</span></p>
+            </div>
+            <div class="mistake-card">
+                <h4>误区四："AI能告诉我用户真正想要什么"</h4>
+                <p><span class="wrong">把用户调研交给AI就能得到正确答案</span></p>
+                <p><span class="fact">事实：AI能分析数据，但不能替代用户访谈和同理心。</span></p>
+            </div>
+            <div class="mistake-card">
+                <h4>误区五："等AI成熟了再学"</h4>
+                <p><span class="wrong">等技术完全成熟再入场也不迟</span></p>
+                <p><span class="fact">事实：窗口期就在这几年。现在入场才能建立先发优势。</span></p>
+            </div>
+        </div>
+        <div class="page">
+            <div class="page-num">Page 2 / 2</div>
+            <h2>✅ 正确的三个认知</h2>
+            <div class="correct-card">
+                <h4>认知一：AI放大了PM的能力边界</h4>
+                <p><span class="truth">AI是杠杆，你的判断力、用户洞察、项目管理能力才是核心。</span></p>
+            </div>
+            <div class="correct-card">
+                <h4>认知二：工程思维+AI工具=PM的生产力</h4>
+                <p><span class="truth">两个都要补。工程思维让你知道什么时候用AI、怎么用AI。</span></p>
+            </div>
+            <div class="correct-card">
+                <h4>认知三：PM是AI工作的主人，不是AI的下属</h4>
+                <p><span class="truth">人做判断，AI执行。PM必须保持主导地位，而不是被AI牵着走。</span></p>
+            </div>
+            <div class="page">
+            <div class="page-num">Page 3 / 3</div>
+            <h2>❌ 误区详细拆解：真实代价是什么</h2>
+            <div class="mistake-card">
+                <h4>误区一："AI会取代PM" —— 真实代价</h4>
+                <p><span class="fact">某大厂2024年裁员30%的"执行型PM"，但同期招聘了更多"AI产品经理"——不是消灭PM，是消灭不懂AI的PM。</span></p>
+            </div>
+            <div class="mistake-card">
+                <h4>误区二："会用ChatGPT就够了" —— 真实代价</h4>
+                <p><span class="fact">见过太多PM用ChatGPT生成了一堆无法落地的PRD，原因是：只会提问，不会判断。Prompt写了一大段，AI输出了废话，PM还不知道这是废话。</span></p>
+            </div>
+            <div class="mistake-card">
+                <h4>误区三："AI生成的内容可以直接用" —— 真实代价</h4>
+                <p><span class="fact">某金融公司PM用AI写了份理财产品的用户协议，里面有句话"本产品由保险公司承保"，实际这个产品是基金，AI编造了完全不存在的承保信息。差点造成监管事故。</span></p>
+            </div>
+            <div class="mistake-card">
+                <h4>误区四："AI能告诉我用户真正想要什么" —— 真实代价</h4>
+                <p><span class="fact">某团队用AI分析10万条用户反馈，AI得出结论"用户最关注价格"。PM据此做了降价策略，结果用户流失更严重了。后来发现：愿意写反馈的用户本身就是价格敏感的沉默大多数不是真实用户群。</span></p>
+            </div>
+            <div class="mistake-card">
+                <h4>误区五："等AI成熟了再学" —— 真实代价</h4>
+                <p><span class="fact">2018年有人说"等区块链成熟了再入场"，2021年有人说"等元宇宙成熟了再入场"——等到那时候，红利早就被先行者吃完了。AI这波窗口期还有2-3年，之后就内卷了。</span></p>
+            </div>
+        </div>
+        <div class="summary-box">
+                <h4>🎯 认知层总结</h4>
+                <p>完成认知层学习后，你应该：</p>
+                <ul style="margin-top: 12px; margin-left: 20px;">
+                    <li>理解软件工程的基本逻辑</li>
+                    <li>了解AI技术演进的脉络</li>
+                    <li>清楚当前AI的能力边界</li>
+                    <li>知道为什么现在是入场时机</li>
+                    <li>建立了正确使用AI的心智</li>
+                </ul>
+                <p style="margin-top: 16px;">接下来进入<strong>思维层</strong>，学习工程思维和AI时代的思维方式。</p>
+            </div>
+        </div>
+        <div class="nav-buttons">
+            <a href="1-10.html" class="nav-btn secondary">← 上一页</a>
+            <a href="../index.html" class="nav-btn primary">返回课程首页</a>
+        </div>
+    </main>
+    <footer class="footer">AI Builder for Product Manager · 认知层 · 课程1.3 · 完结</footer>
+</body>
+</html>

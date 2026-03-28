@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>第31章 交付、踩坑与经验沉淀</title>
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; max-width: 800px; margin: 0 auto; padding: 40px 24px; line-height: 1.8; color: #333; }
+    h1 { font-size: 24px; color: #1a1a2e; border-bottom: 2px solid #1a73e8; padding-bottom: 12px; margin-bottom: 32px; }
+    h2 { font-size: 20px; color: #1a1a2e; margin-top: 40px; margin-bottom: 16px; border-left: 4px solid #1a73e8; padding-left: 12px; }
+    h3 { font-size: 16px; color: #555; margin-top: 24px; }
+    .scene { background: #f8f9fa; border-radius: 12px; padding: 20px 24px; margin: 20px 0; border-left: 4px solid #ffa500; }
+    .pitfall { background: #fff3f3; border-radius: 12px; padding: 20px 24px; margin: 20px 0; border-left: 4px solid #dc3545; }
+    .template { background: #f0fff4; border-radius: 12px; padding: 20px 24px; margin: 20px 0; border-left: 4px solid #28a745; }
+    .thinking { background: #fffbeb; border-radius: 8px; padding: 12px 16px; margin: 12px 0; font-size: 14px; color: #7c5c00; }
+    .summary { background: #e8f0fe; border-radius: 12px; padding: 20px; margin: 24px 0; }
+    .deliverable { background: #1a1a2e; color: #e8f0fe; border-radius: 12px; padding: 24px; margin: 24px 0; font-family: monospace; font-size: 13px; line-height: 1.6; }
+    .nav { position: fixed; bottom: 20px; right: 24px; display: flex; gap: 8px; }
+    .nav a { background: #1a73e8; color: white; padding: 8px 16px; border-radius: 8px; text-decoration: none; font-size: 14px; }
+    .case-box { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border-radius: 12px; padding: 24px; margin: 24px 0; }
+    .case-box h3 { color: white; margin-top: 0; }
+  </style>
+</head>
+<body>
+
+<h1>第31章 交付、踩坑与经验沉淀</h1>
+
+<div class="case-box">
+  <h3>📋 贯穿案例</h3>
+  <p><strong>PM李明 × AI客服质检系统</strong> — 终章</p>
+  <p>历经需求迷雾、数据混乱、卡点修复，李明的项目终于交付了。本章看他交付了什么，以及他沉淀下了什么。</p>
+</div>
+
+<h2>31.1 李明的真实交付物</h2>
+
+<div class="scene">
+  <p>项目上线后，李明给老板交付了这些东西：</p>
+  
+  <div class="deliverable">
+【AI客服质检系统 - 交付清单】
+
+1. 质检报告（周报）
+   - 本周对话总量：6,842条
+   - AI初筛疑似问题：412条（6%）
+   - 人工复核确认问题：287条（4.2%）
+   - 问题类型分布：响应速度42% | 问题未解决31% | 态度问题19% | 合规问题8%
+   - 环比上周：问题率下降 1.3%
+
+2. 客服排名（不公开，仅主管可见）
+   - 绩效数据，脱敏处理
+
+3. 问题对话样例（每月10条）
+   - 供客服培训使用
+
+4. 系统运行日志
+   - 准确率跟踪：当前 82%，目标 90%
+  </div>
+</div>
+
+<div class="thinking">
+  💭 这份报告的核心：不是告诉老板"AI做了什么"，而是告诉老板"业务指标发生了什么变化"。
+</div>
+
+<h2>31.2 踩坑1：AI质检报告被当成"审判书"</h2>
+
+<div class="pitfall">
+  <p><span style="background:#dc3545;color:white;padding:2px 8px;border-radius:4px;font-size:12px;margin-right:8px;">坑</span>系统上线第一周，客服小王发现自己的对话被打上了"问题"标签。</p>
+  <p>他直接去找老板投诉："这个AI凭什么说我服务有问题？" 老板被问住了。</p>
+  
+  <p>李明后来复盘才发现：这个系统被直接当成了考核依据，但员工没有申诉渠道。</p>
+</div>
+
+<div class="template">
+  <h3>✅ 解法：质检报告必须和绩效解耦</h3>
+  <p>正确的做法：</p>
+  <ol>
+    <li>AI质检报告=参考数据，<strong>不是</strong>绩效考核的直接依据</li>
+    <li>被标记"有问题"的对话，客服有权利查看并申诉</li>
+    <li>只有经过人工复核确认的问题，才能进入绩效评估</li>
+    <li>系统上线前，必须和HR、客服团队三方对齐使用规则</li>
+  </ol>
+</div>
+
+<h2>31.3 踩坑2：准确率统计是"自嗨"</h2>
+
+<div class="pitfall">
+  <p><span style="background:#dc3545;color:white;padding:2px 8px;border-radius:4px;font-size:12px;margin-right:8px;">坑</span>李明在报告里写"AI准确率82%"。老板问："82%是怎么算出来的？" 李明答不上来。</p>
+  <p>后来仔细看，才发现他的"准确率"定义是：人工复核发现AI对了的 / 人工复核总数。问题在于——人工只复核了AI标记的"疑似"部分，没复核AI认为"没问题"的部分。</p>
+  
+  <div class="thinking">
+    💭 82%是"在AI认为有问题的事里，AI对了82%"——但如果AI漏掉了90%真正有问题的对话，那实际准确率可能只有8%。
+  </div>
+</div>
+
+<div class="template">
+  <h3>✅ 解法：用"召回率"校正准确率定义</h3>
+  <p>正确的评估方式：</p>
+  <ul>
+    <li><strong>Precision（准确率）</strong> = AI说有问题的里，真的有问题的比例</li>
+    <li><strong>Recall（召回率）</strong> = 实际有问题的对话里，AI找出来的比例</li>
+    <li><strong>正确做法</strong>：随机抽样一批"AI认为没问题"的对话，让人去复核，计算召回率</li>
+  </ul>
+  <p>老板要看的不是"AI准确率"，而是"这周有多少比例的问题客服被我们发现了"。</p>
+</div>
+
+<h2>31.4 踩坑3：系统上线后没人用了</h2>
+
+<div class="pitfall">
+  <p><span style="background:#dc3545;color:white;padding:2px 8px;border-radius:4px;font-size:12px;margin-right:8px;">坑</span>系统上线一个月，活跃用户从50人掉到了3人。</p>
+  <p>李明去问客服主管，主管说："报告太复杂了，我看不懂。而且每周看一次太慢，出问题的时候系统已经晚了。"</p>
+</div>
+
+<div class="template">
+  <h3>✅ 解法：交付物要匹配使用场景</h3>
+  <p>不同角色需要不同的交付方式：</p>
+  <ul>
+    <li><strong>客服</strong>：实时或每天一次，告诉我"你今天哪几通电话有问题，怎么改"</li>
+    <li><strong>质检主管</strong>：每周一次，整体趋势、TOP问题类型、需要培训的知识点</li>
+    <li><strong>老板</strong>：每月一次，ROI分析、客服团队整体表现、要不要加人手</li>
+  </ul>
+  <p>一个PDF周报打天下是不行的。</p>
+</div>
+
+<h2>31.5 经验固化为可复用模板</h2>
+
+<div class="template">
+  <h3>📋 AI质检项目 Checkpoint 清单</h3>
+  <p>李明把这个项目的经验整理成了一张清单，供以后参考：</p>
+  
+  <p><strong>项目启动前（打钩确认）</strong></p>
+  <ul>
+    <li>☐ "好客服"标准已定义，业务方签字确认</li>
+    <li>☐ 数据来源和格式已确认，数据字典已建立</li>
+    <li>☐ AI准确率目标已明确（如：召回率≥85%，准确率≥80%）</li>
+    <li>☐ 评估方式已确定（人工复核抽样方式）</li>
+    <li>☐ 系统使用规则已和HR、客服团队对齐</li>
+    <li>☐ 需求冻结期已设定（建议≥1周）</li>
+  </ul>
+  
+  <p><strong>交付物确认</strong></p>
+  <ul>
+    <li>☐ 报告是给谁看的？他们能看懂吗？</li>
+    <li>☐ 不同角色的交付方式是否不同？</li>
+    <li>☐ 有没有给客服的实时反馈通道？</li>
+    <li>☐ 客服能申诉被标记的问题吗？</li>
+  </ul>
+  
+  <p><strong>上线后跟踪</strong></p>
+  <ul>
+    <li>☐ 每周跟踪 Precision + Recall，不只看 Precision</li>
+    <li>☐ 活跃用户数是否下降？下降原因调查了吗？</li>
+    <li>☐ 客服收到反馈后，行为有改变吗？</li>
+  </ul>
+</div>
+
+<h2>31.6 本章小结</h2>
+
+<div class="summary">
+  <h3>🎯 关键认知</h3>
+  <ul>
+    <li><strong>交付不是扔一个系统给用户</strong> — 要匹配使用场景，提供不同角色需要的交付方式</li>
+    <li><strong>准确率的定义比数字本身更重要</strong> — Precision 和 Recall 要一起看，避免自嗨</li>
+    <li><strong>AI报告不等于考核依据</strong> — 必须有人工复核和申诉机制</li>
+    <li><strong>经验要固化下来</strong> — 每次踩坑后总结成 checklist，避免下次重蹈覆辙</li>
+  </ul>
+  
+  <h3>📝 本章练习</h3>
+  <p>回顾你做过的AI项目，回答：</p>
+  <ol>
+    <li>你的"准确率"是怎么定义的？Precision 和 Recall 都统计了吗？</li>
+    <li>你的用户拿走报告后，实际做了什么？和你的预期一致吗？</li>
+    <li>有没有一个"踩坑清单"？如果没有，现在开始建一个。</li>
+  </ol>
+</div>
+
+<div class="nav">
+  <a href="4-30.html">← 上一章</a>
+</div>
+
+</body>
+</html>

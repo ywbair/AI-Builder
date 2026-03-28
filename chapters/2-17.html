@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>第17章：最佳实践流程 | AI Builder PM课程</title>
+    <style>
+        :root { --primary: #10b981; --primary-dark: #059669; --secondary: #6366f1; --bg: #f8fafc; --card-bg: #ffffff; --text: #1e293b; --text-light: #64748b; --border: #e2e8f0; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: var(--bg); color: var(--text); line-height: 1.7; }
+        .header { background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%); color: white; padding: 40px 20px; }
+        .header-inner { max-width: 1000px; margin: 0 auto; }
+        .breadcrumb { font-size: 0.9rem; opacity: 0.8; margin-bottom: 12px; }
+        .breadcrumb a { color: white; text-decoration: none; }
+        .breadcrumb a:hover { text-decoration: underline; }
+        .chapter-badge { display: inline-block; background: rgba(255,255,255,0.2); padding: 4px 12px; border-radius: 4px; font-size: 0.85rem; margin-bottom: 8px; }
+        .header h1 { font-size: 2.2rem; font-weight: 700; margin-bottom: 8px; }
+        .header .subtitle { opacity: 0.9; font-size: 1.1rem; }
+        .progress-bar { background: rgba(255,255,255,0.2); height: 4px; margin-top: 20px; border-radius: 2px; }
+        .progress-fill { background: white; height: 100%; border-radius: 2px; width: 40%; }
+        .container { max-width: 1000px; margin: 0 auto; padding: 40px 20px; }
+        .page { background: var(--card-bg); border-radius: 16px; padding: 40px; margin-bottom: 32px; border: 1px solid var(--border); }
+        .page-num { color: var(--primary); font-size: 0.85rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+        .page h2 { font-size: 1.6rem; margin-bottom: 24px; color: var(--text); }
+        .page h3 { font-size: 1.2rem; margin: 24px 0 12px; color: var(--text); }
+        .page p { margin-bottom: 16px; color: var(--text); }
+        .highlight-box { background: linear-gradient(135deg, rgba(16,185,129,0.1) 0%, rgba(5,150,105,0.1) 100%); border-left: 4px solid var(--primary); padding: 20px 24px; border-radius: 0 8px 8px 0; margin: 24px 0; }
+        .highlight-box h4 { color: var(--primary); margin-bottom: 8px; }
+        .highlight-box.purple { background: linear-gradient(135deg, rgba(99,102,241,0.1) 0%, rgba(139,92,246,0.1) 100%); border-left-color: var(--secondary); }
+        .highlight-box.purple h4 { color: var(--secondary); }
+        .flow-step { background: var(--bg); border-radius: 12px; padding: 20px; margin-bottom: 16px; display: flex; align-items: center; gap: 16px; }
+        .step-num { background: var(--primary); color: white; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1.2rem; flex-shrink: 0; }
+        .step-num.ai { background: var(--secondary); }
+        .step-content h4 { margin-bottom: 4px; }
+        .step-content p { margin: 0; font-size: 0.9rem; color: var(--text-light); }
+        .key-point { background: #fef3c7; border-left: 4px solid #f59e0b; padding: 16px 20px; border-radius: 0 8px 8px 0; margin: 16px 0; }
+        .key-point h4 { color: #b45309; margin-bottom: 8px; }
+        .key-point p { margin: 0; color: var(--text); }
+        .footer { text-align: center; padding: 32px 20px; color: var(--text-light); font-size: 0.9rem; border-top: 1px solid var(--border); }
+        .nav-buttons { display: flex; justify-content: space-between; margin-top: 40px; gap: 16px; }
+        .nav-btn { padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: 500; display: inline-flex; align-items: center; gap: 8px; transition: all 0.2s; }
+        .nav-btn.primary { background: var(--primary); color: white; }
+        .nav-btn.primary:hover { background: var(--primary-dark); }
+        .nav-btn.secondary { background: var(--bg); color: var(--text); border: 1px solid var(--border); }
+        .nav-btn.secondary:hover { background: var(--border); }
+        @media (max-width: 768px) { .page { padding: 24px; } .header h1 { font-size: 1.6rem; } }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-inner">
+            <div class="breadcrumb"><a href="../index.html">首页</a> / 思维层 / 课程2.3 / 第17章</div>
+            <div class="chapter-badge">课程 2.3：人机协作的正确姿势</div>
+            <h1>第17章：最佳实践流程</h1>
+            <p class="subtitle">思维层最后一章：人机协作的标准流程</p>
+            <div class="progress-bar"><div class="progress-fill"></div></div>
+        </div>
+    </header>
+    <main class="container">
+        <div class="page">
+            <div class="page-num">Page 1 / 2</div>
+            <h2>人机协作六步法</h2>
+            <div class="flow-step">
+                <div class="step-num">1</div>
+                <div class="step-content">
+                    <h4>🧑‍💼 PM：定义目标</h4>
+                    <p>明确要做什么，想要什么结果。目标要具体、可衡量。</p>
+                </div>
+            </div>
+            <div class="flow-step">
+                <div class="step-num ai">2</div>
+                <div class="step-content">
+                    <h4>🤖 AI：生成方案</h4>
+                    <p>根据目标，AI生成多个可选方案或内容初稿。</p>
+                </div>
+            </div>
+            <div class="flow-step">
+                <div class="step-num">3</div>
+                <div class="step-content">
+                    <h4>🧑‍💼 PM：选择判断</h4>
+                    <p>PM评估各方案，选择最合适的一个或几个。</p>
+                </div>
+            </div>
+            <div class="flow-step">
+                <div class="step-num ai">4</div>
+                <div class="step-content">
+                    <h4>🤖 AI：执行细节</h4>
+                    <p>按照选定方案，AI执行具体细节工作。</p>
+                </div>
+            </div>
+            <div class="flow-step">
+                <div class="step-num">5</div>
+                <div class="step-content">
+                    <h4>🧑‍💼 PM：审核验收</h4>
+                    <p>PM对AI产出进行审核，确保符合要求。</p>
+                </div>
+            </div>
+            <div class="flow-step">
+                <div class="step-num ai">6</div>
+                <div class="step-content">
+                    <h4>🔄 循环迭代</h4>
+                    <p>不满意则返回第2步或第4步，持续优化直到满意。</p>
+                </div>
+            </div>
+        </div>
+        <div class="page">
+            <div class="page-num">Page 2 / 2</div>
+            <h2>PM必须守住的关口</h2>
+            <div class="highlight-box purple">
+                <h4>⚠️ 人必须守住的四个关键点</h4>
+            </div>
+            <div class="key-point">
+                <h4>🎯 关口一：目标定义</h4>
+                <p>想清楚做什么、不做什么。AI可以帮你实现，但不能帮你想清楚方向。</p>
+            </div>
+            <div class="key-point">
+                <h4>⚖️ 关口二：方案选择</h4>
+                <p>判断哪个方案最合理、最可行。AI给建议，人做决定。</p>
+            </div>
+            <div class="key-point">
+                <h4>✅ 关口三：最终验收</h4>
+                <p>确保交付物符合要求。AI输出必须经过人工审核。</p>
+            </div>
+            <div class="key-point">
+                <h4>⚠️ 关口四：异常处理</h4>
+                <p>处理AI无法解决的边界情况。AI遇到不会的问题会"编"，这时候要人介入。</p>
+            </div>
+        </div>
+        <div class="page">
+            <div class="page-num">Page 3 / 3</div>
+            <h2>❌ 失败模式：流程太重，团队绕路执行</h2>
+            <div style="background: #fef2f2; border-left: 4px solid #ef4444; padding: 20px; border-radius: 0 8px 8px 0; margin-bottom: 16px;">
+                <h4 style="color: #ef4444; margin-bottom: 8px;">典型案例：某公司设计了一套"完美"的人机协作流程，但没人用</h4>
+                <p><strong>背景：</strong>某中型公司PM团队学了AI后，PM负责人设计了一套"标准人机协作流程"，包含12个步骤、5个审核节点、3个审批环节。</p>
+                <p style="margin-top: 8px;"><strong>现实：</strong>3个月后调研发现，80%的PM在日常工作中依然用"最原始的方式"——直接让AI生成内容，然后人工检查一遍。没有一个人完整执行了那套12步流程。</p>
+                <p style="margin-top: 8px;"><strong>原因分析：</strong></p>
+                <ul style="margin-top: 8px; margin-left: 20px;">
+                    <li>流程太重：每个任务都要走完12步，时间成本太高</li>
+                    <li>审核节点太多：简单的文案任务也要过5个审核点，AI提效完全被抵消</li>
+                    <li>没有分级的流程：所有任务一刀切，没有按复杂度分类</li>
+                </ul>
+            </div>
+            <div style="background: #fef2f2; border-left: 4px solid #ef4444; padding: 20px; border-radius: 0 8px 8px 0; margin-bottom: 16px;">
+                <h4 style="color: #ef4444; margin-bottom: 8px;">典型案例：流程设计理想，执行变形</h4>
+                <p><strong>场景：</strong>某团队设计了"AI生成 → PM审核 → 修改 → 交付"的标准流程。但实际执行中：</p>
+                <ul style="margin-top: 8px; margin-left: 20px;">
+                    <li>PM因为工作忙，AI生成后直接使用，跳过了审核环节</li>
+                    <li>AI生成的错误内容直接流向了业务方</li>
+                    <li>出问题后大家互相推卸——PM说"AI写的"，AI说"我只是工具"</li>
+                </ul>
+                <p style="margin-top: 8px;"><strong>问题本质：</strong>流程设计时假设每个人都会遵守，但实际执行中流程被"优化"掉了</p>
+            </div>
+            <div style="background: #f0fdf4; border-left: 4px solid #10b981; padding: 20px; border-radius: 0 8px 8px 0; margin: 24px 0;">
+                <h4 style="color: #10b981; margin-bottom: 8px;">✅ 正确姿势：流程要轻、可执行、可迭代</h4>
+                <ul style="margin-top: 12px; margin-left: 20px;">
+                    <li><strong>流程分级：</strong>简单任务（文案、邮件）用1-2步，复杂任务（PRD、方案）用完整流程——不是所有任务都值得走完12步</li>
+                    <li><strong>审核点要少而精：</strong>只有关键决策点才设置审核，不要为了"流程完整"而加审核</li>
+                    <li><strong>流程要迭代：</strong>设计完流程后先试运行2周，收集反馈再调整——不要一开始就设计"完美流程"</li>
+                    <li><strong>让团队参与设计：</strong>流程设计时让实际执行的人参与，他们最知道哪些环节会卡住</li>
+                    <li><strong>监控执行率而非流程完整性：</strong>考核的是"流程被执行了多少"，而不是"流程有多完善"</li>
+                </ul>
+            </div>
+        </div>
+        <div class="highlight-box">
+                <h4>🎯 思维层总结</h4>
+                <p>完成思维层学习后，你应该：</p>
+                <ul style="margin-top: 12px; margin-left: 20px;">
+                    <li>理解工程思维的本质（分解、组合、验证、迭代）</li>
+                    <li>识别PM常见的五大思维盲区</li>
+                    <li>掌握AI时代思维转变的三个方向</li>
+                    <li>清楚人机协作中各自的角色</li>
+                    <li>能够设计人机协作的流程</li>
+                </ul>
+                <p style="margin-top: 16px;">接下来进入<strong>方法层</strong>，学习具体的任务拆解、流程设计、质量把控方法。</p>
+            </div>
+        </div>
+        <div class="nav-buttons">
+            <a href="2-16.html" class="nav-btn secondary">← 上一页</a>
+            <a href="../index.html" class="nav-btn primary">返回课程首页</a>
+        </div>
+    </main>
+    <footer class="footer">AI Builder for Product Manager · 思维层 · 课程2.3 · 完结</footer>
+</body>
+</html>

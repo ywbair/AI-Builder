@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>第21章：人机协作的边界设计 | AI Builder PM课程</title>
+    <style>
+        :root { --primary: #6366f1; --primary-dark: #4f46e5; --secondary: #10b981; --danger: #ef4444; --bg: #f8fafc; --card-bg: #ffffff; --text: #1e293b; --text-light: #64748b; --border: #e2e8f0; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: var(--bg); color: var(--text); line-height: 1.7; }
+        .header { background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%); color: white; padding: 40px 20px; }
+        .header-inner { max-width: 1000px; margin: 0 auto; }
+        .breadcrumb { font-size: 0.9rem; opacity: 0.8; margin-bottom: 12px; }
+        .breadcrumb a { color: white; text-decoration: none; }
+        .breadcrumb a:hover { text-decoration: underline; }
+        .chapter-badge { display: inline-block; background: rgba(255,255,255,0.2); padding: 4px 12px; border-radius: 4px; font-size: 0.85rem; margin-bottom: 8px; }
+        .header h1 { font-size: 2.2rem; font-weight: 700; margin-bottom: 8px; }
+        .header .subtitle { opacity: 0.9; font-size: 1.1rem; }
+        .progress-bar { background: rgba(255,255,255,0.2); height: 4px; margin-top: 20px; border-radius: 2px; }
+        .progress-fill { background: white; height: 100%; border-radius: 2px; width: 65%; }
+        .container { max-width: 1000px; margin: 0 auto; padding: 40px 20px; }
+        .page { background: var(--card-bg); border-radius: 16px; padding: 40px; margin-bottom: 32px; border: 1px solid var(--border); }
+        .page-num { color: var(--primary); font-size: 0.85rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+        .page h2 { font-size: 1.6rem; margin-bottom: 24px; color: var(--text); }
+        .page h3 { font-size: 1.2rem; margin: 24px 0 12px; color: var(--text); }
+        .page p { margin-bottom: 16px; color: var(--text); }
+        .principle-card { background: linear-gradient(135deg, rgba(99,102,241,0.1) 0%, rgba(139,92,246,0.1) 100%); border-left: 4px solid var(--primary); padding: 20px; border-radius: 0 8px 8px 0; margin-bottom: 16px; }
+        .principle-card h4 { color: var(--primary); margin-bottom: 8px; }
+        .principle-card p { margin: 0; }
+        .human-box { background: #fef2f2; border-left: 4px solid var(--danger); padding: 20px; border-radius: 0 8px 8px 0; margin: 20px 0; }
+        .human-box h4 { color: var(--danger); margin-bottom: 12px; }
+        .human-box ul { margin-left: 20px; }
+        .human-box li { margin-bottom: 8px; }
+        .footer { text-align: center; padding: 32px 20px; color: var(--text-light); font-size: 0.9rem; border-top: 1px solid var(--border); }
+        .nav-buttons { display: flex; justify-content: space-between; margin-top: 40px; gap: 16px; }
+        .nav-btn { padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: 500; display: inline-flex; align-items: center; gap: 8px; transition: all 0.2s; }
+        .nav-btn.primary { background: var(--primary); color: white; }
+        .nav-btn.primary:hover { background: var(--primary-dark); }
+        .nav-btn.secondary { background: var(--bg); color: var(--text); border: 1px solid var(--border); }
+        .nav-btn.secondary:hover { background: var(--border); }
+        @media (max-width: 768px) { .page { padding: 24px; } .header h1 { font-size: 1.6rem; } }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-inner">
+            <div class="breadcrumb"><a href="../index.html">首页</a> / 方法层 / 课程3.2 / 第21章</div>
+            <div class="chapter-badge">课程 3.2：流程设计</div>
+            <h1>第21章：人机协作的边界设计</h1>
+            <p class="subtitle">设计人机边界是流程设计的第一步</p>
+            <div class="progress-bar"><div class="progress-fill"></div></div>
+        </div>
+    </header>
+    <main class="container">
+        <div class="page">
+            <div class="page-num">Page 1 / 2</div>
+            <h2>为什么需要设计边界</h2>
+            <div class="principle-card">
+                <h4>边界设计的核心目的</h4>
+                <p>不是所有事都适合AI。设计边界是为了：保证关键决策由人做、避免AI失控、确保最终质量。</p>
+            </div>
+            <h3>四个设计原则</h3>
+            <div class="principle-card">
+                <h4>原则一：高风险决策必须人做</h4>
+                <p>涉及金钱、法律、合规、对外承诺的决策，必须由人来做。AI可以提供信息和建议，但决定权在人。</p>
+            </div>
+            <div class="principle-card">
+                <h4>原则二：AI执行段越长，人工审核点越多</h4>
+                <p>AI连续执行的步骤越多，累积误差越大。需要阶段性审核，不要等到最后才看结果。</p>
+            </div>
+            <div class="principle-card">
+                <h4>原则三：反馈循环要设计进去</h4>
+                <p>AI执行效果如何？需要有人给它反馈。不只是最终验收，中间的过程反馈同样重要。</p>
+            </div>
+            <div class="principle-card">
+                <h4>原则四：留出异常处理通道</h4>
+                <p>AI遇到不会的问题会"编"。要设计当AI产出明显异常时，人能介入的机制。</p>
+            </div>
+        </div>
+        <div class="page">
+            <div class="page-num">Page 2 / 2</div>
+            <h2>必须人做的五类决策</h2>
+            <div class="human-box">
+                <h4>这五类决策，不管AI多强大，都必须由人来做：</h4>
+                <ul>
+                    <li><strong>战略方向和优先级</strong>——做什么、不做什么，先做什么</li>
+                    <li><strong>预算和资源分配</strong>——花多少钱、用多少人</li>
+                    <li><strong>对外承诺和合同</strong>——答应客户什么、对合作伙伴负责</li>
+                    <li><strong>最终验收和发布</strong>——能不能上线、要不要发布</li>
+                    <li><strong>危机处理和公关</strong>——出问题时怎么处理、要不要公开说明</li>
+                </ul>
+            </div>
+            <div class="principle-card" style="background: linear-gradient(135deg, rgba(16,185,129,0.1) 0%, rgba(5,150,105,0.1) 100%); border-left-color: var(--secondary);">
+                <h4>💡 边界不是一成不变的</h4>
+                <p>随着团队对AI的信任度提升、工具成熟度提高，边界可以动态调整。但调整的原则是：<strong>先把边界画清楚，再逐步扩大AI的执行范围</strong>。</p>
+            </div>
+        </div>
+        <div class="page">
+            <div class="page-num">Page 3 / 3</div>
+            <h2>❌ 失败模式：人机边界模糊导致责任不清</h2>
+            <div style="background: #fef2f2; border-left: 4px solid #ef4444; padding: 20px; border-radius: 0 8px 8px 0; margin-bottom: 16px;">
+                <h4 style="color: #ef4444; margin-bottom: 8px;">典型案例：AI客服给出医疗建议，用户按执行后出问题，责任归谁？</h4>
+                <p><strong>场景：</strong>某AI健康顾问产品，用户问"我有高血压，能吃这个保健品吗？"AI回答"可以吃，没问题"。用户服用后出现血压异常。</p>
+                <p style="margin-top: 8px;"><strong>责任归属争议：</strong></p>
+                <ul style="margin-top: 8px; margin-left: 20px;">
+                    <li><strong>产品方：</strong>产品说明书写了"AI建议仅供参考，不构成医疗诊断"</li>
+                    <li><strong>PM：</strong>我定义的功能是"健康咨询"，不是"医疗诊断"</li>
+                    <li><strong>技术：</strong>模型就是这样输出的，我们没改过</li>
+                    <li><strong>用户：</strong>AI回答是"可以"，不是"不确定"</li>
+                </ul>
+                <p style="margin-top: 8px;"><strong>结果：</strong>用户投诉到监管部门，产品下架整改，公司品牌受损</p>
+            </div>
+            <div style="background: #fef2f2; border-left: 4px solid #ef4444; padding: 20px; border-radius: 0 8px 8px 0; margin-bottom: 16px;">
+                <h4 style="color: #ef4444; margin-bottom: 8px;">典型案例：AI写错合同条款，造成经济损失</h4>
+                <p><strong>场景：</strong>某企业用AI辅助起草合同，AI把"违约金为合同金额的20%"写成了"违约金为合同金额的200%"。法务没有认真审核直接使用。</p>
+                <p style="margin-top: 8px;"><strong>责任链条断裂：</strong></p>
+                <ul style="margin-top: 8px; margin-left: 20px;">
+                    <li>PM认为：AI是工具，工具出错不能怪人</li>
+                    <li>法务认为：AI生成的初稿应该有PM把关</li>
+                    <li>PM认为：法务是专业审核者，应该能发现明显错误</li>
+                    <li>最终：企业损失超过百万，谁都不用负责——因为"大家都觉得是别人的错"</li>
+                </ul>
+            </div>
+            <div style="background: #f0fdf4; border-left: 4px solid #10b981; padding: 20px; border-radius: 0 8px 8px 0; margin: 24px 0;">
+                <h4 style="color: #10b981; margin-bottom: 8px;">✅ 正确姿势：明确人机边界 + 设计责任机制</h4>
+                <ul style="margin-top: 12px; margin-left: 20px;">
+                    <li><strong>高风险场景必须人工审核：</strong>医疗、法律、财务、涉及人身安全的内容，AI只能做信息整理，不能给出结论性建议</li>
+                    <li><strong>建立"AI免责声明"标准：</strong>AI输出的高风险内容必须有明确的"仅供参考，不构成专业建议"提示</li>
+                    <li><strong>设计责任链条：</strong>明确"AI生成 → 人审核 → 人负责"的流程，谁签字谁负责</li>
+                    <li><strong>定期审计AI输出：</strong>对AI生成的高风险内容做抽样审核，检查是否有系统性问题</li>
+                </ul>
+            </div>
+        </div>
+        <div class="nav-buttons">
+            <a href="3-20.html" class="nav-btn secondary">← 上一页</a>
+            <a href="3-22.html" class="nav-btn primary">下一页 →</a>
+        </div>
+    </main>
+    <footer class="footer">AI Builder for Product Manager · 方法层 · 课程3.2 · 第21章</footer>
+</body>
+</html>

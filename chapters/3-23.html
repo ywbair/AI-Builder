@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>第23章：工作流优化 | AI Builder PM课程</title>
+    <style>
+        :root { --primary: #6366f1; --primary-dark: #4f46e5; --secondary: #10b981; --bg: #f8fafc; --card-bg: #ffffff; --text: #1e293b; --text-light: #64748b; --border: #e2e8f0; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: var(--bg); color: var(--text); line-height: 1.7; }
+        .header { background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%); color: white; padding: 40px 20px; }
+        .header-inner { max-width: 1000px; margin: 0 auto; }
+        .breadcrumb { font-size: 0.9rem; opacity: 0.8; margin-bottom: 12px; }
+        .breadcrumb a { color: white; text-decoration: none; }
+        .breadcrumb a:hover { text-decoration: underline; }
+        .chapter-badge { display: inline-block; background: rgba(255,255,255,0.2); padding: 4px 12px; border-radius: 4px; font-size: 0.85rem; margin-bottom: 8px; }
+        .header h1 { font-size: 2.2rem; font-weight: 700; margin-bottom: 8px; }
+        .header .subtitle { opacity: 0.9; font-size: 1.1rem; }
+        .progress-bar { background: rgba(255,255,255,0.2); height: 4px; margin-top: 20px; border-radius: 2px; }
+        .progress-fill { background: white; height: 100%; border-radius: 2px; width: 71%; }
+        .container { max-width: 1000px; margin: 0 auto; padding: 40px 20px; }
+        .page { background: var(--card-bg); border-radius: 16px; padding: 40px; margin-bottom: 32px; border: 1px solid var(--border); }
+        .page-num { color: var(--primary); font-size: 0.85rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+        .page h2 { font-size: 1.6rem; margin-bottom: 24px; color: var(--text); }
+        .page h3 { font-size: 1.2rem; margin: 24px 0 12px; color: var(--text); }
+        .page p { margin-bottom: 16px; color: var(--text); }
+        .optimize-card { background: linear-gradient(135deg, rgba(99,102,241,0.1) 0%, rgba(139,92,246,0.1) 100%); border-left: 4px solid var(--primary); padding: 20px; border-radius: 0 8px 8px 0; margin-bottom: 16px; }
+        .optimize-card h4 { color: var(--primary); margin-bottom: 8px; }
+        .optimize-card p { margin: 0; }
+        .timing-box { background: #f0fdf4; border-left: 4px solid var(--secondary); padding: 20px; border-radius: 0 8px 8px 0; margin: 20px 0; }
+        .timing-box h4 { color: var(--secondary); margin-bottom: 12px; }
+        .timing-box ul { margin-left: 20px; }
+        .timing-box li { margin-bottom: 8px; }
+        .summary-box { background: linear-gradient(135deg, rgba(99,102,241,0.1) 0%, rgba(139,92,246,0.1) 100%); border-left: 4px solid var(--primary); padding: 24px; border-radius: 0 8px 8px 0; margin: 24px 0; }
+        .summary-box h4 { color: var(--primary); margin-bottom: 12px; }
+        .footer { text-align: center; padding: 32px 20px; color: var(--text-light); font-size: 0.9rem; border-top: 1px solid var(--border); }
+        .nav-buttons { display: flex; justify-content: space-between; margin-top: 40px; gap: 16px; }
+        .nav-btn { padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: 500; display: inline-flex; align-items: center; gap: 8px; transition: all 0.2s; }
+        .nav-btn.primary { background: var(--primary); color: white; }
+        .nav-btn.primary:hover { background: var(--primary-dark); }
+        .nav-btn.secondary { background: var(--bg); color: var(--text); border: 1px solid var(--border); }
+        .nav-btn.secondary:hover { background: var(--border); }
+        @media (max-width: 768px) { .page { padding: 24px; } .header h1 { font-size: 1.6rem; } }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-inner">
+            <div class="breadcrumb"><a href="../index.html">首页</a> / 方法层 / 课程3.2 / 第23章</div>
+            <div class="chapter-badge">课程 3.2：流程设计</div>
+            <h1>第23章：工作流优化</h1>
+            <p class="subtitle">让工作流更高效、更稳定的四个方向</p>
+            <div class="progress-bar"><div class="progress-fill"></div></div>
+        </div>
+    </header>
+    <main class="container">
+        <div class="page">
+            <div class="page-num">Page 1 / 2</div>
+            <h2>优化方向</h2>
+            <div class="optimize-card">
+                <h4>方向一：减少不必要的环节</h4>
+                <p>去掉那些不产生价值的步骤。有时候我们习惯性地加了某个环节，但实际上它并不必要。</p>
+                <p style="margin-top: 8px;"><strong>自检问题：</strong>这个环节删掉会有什么后果？如果没有，它就可以删。</p>
+            </div>
+            <div class="optimize-card">
+                <h4>方向二：合并可以并行的任务</h4>
+                <p>节省时间的核心是并行。多个独立步骤同时执行，而不是等一个完成再执行下一个。</p>
+                <p style="margin-top: 8px;"><strong>自检问题：</strong>哪些任务是独立的？可以同时进行？</p>
+            </div>
+            <div class="optimize-card">
+                <h4>方向三：设置合理的检查点</h4>
+                <p>不是检查越多越好。太多检查点会降低效率，太少会降低质量。找到平衡点。</p>
+                <p style="margin-top: 8px;"><strong>自检问题：</strong>在哪里出错的概率最高？那里就需要检查点。</p>
+            </div>
+            <div class="optimize-card">
+                <h4>方向四：建立异常处理机制</h4>
+                <p>预设问题发生时的处理方式。不要等问题发生了才想怎么办。</p>
+                <p style="margin-top: 8px;"><strong>自检问题：</strong>这个流程可能会出什么问题？每种情况分别怎么处理？</p>
+            </div>
+        </div>
+        <div class="page">
+            <div class="page-num">Page 3 / 3</div>
+            <h2>❌ 失败模式：过度优化导致主流程受损</h2>
+            <div style="background: #fef2f2; border-left: 4px solid #ef4444; padding: 20px; border-radius: 0 8px 8px 0; margin-bottom: 16px;">
+                <h4 style="color: #ef4444; margin-bottom: 8px;">典型案例：团队花了2周优化某个高频低价值流程，忽视了真正影响用户体验的核心流程</h4>
+                <p><strong>背景：</strong>某PM团队发现"周报生成"是最高频的AI任务（每天用），于是花了2周把周报流程从"AI生成→人修改"优化成"全自动→直接用"。优化完成后周报时间从30分钟缩短到5分钟。</p>
+                <p style="margin-top: 8px;"><strong>但实际问题在那里？</strong></p>
+                <ul style="margin-top: 8px; margin-left: 20px;">
+                    <li>用户投诉最多的其实是"PRD评审流程"（每周2-3次）</li>
+                    <li>PRD评审平均耗时2小时，因为缺乏结构化模板</li>
+                    <li>这个核心流程没被优化，因为大家都在忙周报优化</li>
+                </ul>
+                <p style="margin-top: 8px;"><strong>结果：</strong>周报流程优化得很漂亮，但用户体验核心问题没解决，团队依然疲惫不堪</p>
+            </div>
+            <div style="background: #fef2f2; border-left: 4px solid #ef4444; padding: 20px; border-radius: 0 8px 8px 0; margin-bottom: 16px;">
+                <h4 style="color: #ef4444; margin-bottom: 8px;">典型案例：优化了低频任务，忘了高频任务的真实痛点</h4>
+                <p><strong>场景：</strong>PM团队发现"竞品分析报告"格式不规范，决定统一模板。花了1个月设计了一份20页的精美模板。</p>
+                <p style="margin-top: 8px;"><strong>实际使用情况：</strong></p>
+                <ul style="margin-top: 8px; margin-left: 20px;">
+                    <li>竞品分析每月才做1次（低频）</li>
+                    <li>而每天都在用的是"快速回复用户反馈"（高频）</li>
+                    <li>高频任务没人优化，PM每天花2小时手写回复</li>
+                </ul>
+                <p style="margin-top: 8px;"><strong>资源错配：</strong>把优化资源放在了低频任务上，高频痛点反而被忽视</p>
+            </div>
+            <div style="background: #f0fdf4; border-left: 4px solid #10b981; padding: 20px; border-radius: 0 8px 8px 0; margin: 24px 0;">
+                <h4 style="color: #10b981; margin-bottom: 8px;">✅ 正确姿势：先识别价值，再优化效率</h4>
+                <ul style="margin-top: 12px; margin-left: 20px;">
+                    <li><strong>先问价值：</strong>这个任务的价值有多高？优化它能解决多少实际问题？</li>
+                    <li><strong>再看频率：</strong>这个任务的出现频率是多少？高频×高价值才是优先优化目标</li>
+                    <li><strong>最后优化：</strong>确认了价值再投入优化资源，不要为了优化而优化</li>
+                    <li><strong>ROI思维：</strong>优化要算投入产出比，花1周优化一个每天省5分钟的任务是值得的，花1个月优化一个每月省30分钟的任务不一定值得</li>
+                </ul>
+            </div>
+        </div>
+        <div class="page">
+            <div class="page-num">Page 4 / 4</div>
+            <h2>优化时机</h2>
+            <div class="timing-box">
+                <h4>什么时候该优化？三个关键时机：</h4>
+                <ul>
+                    <li><strong>时机一：流程跑通后第一次优化</strong><br>刚跑通的流程肯定不完美，跑一遍之后就知道哪里有问题。这是第一次优化的最佳时机。</li>
+                    <li><strong>时机二：每次出现错误后复盘优化</strong><br>出问题时不要只修复那个错误本身，要思考：是流程设计有问题吗？需要加检查点吗？</li>
+                    <li><strong>时机三：定期review，持续改进</strong><br>即使没有出错，也可以每季度review一次流程，看是否有优化空间。</li>
+                </ul>
+            </div>
+            <div class="summary-box">
+                <h4>📚 课程3.2总结</h4>
+                <p>完成"流程设计"课程后，你应该：</p>
+                <ul style="margin-top: 12px; margin-left: 20px;">
+                    <li>理解人机协作边界设计的重要性</li>
+                    <li>掌握必须人做的五类决策</li>
+                    <li>掌握工作流五要素（触发、输入、处理、输出、审核点）</li>
+                    <li>能够用模板设计一个工作流</li>
+                    <li>知道优化的四个方向和三个时机</li>
+                </ul>
+                <p style="margin-top: 16px;">下一章我们将学习<strong>课程3.3：质量把控</strong>，掌握审核和验证的方法。</p>
+            </div>
+        </div>
+        <div class="nav-buttons">
+            <a href="3-22.html" class="nav-btn secondary">← 上一页</a>
+            <a href="3-24.html" class="nav-btn primary">下一页 →</a>
+        </div>
+    </main>
+    <footer class="footer">AI Builder for Product Manager · 方法层 · 课程3.2 · 第23章</footer>
+</body>
+</html>

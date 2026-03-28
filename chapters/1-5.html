@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>第5章：机器学习时代 | AI Builder PM课程</title>
+    <style>
+        :root { --primary: #6366f1; --primary-dark: #4f46e5; --secondary: #10b981; --bg: #f8fafc; --card-bg: #ffffff; --text: #1e293b; --text-light: #64748b; --border: #e2e8f0; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: var(--bg); color: var(--text); line-height: 1.7; }
+        .header { background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%); color: white; padding: 40px 20px; }
+        .header-inner { max-width: 1000px; margin: 0 auto; }
+        .breadcrumb { font-size: 0.9rem; opacity: 0.8; margin-bottom: 12px; }
+        .breadcrumb a { color: white; text-decoration: none; }
+        .breadcrumb a:hover { text-decoration: underline; }
+        .chapter-badge { display: inline-block; background: rgba(255,255,255,0.2); padding: 4px 12px; border-radius: 4px; font-size: 0.85rem; margin-bottom: 8px; }
+        .header h1 { font-size: 2.2rem; font-weight: 700; margin-bottom: 8px; }
+        .header .subtitle { opacity: 0.9; font-size: 1.1rem; }
+        .progress-bar { background: rgba(255,255,255,0.2); height: 4px; margin-top: 20px; border-radius: 2px; }
+        .progress-fill { background: white; height: 100%; border-radius: 2px; width: 50%; }
+        .container { max-width: 1000px; margin: 0 auto; padding: 40px 20px; }
+        .page { background: var(--card-bg); border-radius: 16px; padding: 40px; margin-bottom: 32px; border: 1px solid var(--border); }
+        .page-num { color: var(--primary); font-size: 0.85rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+        .page h2 { font-size: 1.6rem; margin-bottom: 24px; color: var(--text); }
+        .page h3 { font-size: 1.2rem; margin: 24px 0 12px; color: var(--text); }
+        .page p { margin-bottom: 16px; color: var(--text); }
+        .highlight-box { background: linear-gradient(135deg, rgba(99,102,241,0.1) 0%, rgba(139,92,246,0.1) 100%); border-left: 4px solid var(--primary); padding: 20px 24px; border-radius: 0 8px 8px 0; margin: 24px 0; }
+        .highlight-box h4 { color: var(--primary); margin-bottom: 8px; }
+        .highlight-box.success { background: linear-gradient(135deg, rgba(16,185,129,0.1) 0%, rgba(5,150,105,0.1) 100%); border-left-color: var(--secondary); }
+        .highlight-box.success h4 { color: var(--secondary); }
+        .highlight-box.danger { background: #fef2f2; border-left-color: #ef4444; }
+        .highlight-box.danger h4 { color: #ef4444; }
+        .highlight-box.warning { background: #fef3c7; border-left-color: #f59e0b; }
+        .highlight-box.warning h4 { color: #b45309; }
+        .example-box { background: #f0fdf4; border: 2px solid var(--secondary); border-radius: 12px; padding: 24px; margin: 24px 0; }
+        .example-box h4 { color: var(--secondary); margin-bottom: 12px; }
+        .example-content { background: var(--card-bg); border-radius: 8px; padding: 16px; font-size: 0.9rem; font-family: monospace; }
+        .quote-box { background: linear-gradient(135deg, rgba(139,92,246,0.1) 0%, rgba(139,92,246,0.05) 100%); border-left: 4px solid #8b5cf6; padding: 20px; border-radius: 0 8px 8px 0; margin: 24px 0; }
+        .quote-box .quote { font-size: 1.1rem; color: var(--text); margin-bottom: 8px; }
+        .quote-box .source { font-size: 0.85rem; color: var(--text-light); }
+        .flow-diagram { background: var(--bg); border-radius: 12px; padding: 32px; margin: 24px 0; text-align: center; }
+        .flow-step { display: inline-block; padding: 12px 20px; background: var(--primary); color: white; border-radius: 8px; margin: 4px; font-weight: 500; }
+        .flow-arrow { display: inline-block; color: var(--primary); font-size: 1.5rem; margin: 0 4px; vertical-align: middle; }
+        .type-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 24px 0; }
+        .type-card { background: var(--bg); border-radius: 12px; padding: 24px; text-align: center; border-top: 4px solid var(--primary); }
+        .type-card.warning { border-top-color: #f59e0b; }
+        .type-card.success { border-top-color: var(--secondary); }
+        .type-card h4 { margin-bottom: 8px; }
+        .type-card p { font-size: 0.85rem; color: var(--text-light); margin: 0; }
+        .type-card .icon { font-size: 2.5rem; margin-bottom: 12px; }
+        .vs-table { width: 100%; border-collapse: collapse; margin: 24px 0; }
+        .vs-table th, .vs-table td { padding: 12px 16px; text-align: left; border-bottom: 1px solid var(--border); }
+        .vs-table th { background: var(--bg); font-weight: 600; }
+        .vs-table .good { color: var(--secondary); }
+        .vs-table .bad { color: #ef4444; }
+        .milestone { display: flex; align-items: center; gap: 16px; padding: 16px 0; border-bottom: 1px solid var(--border); }
+        .milestone:last-child { border-bottom: none; }
+        .milestone-year { background: var(--primary); color: white; padding: 8px 16px; border-radius: 8px; font-weight: 700; min-width: 80px; text-align: center; }
+        .milestone-content h4 { margin-bottom: 4px; }
+        .milestone-content p { font-size: 0.9rem; color: var(--text-light); margin: 0; }
+        .app-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin: 24px 0; }
+        .app-card { background: var(--bg); border-radius: 8px; padding: 16px; display: flex; align-items: center; gap: 12px; }
+        .app-card .icon { font-size: 2rem; }
+        .app-card h4 { margin-bottom: 4px; font-size: 1rem; }
+        .app-card p { font-size: 0.85rem; color: var(--text-light); margin: 0; }
+        .footer { text-align: center; padding: 32px 20px; color: var(--text-light); font-size: 0.9rem; border-top: 1px solid var(--border); }
+        .nav-buttons { display: flex; justify-content: space-between; margin-top: 40px; gap: 16px; }
+        .nav-btn { padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: 500; display: inline-flex; align-items: center; gap: 8px; transition: all 0.2s; }
+        .nav-btn.primary { background: var(--primary); color: white; }
+        .nav-btn.primary:hover { background: var(--primary-dark); }
+        .nav-btn.secondary { background: var(--bg); color: var(--text); border: 1px solid var(--border); }
+        .nav-btn.secondary:hover { background: var(--border); }
+        @media (max-width: 768px) { .page { padding: 24px; } .header h1 { font-size: 1.6rem; } .type-grid { grid-template-columns: 1fr; } .app-grid { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-inner">
+            <div class="breadcrumb"><a href="../index.html">首页</a> / 认知层 / 课程1.2 / 第5章</div>
+            <div class="chapter-badge">课程 1.2：AI技术演进</div>
+            <h1>第5章：机器学习时代</h1>
+            <p class="subtitle">数据驱动的规则学习</p>
+            <div class="progress-bar"><div class="progress-fill"></div></div>
+        </div>
+    </header>
+    <main class="container">
+        <div class="page">
+            <div class="page-num">Page 1 / 2</div>
+            <h2>核心转变：从人写规则到机器学规则</h2>
+            <div class="flow-diagram">
+                <span class="flow-step">数据</span>
+                <span class="flow-arrow">→</span>
+                <span class="flow-step">算法</span>
+                <span class="flow-arrow">→</span>
+                <span class="flow-step">模型</span>
+                <span class="flow-arrow">→</span>
+                <span class="flow-step">预测</span>
+            </div>
+            <div class="quote-box">
+                <div class="quote">"机器学习：让机器从数据中自动发现规律，而不是人工编写规则。"</div>
+                <div class="source">— Arthur Samuel, 1959</div>
+            </div>
+            <div class="example-box">
+                <h4>例子：垃圾邮件识别</h4>
+                <div class="example-content">
+                    <strong>规则系统（人工写规则）：</strong><br>
+                    if 包含"免费" and 包含"点击" → 垃圾邮件<br><br>
+                    <strong>机器学习（机器学规则）：</strong><br>
+                    给机器10万封邮件（已标注哪些是垃圾）→ 机器自动学习垃圾邮件的特征模式
+                </div>
+            </div>
+            <h3>三种主要类型</h3>
+            <div class="type-grid">
+                <div class="type-card">
+                    <div class="icon">📚</div>
+                    <h4>监督学习</h4>
+                    <p>从标注好的数据中学习</p>
+                    <p style="margin-top: 8px; color: var(--text-light); font-size: 0.85rem;">需要告诉机器"正确答案"</p>
+                </div>
+                <div class="type-card warning">
+                    <div class="icon">🔍</div>
+                    <h4>无监督学习</h4>
+                    <p>从无标注数据中发现模式</p>
+                    <p style="margin-top: 8px; color: var(--text-light); font-size: 0.85rem;">让机器自己找规律</p>
+                </div>
+                <div class="type-card success">
+                    <div class="icon">🎮</div>
+                    <h4>强化学习</h4>
+                    <p>从反馈中学习</p>
+                    <p style="margin-top: 8px; color: var(--text-light); font-size: 0.85rem;">做对了奖励，做错了惩罚</p>
+                </div>
+            </div>
+        </div>
+        <div class="page">
+            <div class="page-num">Page 2 / 2</div>
+            <h2>代表成就与局限性</h2>
+            <h3>标志性突破</h3>
+            <div class="milestone">
+                <div class="milestone-year">2012</div>
+                <div class="milestone-content">
+                    <h4>AlexNet突破ImageNet</h4>
+                    <p>深度学习时代开启，图像识别准确率大幅提升</p>
+                </div>
+            </div>
+            <div class="milestone">
+                <div class="milestone-year">2013</div>
+                <div class="milestone-content">
+                    <h4>Word2Vec</h4>
+                    <p>文本表示学习突破，词向量化成为NLP基础</p>
+                </div>
+            </div>
+            <div class="milestone">
+                <div class="milestone-year">2016</div>
+                <div class="milestone-content">
+                    <h4>AlphaGo击败围棋冠军</h4>
+                    <p>AI在复杂策略游戏超越人类</p>
+                </div>
+            </div>
+            <h3>典型应用</h3>
+            <div class="app-grid">
+                <div class="app-card">
+                    <div class="icon">📺</div>
+                    <div>
+                        <h4>推荐系统</h4>
+                        <p>抖音、淘宝的个性化推荐</p>
+                    </div>
+                </div>
+                <div class="app-card">
+                    <div class="icon">🛡️</div>
+                    <div>
+                        <h4>风控系统</h4>
+                        <p>金融产品的信用评估</p>
+                    </div>
+                </div>
+                <div class="app-card">
+                    <div class="icon">👁️</div>
+                    <div>
+                        <h4>图像识别</h4>
+                        <p>人脸识别、内容审核</p>
+                    </div>
+                </div>
+                <div class="app-card">
+                    <div class="icon">🎤</div>
+                    <div>
+                        <h4>语音识别</h4>
+                        <p>Siri、语音输入</p>
+                    </div>
+                </div>
+            </div>
+            <table class="vs-table">
+                <thead>
+                    <tr><th>维度</th><th>规则系统</th><th>机器学习</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>规则来源</td><td class="bad">人工编写</td><td class="good">从数据学习</td></tr>
+                    <tr><td>数据依赖</td><td class="bad">不需要</td><td class="bad">需要大量数据</td></tr>
+                    <tr><td>处理复杂问题</td><td class="bad">困难</td><td class="good">较强</td></tr>
+                    <tr><td>可解释性</td><td class="good">高</td><td class="bad">较低（黑盒）</td></tr>
+                </tbody>
+            </table>
+            <div class="highlight-box danger">
+                <h4>局限性</h4>
+                <ul style="margin-top: 12px; margin-left: 20px;">
+                    <li>严重依赖<strong>特征工程</strong>：需要人工设计特征</li>
+                    <li>需要<strong>大量标注数据</strong>：数据成本高</li>
+                    <li><strong>泛化能力有限</strong>：换场景可能失效</li>
+                    <li>仍是<strong>"窄AI"</strong>：只能在特定任务上表现好</li>
+                </ul>
+            </div>
+        </div>
+        <div class="page">
+            <div class="page-num">Page 3 / 3</div>
+            <h2>❌ 失败模式：数据不足导致模型失效</h2>
+            <div class="highlight-box danger">
+                <h4>案例：某推荐系统冷启动失败，用户流失率飙升</h4>
+                <p style="margin-top: 12px;"><strong>背景：</strong>某内容平台在2020年上线了个性化推荐系统，初期数据积累充足，推荐效果良好。2021年拓展新业务线，将同一套推荐模型迁移到新品类。</p>
+                <div class="example-content" style="margin-top: 12px; background: var(--card-bg); border-radius: 8px; padding: 16px;">
+                    <strong>新品类冷启动阶段：</strong><br>
+                    · 用户行为数据：不足1000条（需要至少10万条才能训出有效模型）<br>
+                    · 内容特征：新品类只有500个内容，缺乏足够的样本让模型学习特征<br>
+                    · 点击率：推荐内容点击率从成熟品类的8%跌至0.3%<br>
+                    <strong>后果：</strong>用户打开App后连续刷到不相关内容，5分钟内流失率达70%<br>
+                    <strong>根因：</strong>该场景下用户兴趣分布与旧品类完全不同，模型"所学"无法泛化
+                </div>
+            </div>
+            <div class="highlight-box warning">
+                <h4>数据量与模型效果的关系</h4>
+                <div style="overflow-x: auto; margin-top: 12px;">
+                    <table style="width: 100%; border-collapse: collapse; font-size: 0.9rem;">
+                        <thead>
+                            <tr style="background: var(--bg);">
+                                <th style="padding: 12px; text-align: left; border-bottom: 1px solid var(--border);">训练数据量</th>
+                                <th style="padding: 12px; text-align: left; border-bottom: 1px solid var(--border);">典型推荐准确率</th>
+                                <th style="padding: 12px; text-align: left; border-bottom: 1px solid var(--border);">适用场景</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td style="padding: 10px; border-bottom: 1px solid var(--border);">1,000条以内</td>
+                                <td style="padding: 10px; border-bottom: 1px solid var(--border); color: #ef4444;">低于随机水平</td>
+                                <td style="padding: 10px; border-bottom: 1px solid var(--border);">不可用，需要人工规则</td>
+                            </tr>
+                            <tr style="background: var(--bg);">
+                                <td style="padding: 10px; border-bottom: 1px solid var(--border);">1万-10万条</td>
+                                <td style="padding: 10px; border-bottom: 1px solid var(--border); color: #f59e0b;">约40-60%</td>
+                                <td style="padding: 10px; border-bottom: 1px solid var(--border);">勉强可用，需要人工审核</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 10px; border-bottom: 1px solid var(--border);">50万-100万条</td>
+                                <td style="padding: 10px; border-bottom: 1px solid var(--border); color: var(--secondary);">约70-85%</td>
+                                <td style="padding: 10px; border-bottom: 1px solid var(--border);">生产可用</td>
+                            </tr>
+                            <tr style="background: var(--bg);">
+                                <td style="padding: 10px; border-bottom: 1px solid var(--border);">1000万条以上</td>
+                                <td style="padding: 10px; border-bottom: 1px solid var(--border); color: var(--secondary);">可达90%+</td>
+                                <td style="padding: 10px; border-bottom: 1px solid var(--border);">高质量生产</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="highlight-box">
+                <h4>✅ 正确姿势</h4>
+                <ul style="margin-top: 12px; margin-left: 20px;">
+                    <li><strong>冷启动阶段用规则兜底：</strong>数据不足时，用基于常识的规则（热门、编辑精选）代替模型推荐</li>
+                    <li><strong>跨品类迁移要谨慎：</strong>不同品类的用户行为模式可能差异很大，不要假设模型能自动泛化</li>
+                    <li><strong>监控数据质量：</strong>不仅看数量，更要看数据分布是否与生产环境一致</li>
+                </ul>
+            </div>
+        </div>
+        <div class="nav-buttons">
+            <a href="1-4.html" class="nav-btn secondary">← 上一页</a>
+            <a href="1-6.html" class="nav-btn primary">下一页：深度学习时代 →</a>
+        </div>
+    </main>
+    <footer class="footer">AI Builder for Product Manager · 认知层 · 课程1.2</footer>
+</body>
+</html>

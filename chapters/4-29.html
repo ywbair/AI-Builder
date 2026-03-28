@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>第29章 项目启动与需求迷雾</title>
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; max-width: 800px; margin: 0 auto; padding: 40px 24px; line-height: 1.8; color: #333; }
+    h1 { font-size: 24px; color: #1a1a2e; border-bottom: 2px solid #1a73e8; padding-bottom: 12px; margin-bottom: 32px; }
+    h2 { font-size: 20px; color: #1a1a2e; margin-top: 40px; margin-bottom: 16px; border-left: 4px solid #1a73e8; padding-left: 12px; }
+    h3 { font-size: 16px; color: #555; margin-top: 24px; }
+    .scene { background: #f8f9fa; border-radius: 12px; padding: 20px 24px; margin: 20px 0; border-left: 4px solid #ffa500; }
+    .wrong { background: #fff3f3; border-radius: 12px; padding: 20px 24px; margin: 20px 0; border-left: 4px solid #dc3545; }
+    .right { background: #f0fff4; border-radius: 12px; padding: 20px 24px; margin: 20px 0; border-left: 4px solid #28a745; }
+    .dialogue { font-style: italic; color: #555; margin: 12px 0; padding-left: 16px; border-left: 2px solid #ddd; }
+    .thinking { background: #fffbeb; border-radius: 8px; padding: 12px 16px; margin: 12px 0; font-size: 14px; color: #7c5c00; }
+    .summary { background: #e8f0fe; border-radius: 12px; padding: 20px; margin: 24px 0; }
+    .tool-call { background: #f5f5f5; border-radius: 6px; padding: 8px 12px; font-family: monospace; font-size: 13px; margin: 8px 0; }
+    .nav { position: fixed; bottom: 20px; right: 24px; display: flex; gap: 8px; }
+    .nav a { background: #1a73e8; color: white; padding: 8px 16px; border-radius: 8px; text-decoration: none; font-size: 14px; }
+    .case-box { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border-radius: 12px; padding: 24px; margin: 24px 0; }
+    .case-box h3 { color: white; margin-top: 0; }
+  </style>
+</head>
+<body>
+
+<h1>第29章 项目启动与需求迷雾</h1>
+
+<div class="case-box">
+  <h3>📋 贯穿案例</h3>
+  <p><strong>PM李明 × AI客服质检系统</strong></p>
+  <p>李明是一家电商公司的项目经理，公司有200人客服团队，每天产生近万条客服对话记录。质检团队只有5人，靠人工抽检1%都覆盖不到。</p>
+  <p>老板说："帮我们分析客服聊天记录，看看能不能用AI提升质检效率。"</p>
+</div>
+
+<h2>29.1 第一次拆解（错的）</h2>
+
+<div class="scene">
+  <p>李明接下了这个任务，觉得挺简单：</p>
+  <div class="dialogue">"老板想要分析客服聊天记录，那不就是把所有对话喂给AI，让它分析吗？"</div>
+  <p>他打开 ChatGPT，输入：</p>
+  <div class="tool-call">请分析以下客服聊天记录，总结客服表现的问题和改进建议。</div>
+  <p>然后粘贴了50页的原始对话文本。</p>
+  <p>结果——AI输出了一份50页的废话，结论是"建议提升服务质量"。</p>
+</div>
+
+<div class="wrong">
+  <h3>❌ 第一次尝试的问题</h3>
+  <ul>
+    <li>输入是原始对话，没有清洗，AI在噪声里打转</li>
+    <li>Prompt太宽泛，AI不知道什么叫"好客服"、什么叫"差客服"</li>
+    <li>输出50页废话，因为prompt没有限制输出格式</li>
+    <li>没有定义业务目标，AI不知道这份报告是给谁看的</li>
+  </ul>
+</div>
+
+<div class="thinking">
+  💭 李明这时候的困惑："是不是AI不够强？还是我的数据不够多？"
+</div>
+
+<h2>29.2 诊断：需求本身是迷雾</h2>
+
+<div class="scene">
+  <p>李明找到我来咨询。我问了他几个问题：</p>
+  <div class="dialogue">"你们衡量一个客服好还是不好，有标准吗？"</div>
+  <div class="dialogue">"5个人的质检团队，他们平时怎么判断一段对话有问题？"</div>
+  <div class="dialogue">"老板看完报告，打算做什么？"</div>
+  <p>李明沉默了很久，然后说：</p>
+  <div class="dialogue">"其实……我们还没有统一的标准。每个人的理解不一样。"</div>
+</div>
+
+<div class="right">
+  <h3>✅ 正确姿势：在拆解任务前，先定义"好"的标准</h3>
+  <p>在扔给AI之前，李明应该先回答：</p>
+  <ol>
+    <li><strong>业务目标是什么？</strong> — 提升首次解决率？减少投诉率？还是考核客服绩效？</li>
+    <li><strong>好客服的标准是什么？</strong> — 有没有SOP？有没有质检清单？</li>
+    <li><strong>输出给谁看？</strong> — 客服自己？质检主管？老板？不同人要的报告不一样</li>
+    <li><strong>能接受多少误差？</strong> — AI不是100%准确，业务能接受90%还是99%？</li>
+  </ol>
+</div>
+
+<h2>29.3 正确流程：先定义标准，再拆解任务</h2>
+
+<div class="scene">
+  <h3>第一步：和李明一起定义"好客服"标准</h3>
+  <p>我们拉上客服主管，一起梳理出了质检维度：</p>
+  <ul>
+    <li><strong>响应速度</strong>：3分钟内回复</li>
+    <li><strong>问题解决</strong>：是否真正回答了用户问题</li>
+    <li><strong>态度</strong>：是否有不耐烦、怼用户的情况</li>
+    <li><strong>合规</strong>：是否承诺了无法兑现的内容</li>
+  </ul>
+  
+  <h3>第二步：根据标准，设计输出格式</h3>
+  <p>不是50页废话，而是一张表：</p>
+  <div class="tool-call">
+对话ID | 响应速度评分 | 问题解决评分 | 态度评分 | 合规模评分 | 综合结论 | 是否需要人工复核
+  </div>
+  
+  <h3>第三步：基于标准和格式，反推需要什么数据</h3>
+  <p>如果评分维度是"响应速度"，那需要：对话时间戳<br>
+  如果评分维度是"态度"，那需要：标注好的态度好/差的对话样本</p>
+</div>
+
+<div class="thinking">
+  💭 核心认知升级：AI不是万能解题器，它需要你告诉它"什么是对、什么是错、输出什么格式"。定义不清的输入，只能得到垃圾输出。
+</div>
+
+<h2>29.4 本章小结</h2>
+
+<div class="summary">
+  <h3>🎯 关键认知</h3>
+  <ul>
+    <li>需求不清时，不要急着拆解任务，先定义"好"的标准</li>
+    <li>拆解之前，先问：目标是什么？输出给谁？能接受多少误差？</li>
+    <li>AI需要的是清晰的标准和格式，而不是一堆原始数据</li>
+    <li>业务方的第一句话往往不是真正的需求，而是对问题的模糊描述</li>
+  </ol>
+  
+  <h3>📝 本章练习</h3>
+  <p>找一个你正在推进的项目，尝试回答：</p>
+  <ol>
+    <li>这个AI应用的目标是什么？（不是"分析数据"，而是"提升X，降低Y"）</li>
+    <li>"好"的输出长什么样？（给一个具体的输出格式）</li>
+    <li>如果AI错了，谁来复核？复核的成本有多高？</li>
+  </ol>
+</div>
+
+<div class="nav">
+  <a href="4-28.html">← 上一章</a>
+  <a href="4-30.html">下一章 →</a>
+</div>
+
+</body>
+</html>
